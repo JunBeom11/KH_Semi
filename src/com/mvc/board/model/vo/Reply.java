@@ -1,5 +1,19 @@
 package com.mvc.board.model.vo;
 
-public class Reply {
+import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Reply {
+	private int comment_Num;
+	private String comment_Contents;
+	private Date comment_EnrollTime;
+	private String comment_Remove;
+	private String comment_MemberId;
+	private int comment_EnrollNum;
 }
