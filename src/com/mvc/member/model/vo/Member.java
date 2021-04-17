@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Member {
 
-	private String memberId; 			//아이디
-	private String memberPw;			//비밀번호
-	private String memberNickName;		//닉네임
-	private String memberEmail;			//이메일
-	private String memberEnrollDate;	//가입일
-	private String memberBirth;			//생년월일
-	private String memberLocationNum;	//지역번호
+	private String member_Id; 			//아이디
+	private String member_Pw;			//비밀번호
+	private String member_NickName;		//닉네임
+	private String member_Email;			//이메일
+	private String member_EnrollDate;	//가입일
+	private String member_Birth;			//생년월일
+	private String member_LocationNum;	//지역번호
 	
 }
