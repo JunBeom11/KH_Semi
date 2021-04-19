@@ -1,6 +1,10 @@
 package com.mvc.status.model.vo;
 
 import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +23,7 @@ public class Status {
 	private int careCnt;		/* 치료중 환자 수 */
 	private int deathCnt;		/* 사망자 수 */
 	private int clearCnt;		/* 격리해제 수 */
-	private float accDefRate;	/* 누적 확진률 */		
+	private double accDefRate;	/* 누적 확진률 */		
 	private int accExamCnt;		/* 누적 검사수 */
 	private int accExamCompCnt;	/* 누적 검사 완료수 */
 	private int examCnt;		/* 검사진행 수 */
@@ -28,5 +32,25 @@ public class Status {
 	public Status(int resultCode, String resultMsg) {
 		this.resultCode = resultCode;
 		this.resultMsg = resultMsg;
+		
+		DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyyMMdd");
+		LocalDateTime now = LocalDateTime.now();		
+		this.stateDt = now.format(pattern);
+		
+		pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		this.createDt = now.format(pattern);
+		this.updateDt = now.format(pattern);
+		
+		this.stateTime = "00:00";
+		this.seq = 0;
+		this.decideCnt = 0;
+		this.careCnt = 0;
+		this.deathCnt = 0;
+		this.clearCnt = 0;
+		this.accDefRate = 0.0;
+		this.accExamCnt = 0;
+		this.accExamCompCnt = 0;
+		this.examCnt = 0;
+		this.resultNegCnt = 0;		
 	}
 }
