@@ -17,10 +17,11 @@
     <link href="resource/css/bootstrap.min.css" rel="stylesheet">
     
 	<title>inCORONA</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/resource/css/main.css">
 	
     <script src="resource/js/jquery-3.6.0.min.js"></script>
     <script src="resource/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/resource/css/main.css">
 	
 </head>
 <body class="container">
