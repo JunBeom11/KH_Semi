@@ -3,6 +3,7 @@ package com.mvc.member.controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +28,21 @@ public class MemberLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String Member_Id = request.getParameter("Member_Id");
 		String Member_Pw = request.getParameter("Member_Pw");
+		String saveId = request.getParameter("saveId");
 		
 		Member loginMember = service.loginMember(Member_Id, Member_Pw);
+		
+		if(saveId != null) {
+			Cookie cookie = new Cookie("saveId",Member_Id);
+			
+			cookie.setMaxAge(259200);
+			response.addCookie(cookie);
+		}else {
+			Cookie cookie = new Cookie("saveId","");
+			
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+		}
 		
 		if(loginMember != null){
 			HttpSession session = request.getSession();
@@ -42,7 +56,7 @@ public class MemberLoginServlet extends HttpServlet {
 			System.out.println("로그인 실패");
 			
 			request.setAttribute("msg", "로그인 실패");
-			request.setAttribute("location", "/");
+			request.setAttribute("location", "/member/login");
 		}
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}

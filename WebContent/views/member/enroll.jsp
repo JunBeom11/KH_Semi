@@ -27,6 +27,12 @@
 	h3{
 		text-align:center;
 	}
+	#passresult{
+	
+		font-size:5px;
+		color : red;
+	}
+	
 	
 </style>
 
@@ -39,7 +45,7 @@
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type="text" name="Member_Id" placeholder="아이디(4글자 이상)" required/>
+						<input type="text" name="Member_Id" placeholder="4~12자의 영문 대소문자와 숫자로만 입력" required/>
 						<input type="button" value="증복검사"/>
 					</td>
 				</tr>
@@ -50,6 +56,10 @@
 				<tr>
 					<th>패스워드 확인</th>
 					<td><input type="password" id="pass2"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td id="passresult"></td>
 				</tr>
 				<tr>
 					<th>닉네임</th>
@@ -70,25 +80,28 @@
 					<th>지역</th>
 					<td> <select name ="Member_LocationNum">
 							<option value="Seoul">서울</option>
-					  		<optgroup label="경기">
-					  			<option value="South_Gyeonggi">경기남부</option> 
-					  			<option value="North_Gyeonggi">경기북부</option>
-					  		</optgroup>
+							<option value="Gyeonggi">경기</option>
+							<option value="Daegu">대구</option>
+							<option value="Incheon">인천</option>
+							<option value="Gwangju">광주</option>
+							<option value="Daejeon">대전</option>
+							<option value="Ulsan">울산</option>
+							<option value="Busan">부산</option>
 					  		<option value="Gangwon">강원</option>
 			                <optgroup label="충청">
 			                    <option value="South_Chungcheong">충청남도</option>
 			                    <option value="North_Chungcheong">충청북도</option>   
 			                </optgroup>
-			                <optgroup label="경상">
-			                    <option value="South_Gyeongsang">경상남도</option>
-			                    <option value="North_Gyeongsang">경상북도</option>   
-			                </optgroup>
 			                <optgroup label="전라">
 			                    <option value="South_Jeolla">전라남도</option>
 			                    <option value="North_Jeolla">전라북도</option>   
 			                </optgroup>
+			                <optgroup label="경상">
+			                    <option value="South_Gyeongsang">경상남도</option>
+			                    <option value="North_Gyeongsang">경상북도</option>   
+			                </optgroup>           
 			                <option value="Jeju">제주</option>
-			            
+			                <option value="Gangwon">세종</option>
 			            </select>
 			        </td>
 				</tr>
@@ -106,7 +119,7 @@
 			let pass2 = $(event.target).val();
 			
 			if(pass1.trim() != pass2.trim()){
-				alert("비밀번호가 일치하지 않습니다.");
+				$("#passresult").html("비밀번호가 일치하지 않습니다.");
 				
 				$("#pass1").val("");
 				$(event.target).val("");

@@ -55,7 +55,7 @@
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type="text" name="Member_Id" placeholder="아이디" required/>
+						<input type="text" name="Member_Id" value="<%= saveId != null ? saveId : "" %>" placeholder="아이디" required/>
 					</td>
 				</tr>
 				<tr>
