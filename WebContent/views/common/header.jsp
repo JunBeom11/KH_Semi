@@ -25,6 +25,7 @@
 	
 </head>
 <body>
+<%@ include file="/views/common/modal.jsp"%>
 	<div class="container">
 		<header>
 			<nav class="navbar navbar-default navbar-static-top navbar-fixed-top">
@@ -74,5 +75,4 @@
 				$(window).resize(sizeCheck);
 			</script>
 		</header>
-
 
