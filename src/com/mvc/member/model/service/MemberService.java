@@ -33,7 +33,7 @@ public class MemberService {
 		
 		close(connection);
 		
-		if(member.getMember_Pw().equals(Member_Pw) && member != null) {
+		if(member != null && member.getMember_Pw().equals(Member_Pw)) {
 			return member;
 		}else {
 			return null;

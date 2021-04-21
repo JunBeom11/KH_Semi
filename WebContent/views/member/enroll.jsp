@@ -44,42 +44,60 @@
 		<form action="<%=request.getContextPath() %>/member/enroll" method="POST">
 			<table>
 				<tr>
-					<th>아이디</th>
 					<td>
-						<input type="text" name="Member_Id" placeholder="4~12자의 영문 대소문자와 숫자로만 입력" required/>
-						<input type="button" value="증복검사"/>
+						<div class="input-group">
+					 	 	<input type="text" class="form-control" name="Member_Id" placeholder="아이디" aria-describedby="basic-addon1" required>
+						</div>	
+					</td>
+					<td>
+						<input type="button" class="btn btn-default" value="증복검사"/>
 					</td>
 				</tr>
 				<tr>
-					<th>패스워드</th>
-					<td><input type="password" name="Member_Pw" id="pass1" required/></td>
-				</tr>
-				<tr>
-					<th>패스워드 확인</th>
-					<td><input type="password" id="pass2"/></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td id="passresult"></td>
-				</tr>
-				<tr>
-					<th>닉네임</th>
 					<td>
-						<input type="text" name="Member_NickName" required/>
-						<input type="button" value="증복검사"/>
+						<div class="input-group">
+					 	 	<input type="password" class="form-control" name="Member_Pw" id="pass1" placeholder="비밀번호" aria-describedby="basic-addon1" required>
+						</div>	
 					</td>
 				</tr>
 				<tr>
-					<th>생년월일</th>
-					<td><input type="date" name="Member_Birth"><br></td>
+					<td>
+						<div class="input-group">
+					 	 	<input type="password" class="form-control" id="pass2" placeholder="비밀번호 확인" aria-describedby="basic-addon1" required>
+						</div>	
+					</td>
 				</tr>
 				<tr>
-					<th>이메일</th>
-					<td><input type="email" name="Member_Email" placeholder="abc@abc.com"/></td>
+					<td id="passresult"></td> <!-- 비민번호 확인 메세지 -->
+				</tr>
+				<tr>
+					<td>
+						<div class="input-group">
+					 	 	<input type="text" class="form-control" name="Member_NickName"  placeholder="닉네임" aria-describedby="basic-addon1" required>
+						</div>	
+					</td>
+					<td>
+						<input type="button" class="btn btn-default" value="증복검사"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">생년월일</span>
+					 	 	<input type="date" class="form-control" name="Member_Birth"  placeholder="생년월일" aria-describedby="basic-addon1" required>
+						</div>	
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="input-group">
+					 	 	<input type="email" class="form-control" name="Member_Email"  placeholder="이메일 abc@abc.com" aria-describedby="basic-addon1" required>
+						</div>	
+					</td>
 				</tr>
 				<tr>
 					<th>지역</th>
-					<td> <select name ="Member_LocationNum">
+					<td> <select class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3" name ="Member_LocationNum">
 							<option value="Seoul">서울</option>
 							<option value="Gyeonggi">경기</option>
 							<option value="Daegu">대구</option>
@@ -120,7 +138,7 @@
 			let pass2 = $(event.target).val();
 			
 			if(pass1.trim() != pass2.trim()){
-				$("#passresult").html("비밀번호가 일치하지 않습니다.");
+				$("#passresult").html("  비밀번호가 일치하지 않습니다.");
 				
 				$("#pass1").val("");
 				$(event.target).val("");
