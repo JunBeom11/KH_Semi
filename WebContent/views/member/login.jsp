@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
 <%
 	String saveId = null;
-	Member loginMember = (Member) session.getAttribute("loginMember");
 	Cookie[] cookies = request.getCookies();
 	
 	// 쿠키값 받아오기
