@@ -28,9 +28,9 @@
 	h3{
 		text-align:center;
 	}
-	#passresult{
+	#passresult,#idresult,#nicknameresult{
 	
-		font-size:5px;
+		font-size:8px;
 		color : red;
 	}
 	
@@ -46,12 +46,16 @@
 				<tr>
 					<td>
 						<div class="input-group">
-					 	 	<input type="text" class="form-control" name="Member_Id" placeholder="아이디" aria-describedby="basic-addon1" required>
+					 	 	<input type="text" class="form-control" name="Member_Id" id="newMemberId" placeholder="아이디" aria-describedby="basic-addon1" required>
+					 	 	<span class="input-group-btn">
+					 	 		<input type="button" class="btn btn-default" value="증복검사"/>
+					 	 	</span>
 						</div>	
 					</td>
-					<td>
-						<input type="button" class="btn btn-default" value="증복검사"/>
-					</td>
+					
+				</tr>
+				<tr>
+					<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
 				</tr>
 				<tr>
 					<td>
@@ -73,11 +77,21 @@
 				<tr>
 					<td>
 						<div class="input-group">
-					 	 	<input type="text" class="form-control" name="Member_NickName"  placeholder="닉네임" aria-describedby="basic-addon1" required>
+					 	 	<input type="text" class="form-control" name="Member_NickName" id="newMemberNickName" placeholder="닉네임" aria-describedby="basic-addon1" required>
+					 	 	<span class="input-group-btn">
+					 	 		<input type="button" class="btn btn-default" value="증복검사"/>
+					 	 	</span>
 						</div>	
 					</td>
+				</tr>
+				<tr>
+					<td id="nicknameresult"></td> <!-- 닉네임 확인 메세지 -->
+				</tr>
+				<tr>
 					<td>
-						<input type="button" class="btn btn-default" value="증복검사"/>
+						<div class="input-group">
+					 	 	<input type="email" class="form-control" name="Member_Email"  placeholder="이메일 abc@abc.com" aria-describedby="basic-addon1" required>
+						</div>	
 					</td>
 				</tr>
 				<tr>
@@ -91,42 +105,41 @@
 				<tr>
 					<td>
 						<div class="input-group">
-					 	 	<input type="email" class="form-control" name="Member_Email"  placeholder="이메일 abc@abc.com" aria-describedby="basic-addon1" required>
-						</div>	
-					</td>
-				</tr>
-				<tr>
-					<th>지역</th>
-					<td> <select class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3" name ="Member_LocationNum">
-							<option value="Seoul">서울</option>
-							<option value="Gyeonggi">경기</option>
-							<option value="Daegu">대구</option>
-							<option value="Incheon">인천</option>
-							<option value="Gwangju">광주</option>
-							<option value="Daejeon">대전</option>
-							<option value="Ulsan">울산</option>
-							<option value="Busan">부산</option>
-					  		<option value="Gangwon">강원</option>
-			                <optgroup label="충청">
-			                    <option value="South_Chungcheong">충청남도</option>
-			                    <option value="North_Chungcheong">충청북도</option>   
-			                </optgroup>
-			                <optgroup label="전라">
-			                    <option value="South_Jeolla">전라남도</option>
-			                    <option value="North_Jeolla">전라북도</option>   
-			                </optgroup>
-			                <optgroup label="경상">
-			                    <option value="South_Gyeongsang">경상남도</option>
-			                    <option value="North_Gyeongsang">경상북도</option>   
-			                </optgroup>           
-			                <option value="Jeju">제주</option>
-			                <option value="Gangwon">세종</option>
-			            </select>
+							<span class="input-group-addon" id="basic-addon1">지역</span>
+						 	<select name ="Member_LocationNum" class="form-control">
+								<option value="Seoul">서울</option>
+								<option value="Gyeonggi">경기</option>
+								<option value="Daegu">대구</option>
+								<option value="Incheon">인천</option>
+								<option value="Gwangju">광주</option>
+								<option value="Daejeon">대전</option>
+								<option value="Ulsan">울산</option>
+								<option value="Busan">부산</option>
+						  		<option value="Gangwon">강원</option>
+				                <optgroup label="충청">
+				                    <option value="South_Chungcheong">충청남도</option>
+				                    <option value="North_Chungcheong">충청북도</option>   
+				                </optgroup>
+				                <optgroup label="전라">
+				                    <option value="South_Jeolla">전라남도</option>
+				                    <option value="North_Jeolla">전라북도</option>   
+				                </optgroup>
+				                <optgroup label="경상">
+				                    <option value="South_Gyeongsang">경상남도</option>
+				                    <option value="North_Gyeongsang">경상북도</option>   
+				                </optgroup>           
+				                <option value="Jeju">제주</option>
+				                <option value="Gangwon">세종</option>
+				            </select>
+				        </div>
 			        </td>
-				</tr>
+			       </tr>
 			</table>
-			<input type="submit" id="enrollSubmit" value="가입"/>
-			<input type="reset" value="취소"/>
+			<br>
+			<br>
+			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="가입하기" style="width: 30%; float:none; margin:0 auto"/>
+			<br>
+			<br>
 		</form>
 	</div>
 </section>
@@ -138,21 +151,56 @@
 			let pass2 = $(event.target).val();
 			
 			if(pass1.trim() != pass2.trim()){
+				$('#passresult').attr('style', "display:'';");
 				$("#passresult").html("  비밀번호가 일치하지 않습니다.");
-				
 				$("#pass1").val("");
 				$(event.target).val("");
 				$("#pass1").focus();
+			}else{
+				$('#passresult').attr('style', "display:none;");
+			}
+		});
+			
+		$("#newMemberId").blur((event) => {
+			// 중복확인전에 아이디 값이 4글자 이상인지 확인
+			let id = $("#newMemberId").val().trim();
+			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var checkEnglish =  /[^a-zA-Z]/;
+			var checkNumber = /[^0-9]/;
+			
+			if(id.length < 4 || id.length > 10) {
+				$('#idresult').attr('style', "display:'';");
+				$("#idresult").html("아이디는 최소 4글자 이상, 10글자 이하로 입력하세요");
+				$("#newMemberId").val("");
+				$("#newMemberId").focus();
+			}else if(checkKorean.test(id)){
+				$('#idresult').attr('style', "display:'';");
+				$("#idresult").html("아이디는 한글을 포함할 수 없습니다.");
+				$("#newMemberId").val("");
+				$("#newMemberId").focus();
+			}else if(!checkEnglish.test(id)||!checkNumber.test(id)){
+				$('#idresult').attr('style', "display:'';");
+				$("#idresult").html("아이디는 영문과 숫자를 포함해야합니다.");
+				$("#newMemberId").val("");
+				$("#newMemberId").focus();
+			}else{
+				$('#idresult').attr('style', "display:none;");
+			}
+		});
+		
+		$("#newMemberNickName").blur((event) => {
+			let nickName = $("#newMemberNickName").val().trim();
+			var checkBlank = /[\s]/;
+			
+			if(checkBlank.test(nickName)) {
+				$('#nicknameresult').attr('style', "display:'';");
+				$("#nicknameresult").html("닉네임은 공백을 포함할 수 없습니다.");
+				$("#newMemberNickName").val("");
+				$("#newMemberNickName").focus();
+			}else{
+				$('#nicknameresult').attr('style', "display:none;");
 			}
 		});
 	});
-			
-	$("#enrollSubmit").on("click", () =>{
-		//todo 전송하기 전에 각 영역에 유효성 검사로직을 추가하는 부분!
-		//유효성 검사 후 전송하도록 만들기************
-		
-		//return false;
-	});
-	
 </script>
 <%@ include file="/views/common/footer.jsp" %>
