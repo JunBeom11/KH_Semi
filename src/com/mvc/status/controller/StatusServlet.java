@@ -27,7 +27,31 @@ public class StatusServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	List<Status> list;
     	
+		try {
+			list = service.getStatus();
+			
+			int resultCode = list.get(0).getResultCode();
+			String resultMsg = list.get(0).getResultMsg();
+			
+			//정상적인 결과일 때: 결과코드,결과메세지,임시데이터가 담긴 첫번째 객체 지움
+			if(resultCode == 0) list.remove(0);
+			
+			request.setAttribute("resultCode",resultCode);
+			request.setAttribute("resultMsg", resultMsg);	
+	    	request.setAttribute("statusList", list);
+	    	
+	    	//테스트용 콘솔찍기
+	    	for(Status status:list) {
+	    		System.out.println(status.getDecideCnt());
+	    	}
+	    	
+		} catch (IOException | SAXException | ParserConfigurationException e) {
+			
+		}
+    
+		request.getRequestDispatcher("/index.jsp").forward(request, response);   	
     }
 
 }

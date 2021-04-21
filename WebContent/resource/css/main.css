@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+.navbar-default {
+	max-height:none;
+}
+
+.navbar-default .navbar-brand {
+	font-weight: bold;
+	font-size: 40px;
+	color: black;
+	padding: 40px;
+}
+
+ .navbar-nav .btn {
+	margin-left:15px;
+	margin-right:15px;
+	margin-bottom:10px;
+}
+
+.navbar-upper li{
+	height:30px;
+}
+
+.navbar-upper > li > a{
+	padding:10px;
+}
+
+div .row {
+	text-align:right;
+	padding-right:10px;
+	margin:0px;
+}
+
+footer .navbar-static-bottom {	
+ 	bottom: 0;
+	margin-bottom:0px; 
+	height:50px;
+} 
+
+
+footer .outer {
+	width:100%;
+	height:100%;
+	display:table;
+}
+
+footer .inner {
+	text-align:center;
+	display:table-cell;
+	vertical-align:middle;
+}
+
+.inner > p {
+	margin:0px;
+}
