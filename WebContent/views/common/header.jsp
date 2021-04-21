@@ -81,4 +81,3 @@
 				$(window).resize(sizeCheck);
 			</script>
 		</header>
-
