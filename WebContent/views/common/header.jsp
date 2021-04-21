@@ -49,19 +49,19 @@
 						<div class="row">
 							<ul class="nav navbar-nav navbar-right navbar-upper">
 								<% if(loginMember==null){ %>
-									<li><a href="member/login">로그인</a></li>
-									<li><a href="member/enroll">회원가입</a></li>
+									<li><a href="/inCorona/member/login">로그인</a></li>
+									<li><a href="/inCorona/member/enroll">회원가입</a></li>
 								<% } else { %>
-									<li><a href="member/logout">로그아웃</a></li>
-									<li><a href="mypage">마이페이지</a></li>
+									<li><a href="/inCorona/member/logout">로그아웃</a></li>
+									<li><a href="/inCorona/mypage">마이페이지</a></li>
 								<% } %>
 							</ul>
 						</div>
 						<div class="row">
 							<ul class="nav navbar-nav navbar-right navbar-lower">
-								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='board/news'">뉴스</button></li>
-								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='hospital'">주변 병원/선별진료소</button></li>
-								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='board/community'">정보공유게시판</button></li>
+								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='/inCorona/board/news'">뉴스</button></li>
+								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='/inCorona/hospital'">주변 병원/선별진료소</button></li>
+								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='/inCorona/board/community'">정보공유게시판</button></li>
 							</ul>					
 						</div>
 					</div>
