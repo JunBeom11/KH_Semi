@@ -41,14 +41,14 @@
 	<h3>회원가입</h2>
 	
 	<div id="enroll-container">
-		<form action="<%=request.getContextPath() %>/member/enroll" method="POST">
+		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/enroll" method="POST">
 			<table>
 				<tr>
 					<td>
 						<div class="input-group">
 					 	 	<input type="text" class="form-control" name="Member_Id" id="newMemberId" placeholder="아이디" aria-describedby="basic-addon1" required>
 					 	 	<span class="input-group-btn">
-					 	 		<input type="button" class="btn btn-default" value="증복검사"/>
+					 	 		<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
 					 	 	</span>
 						</div>	
 					</td>
@@ -79,7 +79,7 @@
 						<div class="input-group">
 					 	 	<input type="text" class="form-control" name="Member_NickName" id="newMemberNickName" placeholder="닉네임" aria-describedby="basic-addon1" required>
 					 	 	<span class="input-group-btn">
-					 	 		<input type="button" class="btn btn-default" value="증복검사"/>
+					 	 		<input type="button" class="btn btn-default" id="checkNickname" disabled value="증복검사"/>
 					 	 	</span>
 						</div>	
 					</td>
@@ -141,6 +141,12 @@
 			<br>
 			<br>
 		</form>
+		<form name="checkIdForm">
+	 		<input type="hidden" name="userId">
+	 	</form>
+	 	<form name="checkNicknameForm">
+	 		<input type="hidden" name="userNickname">
+	 	</form>
 	</div>
 </section>
 
@@ -162,29 +168,32 @@
 		});
 			
 		$("#newMemberId").blur((event) => {
-			// 중복확인전에 아이디 값이 4글자 이상인지 확인
 			let id = $("#newMemberId").val().trim();
 			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 			var checkEnglish =  /[^a-zA-Z]/;
 			var checkNumber = /[^0-9]/;
 			
 			if(id.length < 4 || id.length > 10) {
+				$('#checkId').attr('disabled',true);
 				$('#idresult').attr('style', "display:'';");
 				$("#idresult").html("아이디는 최소 4글자 이상, 10글자 이하로 입력하세요");
 				$("#newMemberId").val("");
 				$("#newMemberId").focus();
 			}else if(checkKorean.test(id)){
+				$('#checkId').attr('disabled',true);
 				$('#idresult').attr('style', "display:'';");
 				$("#idresult").html("아이디는 한글을 포함할 수 없습니다.");
 				$("#newMemberId").val("");
 				$("#newMemberId").focus();
 			}else if(!checkEnglish.test(id)||!checkNumber.test(id)){
+				$('#checkId').attr('disabled',true);
 				$('#idresult').attr('style', "display:'';");
 				$("#idresult").html("아이디는 영문과 숫자를 포함해야합니다.");
 				$("#newMemberId").val("");
 				$("#newMemberId").focus();
 			}else{
 				$('#idresult').attr('style', "display:none;");
+				$('#checkId').attr('disabled',false);
 			}
 		});
 		
@@ -193,13 +202,52 @@
 			var checkBlank = /[\s]/;
 			
 			if(checkBlank.test(nickName)) {
+				$('#checkNickname').attr('disabled',true);
 				$('#nicknameresult').attr('style', "display:'';");
 				$("#nicknameresult").html("닉네임은 공백을 포함할 수 없습니다.");
 				$("#newMemberNickName").val("");
 				$("#newMemberNickName").focus();
 			}else{
 				$('#nicknameresult').attr('style', "display:none;");
+				$('#checkNickname').attr('disabled',false);
 			}
+		});
+		
+		
+		$("#checkId").on("click", () => {
+		
+			let id = $("#newMemberId").val().trim();
+			
+			const url = "<%= request.getContextPath()%>/member/checkId";
+			const title = "duplicate";
+			const status = "left=500px,top=100px,width=500px,height=300px";
+			
+			open("", title, status);
+			
+			checkIdForm.target = title;
+			checkIdForm.action = url;
+			checkIdForm.method = "post";
+			checkIdForm.userId.value = id;
+			
+			checkIdForm.submit();
+		});
+		
+		$("#checkNickname").on("click", () => {
+		
+			let nickName = $("#newMemberNickName").val().trim();
+			
+			const url = "<%= request.getContextPath()%>/member/checkNickname";
+			const title = "duplicate";
+			const status = "left=500px,top=100px,width=500px,height=300px";
+			
+			open("", title, status);
+			
+			checkNicknameForm.target = title; 
+			checkNicknameForm.action = url;
+			checkNicknameForm.method = "post";
+			checkNicknameForm.userNickname.value = nickName;
+			
+			checkNicknameForm.submit();
 		});
 	});
 </script>

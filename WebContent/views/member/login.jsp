@@ -62,7 +62,7 @@
 				<tr>
 					<td>
 						<div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1">ID</span>
+						  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
 						  <input type="text" class="form-control" name="Member_Id" placeholder="아이디" aria-describedby="basic-addon1" value="<%= saveId != null ? saveId : "" %>" required>
 						</div>	
 					</td>	
@@ -70,7 +70,7 @@
 				<tr>
 					<td>
 						<div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1">PW</span>
+						  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
 						  <input type="password" class="form-control" name="Member_Pw" placeholder="비밀번호" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>

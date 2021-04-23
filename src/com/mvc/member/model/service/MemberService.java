@@ -41,4 +41,24 @@ public class MemberService {
 		
 	}
 
+	public boolean isIdDuplicated(String userId) {
+		Connection conn = getConnection();
+		
+		Member member = dao.loginMember(conn, userId);
+		
+		close(conn);
+		
+		return member != null;
+	}
+
+	public boolean isNickNameDuplicated(String userNickname) {
+		Connection conn = getConnection();
+		
+		Member member = dao.checkNickname(conn, userNickname);
+		
+		close(conn);
+		
+		return member != null;
+	}
+
 }

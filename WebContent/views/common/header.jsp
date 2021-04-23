@@ -49,7 +49,7 @@
 						<div class="row">
 							<ul class="nav navbar-nav navbar-right navbar-upper">
 								<% if(loginMember==null){ %>
-									<li><a href="/inCorona//member/login">로그인</a></li>
+									<li><a href="/inCorona/member/login">로그인</a></li>
 									<li><a href="/inCorona/member/agreement">회원가입</a></li>
 								<% } else { %>
 									<li><a href="/inCorona/member/logout">로그아웃</a></li>
