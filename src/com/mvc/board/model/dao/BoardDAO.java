@@ -250,7 +250,7 @@ public class BoardDAO {
 		String query = null;
 		
 		try {
-			query = "INSERT INTO COMMENTS VALUES(SEQ_REPLY_NO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?)";
+			query = "INSERT INTO COMMENTS VALUES(SEQ_CNO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?)";
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setString(1, reply.getComment_Contents());

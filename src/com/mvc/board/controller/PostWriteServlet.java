@@ -22,9 +22,9 @@ public class PostWriteServlet extends HttpServlet {
     private BoardService service = new BoardService();
 
     public PostWriteServlet() {
-
+    	
     }
-
+    
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session=request.getSession(false);
@@ -41,18 +41,19 @@ public class PostWriteServlet extends HttpServlet {
     	MultipartRequest mr = new MultipartRequest(request,path,maxSize,encoding,new FileRename());
 
     	String title = mr.getParameter("title");
-		String writer = mr.getParameter("writer");
+		String writer = mr.getParameter("writer");//asdasd12
 		String content = mr.getParameter("content");
-		
+		content = content.replaceAll("\n", "<br>");
+		System.out.println(content);
 		String fileName= mr.getFilesystemName("upfile");
 		String upfileName = mr.getOriginalFileName("upfile");
 		HttpSession session = request.getSession(false);
 		Member loginMember = session != null?(Member)session.getAttribute("loginMember"):null;
-/*
+
 		if(loginMember != null)
 		{
 			if(loginMember.getMember_Id().equals(writer))
-			{*/
+			{
 				Post post = new Post();
 				
 				post.setPost_MemberId(writer);
@@ -73,7 +74,7 @@ public class PostWriteServlet extends HttpServlet {
 					request.setAttribute("msg","게시글 등록 실패");
 					request.setAttribute("location", "/board/news");
 				}
-			}/*
+			}
 			else
 			{
 				request.setAttribute("msg", "잘못된 접근");
@@ -83,10 +84,10 @@ public class PostWriteServlet extends HttpServlet {
 		else
 		{
 			request.setAttribute("msg", "로그인 후 사용 가능");
-			request.setAttribute("location","/");
+			request.setAttribute("location","/board/news");
 		}
 		
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request,response);
-	}*/
+	}
 
 }

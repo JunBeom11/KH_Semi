@@ -17,7 +17,7 @@
 					<td><input type="text" name="title" id="title" style = "width:723px"></td>
 				</tr>
 				<tr>
-					<td><input type="hidden" name="writer" value="최은교" class="writer" readonly></td>
+					<td><input type="hidden" name="writer" value="<%= loginMember.getMember_Id() %>" class="writer" readonly></td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 				<tr>

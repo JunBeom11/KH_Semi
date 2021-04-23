@@ -16,7 +16,6 @@
 	<h1>&nbsp;&nbsp;뉴스 </h1>
 	<hr>
 	<div id="board-list-container">
-
 		<table class = "table">
 			<tr>
 				<th>&nbsp;&nbsp;&nbsp;번호</th>
@@ -54,8 +53,10 @@
 			}
 		%>
 		</table>
-		<!-- if loginMember.getRole().equals(어드민)-->
-		<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
+		<%if(loginMember!=null){%>
+			<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
+		<%}%>
+		
 	</div>
 		<div id="pageBar" align="center">
 			<!-- 맨 처음으로 -->

@@ -40,10 +40,10 @@ public class BoardReplyServlet extends HttpServlet {
 			
 			if(result > 0) {
          		request.setAttribute("msg", "댓글 등록 성공!");
-         		request.setAttribute("location", "/board/view?boardNo=" + post_num);
+         		request.setAttribute("location", "/board/newsview?boardNo=" + post_num);
 			} else {
 				request.setAttribute("msg", "댓글 등록 실패!");
-         		request.setAttribute("location", "/board/view?boardNo=" + post_num);
+         		request.setAttribute("location", "/board/newsview?boardNo=" + post_num);
 			}
 		}else {
      		request.setAttribute("msg", "잘못된 접근 입니다.");
