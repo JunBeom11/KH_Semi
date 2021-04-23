@@ -69,16 +69,5 @@
 				
 				</div>
 			</nav>
-			<script>
-				function sizeCheck(){
-					//navbar 높이에 맞게 body padding 수정
-					var height = $('.navbar-default').height()+15;
-					$('body').css("padding-top",height);
-				}
-				
-				sizeCheck();
-				
-				$(window).resize(sizeCheck);
-			</script>
 		</header>
 
