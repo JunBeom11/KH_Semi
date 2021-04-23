@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+<<<<<<< Updated upstream
     <link href="<%= request.getContextPath() %>/resource/css/bootstrap.min.css" rel="stylesheet">
     
 	<title>inCORONA</title>
@@ -25,6 +26,13 @@
 
     <script src="<%= request.getContextPath() %>/resource/js/jquery-3.6.0.min.js"></script>
 
+=======
+    <link href="<%= request.getContextPath() %>/resource/css/bootstrap.min.css">
+
+	<title>inCORONA</title>
+	
+    <script src="<%= request.getContextPath() %>/resource/js/jquery-3.6.0.min.js"></script>
+>>>>>>> Stashed changes
     <script src="<%= request.getContextPath() %>/resource/js/bootstrap.min.js"></script>
 	
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/resource/css/main.css">

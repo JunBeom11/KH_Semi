@@ -59,6 +59,7 @@ public class BoardViewServlet extends HttpServlet {
 		}
 		
 		post = service.findPostbyNo(post_num, hasRead);
+		System.out.println(post);
 		request.setAttribute("post",post);
 		request.getRequestDispatcher("/views/board/newsview.jsp").forward(request, response);
 	}

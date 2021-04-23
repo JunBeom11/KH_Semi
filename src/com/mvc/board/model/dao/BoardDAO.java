@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mvc.board.model.vo.Post;
+import com.mvc.board.model.vo.Reply;
 import com.mvc.common.jdbc.JDBCTemplate;
 import com.mvc.common.util.PageInfo;
 
@@ -84,6 +86,11 @@ public class BoardDAO {
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
 		
 		return list;
 	}
@@ -145,6 +152,7 @@ public class BoardDAO {
 				post.setPost_Views(rs.getInt("POST_VIEWS"));
 				post.setPost_Remove(rs.getString("POST_REMOVE"));
 				post.setPost_Content(rs.getString("POST_CONTENTS"));
+				post.setReplies(this.getRepliesByNo(connection, post_num));
 			}
 		} catch (SQLException e) {
 
@@ -184,6 +192,81 @@ public class BoardDAO {
 		}
 		
 		return result;
+	
 	}
+	
+	public List<Reply> getRepliesByNo(Connection connection, int post_num)
+	{
+		List<Reply> replies = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		String query = null;
+		
+		try{
+			System.out.println(post_num);
+			System.out.println(pstmt);
+			System.out.println(rs);
+			System.out.println(query);
+			
+			query="SELECT comment_Num, comment_Contents, Comment_EnrollTime, Comment_Remove, comment_MemberId, comment_EnrollNum "
+				+	" FROM COMMENTS "
+				+ 	" WHERE COMMENT_REMOVE='N' AND Comment_ENROLLNUM=? "
+				+	" ORDER BY COMMENT_NUM DESC ";
+			
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, post_num);
+			rs = pstmt.executeQuery();
+
+			while(rs.next())
+			{
+				Reply reply = new Reply();
+				
+				reply.setComment_Num(rs.getInt("COMMENT_NUM"));
+				reply.setComment_EnrollNum(rs.getInt("COMMENT_ENROLLNUM"));
+				reply.setComment_Contents(rs.getString("COMMENT_CONTENTS"));
+				reply.setComment_MemberId(rs.getString("COMMENT_MEMBERID"));
+				reply.setComment_EnrollTime(rs.getDate("COMMENT_ENROLLTIME"));
+				replies.add(reply);
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return replies;
+	}
+
+	public int insertReply(Connection connection, Reply reply) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = null;
+		
+		try {
+			query = "INSERT INTO COMMENTS VALUES(SEQ_REPLY_NO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?)";
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, reply.getComment_Contents());
+			pstmt.setString(2, reply.getComment_MemberId());
+			pstmt.setInt(3, reply.getComment_EnrollNum());
+			
+			result = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
 
 }

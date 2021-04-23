@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mvc.board.model.dao.BoardDAO;
 import com.mvc.board.model.vo.Post;
+import com.mvc.board.model.vo.Reply;
 import com.mvc.common.util.PageInfo;
 
 import static com.mvc.common.jdbc.JDBCTemplate.*;
@@ -53,7 +54,9 @@ public class BoardService {
 	public Post findPostbyNo(int post_num, boolean hasRead) {
 		Post post=null;
 		Connection connection =getConnection();
+		
 		post = dao.findpostbyNo(connection, post_num);
+	
 		if(post != null && !hasRead)
 		{
 			int result = dao.updateReadCount(connection,post);
@@ -68,6 +71,23 @@ public class BoardService {
 		}
 		close(connection);
 		return post;
+	}
+
+	public int saveReply(Reply reply) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = dao.insertReply(connection, reply);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
 	}
 
 

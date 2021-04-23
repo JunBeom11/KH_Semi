@@ -1,3 +1,4 @@
+<%@page import="com.mvc.board.model.vo.Reply"%>
 <%@page import="com.mvc.board.model.vo.Post"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,41 +20,51 @@
 	<hr>	
 </section>
 <section id="content">   
-					<button type="button">수정</button>
-					<button type="button">삭제</button>
-					<button type="button">목록으로</button>
-	    		<form action="" method="">
-	    			<input type="hidden" name="boardNo" value="">
-	    			<input type="hidden" name="writer" value="">
-					<textarea name="content" cols="55" rows="3"></textarea>
+	    		<form action="<%=request.getContextPath()%>/board/reply" method="post">
+	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
+	    			<input type="hidden" name="writer" value="<%=loginMember != null ? loginMember.getMember_Id() : ""%>">
+					<input type="text" name="content" style = "width:723px">
 					<button type="submit" id="btn-insert">등록</button>	    			
 	    		</form>
-
+ 
 		<div>
 			<% if(post.getPost_FileName() !=null) {%>
-			<a href="<%=request.getContextPath()%>/board/fileDown?filename=<%=post.getPost_FileName()%>&rename=<%=post.getPost_FileReName()%>">
-			<img src="<%=request.getContextPath()%>/resources/image/file.png" width="20" height="20">
-			<%=post.getPost_FileName() %>
+			
+			<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
+			                            
+				<img src="<%=request.getContextPath()%>/resources/image/file.png" width="20" height="20">
+				<%=post.getPost_FileName() %>
 			</a>
+			<script>
+				function fileDownload(oriname, rename)
+				{
+					const url = "<%=request.getContextPath()%>/board/fileDown";
+					let oName = encodeURIComponent(oriname);
+					let rName = encodeURIComponent(rename);
+					
+					console.log(oName,rName);
+					location.assign(url+"?oriname="+oName + "&rename=" + rName);
+				}
+				
+			</script>
 			<%} else { %>
 				<span>-</span>
 			<%} %>
 		</div>
+		
 	    <table id="tbl-comment">
+	    <% for(Reply reply : post.getReplies()) { %>
     	   	<tr class="level1">
 	    		<td>
-	    			<sub class="comment-writer">aa</sub>
-	    			<sub class="comment-date">2021.05.07</sub>
+	    			<sub class="comment-writer"><%= reply.getComment_MemberId() %></sub>
+	    			<sub class="comment-date"><%=reply.getComment_EnrollTime() %></sub>
 	    			<br>
-	    			컨텐츠
-	    		</td>
-	    		<td>
-    				<button class="btn-delete">삭제</button>
-
+	    			<%=reply.getComment_Contents() %>
 	    		</td>
 	    	</tr>
+	    <%} %>
 	    </table>
-    </div>
+
 </section>
 
 <br><br><br>
