@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* header.jsp */
 .navbar-default {
 	max-height:none;
 }
@@ -25,12 +26,14 @@
 	padding:10px;
 }
 
-div .row {
+div #collapse_row {
 	text-align:right;
 	padding-right:10px;
 	margin:0px;
 }
 
+
+/* footer.jsp */
 footer .navbar-static-bottom {	
  	bottom: 0;
 	margin-bottom:0px; 
@@ -52,4 +55,61 @@ footer .inner {
 
 .inner > p {
 	margin:0px;
+}
+
+
+/* index.jsp */
+#statusContent{
+	text-align:center;
+}
+
+#statusTable,#statusChart,#statusMap {
+	border:1px solid black;
+	border-radius:20px;
+	margin:10px 10px 0px 0px;
+	padding:15px;
+}
+
+#statusTable {
+	height:200px;
+}
+
+#statusInfo {
+	text-align:left;
+}
+
+#statusTable th, #statusTable td{
+	text-align:center;
+	font-weight:bold;
+	font-size:17px;
+}
+
+#statusTable #compareCnt {
+	font-weight:normal;
+	font-size:13px;
+}
+
+#decideCnt {
+	color:rgb(191,51,37);
+}
+#clearCnt {
+	color:rgb(31,171,90);
+}
+#careCnt {
+	color:rgb(145,71,174);
+}
+#deathCnt {
+	color:rgb(42,42,42);
+}
+#accExamCnt {
+	color:rgb(33,123,182);
+}
+
+
+#statusChart {
+	height:400px;
+}
+
+#statusMap {
+	margin-right:0px;
 }

@@ -1,5 +1,4 @@
 <%@ page import="com.mvc.member.model.vo.Member" %>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -46,7 +45,7 @@
 						</button>
 					</div>
 					<div class="navbar-collapse collapse" id="member-collapse" >
-						<div class="row">
+						<div class="row" id="collapse_row">
 							<ul class="nav navbar-nav navbar-right navbar-upper">
 								<% if(loginMember==null){ %>
 									<li><a href="/inCorona/member/login">로그인</a></li>
@@ -57,7 +56,7 @@
 								<% } %>
 							</ul>
 						</div>
-						<div class="row">
+						<div class="row" id="collapse_row">
 							<ul class="nav navbar-nav navbar-right navbar-lower">
 								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='/inCorona/board/news'">뉴스</button></li>
 								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='/inCorona/hospital'">주변 병원/선별진료소</button></li>

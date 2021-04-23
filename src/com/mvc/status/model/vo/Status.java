@@ -2,8 +2,12 @@ package com.mvc.status.model.vo;
 
 import lombok.Data;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -52,5 +56,24 @@ public class Status {
 		this.accExamCompCnt = 0;
 		this.examCnt = 0;
 		this.resultNegCnt = 0;		
+	}
+	
+	public String getStateDt() {
+		return format(this.stateDt);
+	}
+	
+	private String format(String strDate) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",Locale.KOREA);		
+		Date tmpDate = null;
+		try {
+			tmpDate = formatter.parse(strDate);
+			
+			formatter.applyPattern("yy.MM.dd");			
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return tmpDate==null? strDate:formatter.format(tmpDate);
 	}
 }

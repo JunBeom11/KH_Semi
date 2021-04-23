@@ -59,7 +59,8 @@ public class StatusAPI {
 		DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyyMMdd");
 		LocalDateTime now = LocalDateTime.now();
 		
-		String startCreateDt = now.minusDays(7).format(pattern);
+		//오늘부터 10일 전 정보까지 불러옴
+		String startCreateDt = now.minusDays(10).format(pattern);
 		String endCreateDt = now.format(pattern);			
 		
 		StringBuilder urlBuilder;
