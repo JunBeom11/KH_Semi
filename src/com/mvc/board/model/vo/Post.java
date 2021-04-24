@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Post {
 	private int rowNum;
 	private int post_Num;
@@ -25,4 +26,6 @@ public class Post {
 	private String post_LocationNum;
 	private List<Reply> replies;
 	
+	
+
 }
