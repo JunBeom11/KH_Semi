@@ -7,8 +7,8 @@
 
 <% Post post = (Post)request.getAttribute("post");%>
 <section>
-	<h1>&nbsp;&nbsp;뉴스 </h1>
-	<hr>
+	<h1>&nbsp;뉴스 </h1>
+<br>
 	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
 	<%=post.getPost_MemberId() %>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
 	<br><br>

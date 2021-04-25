@@ -7,14 +7,22 @@
 </style>
 <section>
 	<div>
-	<h1>&nbsp;&nbsp;뉴스 작성</h1>
-	<hr>
+	<h1>&nbsp;뉴스 작성</h1>
+<hr>
 		<form action="<%=request.getContextPath()%>/board/communitywrite" method="POST" 
 					enctype="multipart/form-data">
 			<table id='tbl-board'>
 				<tr>
 					<th>제목</th>
 					<td><input type="text" name="title" id="title" style = "width:723px"></td>
+					<td><select name ="location">
+							<option value="서울">서울</option>
+							<option value="경기">경기</option>
+							<option value="충청">충청</option>
+							<option value="경상">경상</option>
+							<option value="전라">전라</option>
+							<option value="강원">강원</option>
+							</select></td>
 				</tr>
 				<tr>
 					<td><input type="hidden" name="writer" value="<%= loginMember.getMember_Id() %>" class="writer" readonly></td>

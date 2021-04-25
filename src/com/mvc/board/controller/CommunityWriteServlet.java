@@ -38,10 +38,11 @@ public class CommunityWriteServlet extends HttpServlet {
      	int maxSize = 10485760;
      	String encoding = "UTF-8";
      	MultipartRequest mr = new MultipartRequest(request,path,maxSize,encoding,new FileRename());
-
+     	
      	String title = mr.getParameter("title");
  		String writer = mr.getParameter("writer");//asdasd12
  		String content = mr.getParameter("content");
+ 		String location = mr.getParameter("location");
  		content = content.replaceAll("\n", "<br>");
  		System.out.println(content);
  		String fileName= mr.getFilesystemName("upfile");
@@ -56,10 +57,28 @@ public class CommunityWriteServlet extends HttpServlet {
  				Post post = new Post();
  				
  				post.setPost_MemberId(writer);
- 				post.setPost_Title(title);
+ 				post.setPost_Title("["+location+"]"+title);
  				post.setPost_Content(content);
  				post.setPost_FileName(upfileName);
  				post.setPost_FileReName(fileName);
+ 				switch(location)
+ 				{
+ 				case "서울": location="1";
+ 					break;
+ 				case "경기": location="2";
+ 					break;
+ 				case "경상": location="3";
+ 					break;
+ 				case "전라": location="4";
+ 					break;
+ 				case "충청": location="5";
+ 					break;
+ 				case "강원": location="6";
+ 					break;
+ 				default: System.out.println("스케문 오류2");
+ 					break;
+ 				}
+ 				post.setPost_LocationNum(location);
  				
  				int result = service.save2(post);
  				

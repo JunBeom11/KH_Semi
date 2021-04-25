@@ -26,6 +26,10 @@ public class CommunityListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int page=0;
 		int listCount=0;
+		PageInfo pageInfo=null;
+		List<Post> list=null;
+		String country = request.getParameter("country");
+
 		try
 		{
 			page=Integer.parseInt(request.getParameter("page"));
@@ -34,10 +38,10 @@ public class CommunityListServlet extends HttpServlet {
 		{
 			page = 1; 
 		}
-		listCount = service.getBoardCount2();
-		PageInfo pageInfo = new PageInfo(page,10,listCount,10);
-		List<Post> list = service.getBoardList2(pageInfo);
 		
+		listCount = service.getBoardCount2();
+		pageInfo = new PageInfo(page,10,listCount,10);
+		list = service.getBoardList2(pageInfo,country);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pageInfo", pageInfo);

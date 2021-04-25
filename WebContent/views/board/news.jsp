@@ -13,8 +13,8 @@
 %>
 
 <section>
-	<h1>&nbsp;&nbsp;뉴스 </h1>
-	<hr>
+	<h1>&nbsp;뉴스 </h1>
+<br>
 	<div id="board-list-container">
 		<table class = "table">
 			<tr>

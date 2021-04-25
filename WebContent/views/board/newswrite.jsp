@@ -7,8 +7,8 @@
 </style>
 <section>
 	<div>
-	<h1>&nbsp;&nbsp;뉴스 작성</h1>
-	<hr>
+	<h1>&nbsp;뉴스 작성</h1>
+<hr>
 		<form action="<%=request.getContextPath()%>/board/newswrite" method="POST" 
 					enctype="multipart/form-data">
 			<table id='tbl-board'>

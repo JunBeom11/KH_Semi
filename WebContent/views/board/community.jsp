@@ -13,8 +13,37 @@
 %>
 
 <section>
-	<h1>&nbsp;&nbsp;정보공유 </h1>
-	<hr>
+<h1 style="display:inline">&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
+<form method="GET" action="<%=request.getContextPath()%>/board/community">
+    <input type='submit' value="전체"/>
+</form>
+<form method="GET" action="<%=request.getContextPath()%>/board/community">
+	<input type="hidden" name="country" value="서울">
+    <input type='submit' value="서울"/>
+</form>
+<form method="GET" action="<%=request.getContextPath()%>/board/community">
+	<input type="hidden" name="country" value="경기">
+    <input type='submit' value="경기"/>
+</form>
+<form method="GET" action="<%=request.getContextPath()%>/board/community">
+	<input type="hidden" name="country" value="충청">
+    <input type='submit' value="충청"/>
+</form>
+<form method="GET" action="<%=request.getContextPath()%>/board/community">
+	<input type="hidden" name="country" value="경상">
+    <input type='submit' value="경상"/>
+</form>
+<form method="GET" action="<%=request.getContextPath()%>/board/community">
+	<input type="hidden" name="country" value="전라">
+    <input type='submit' value="전라"/>
+</form>
+<form method="GET" action="<%=request.getContextPath()%>/board/community">
+	<input type="hidden" name="country" value="강원">
+    <input type='submit' value="강원"/>
+</form>
+
+
+	<br><br>
 	<div id="board-list-container">
 		<table class = "table">
 			<tr>

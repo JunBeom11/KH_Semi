@@ -99,10 +99,10 @@ public int getBoardCount2() {
 		return count;
 	}
 	
-	public List<Post> getBoardList2(PageInfo pageInfo)
+	public List<Post> getBoardList2(PageInfo pageInfo, String country)
 	{
 		Connection connection = getConnection();
-		List<Post> list = dao.findAll2(connection, pageInfo);
+		List<Post> list = dao.findAll2(connection, pageInfo, country);
 		close(connection);
 		return list;
 	}
@@ -165,6 +165,21 @@ public int getBoardCount2() {
 		close(connection);
 		
 		return result;
+	}
+
+	public List<Post> getBoardList3(PageInfo pageInfo, String country) {
+		Connection connection = getConnection();
+		List<Post> list = dao.findAll3(connection, pageInfo, country);
+		close(connection);
+		return list;
+	}
+
+	public int getBoardCount3(String country) {
+		Connection connection = getConnection();
+		int count = dao.getBoardCount3(connection,country);
+		
+		close(connection);
+		return count;
 	}
 
 

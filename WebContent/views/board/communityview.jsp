@@ -7,17 +7,16 @@
 
 <% Post post = (Post)request.getAttribute("post");%>
 <section>
-	<h1>&nbsp;&nbsp;정보공유 </h1>
-	<hr>
+	<h1>&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
+<br>
 	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
 	<%=post.getPost_MemberId() %>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
-	<br><br>
+	<br>
 	<table class="table" height="450px">
 	<tr>
 		<td><%=post.getPost_Content()%></td>
 	</tr>
-	</table>
-	<hr>	
+	</table>	
 </section>
 <section id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/communityreply" method="post">
