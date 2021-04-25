@@ -41,4 +41,9 @@ public class MemberService {
 		
 	}
 
+	public int updatePassword(String member_Id, String userPwd) {
+		
+		return 0;
+	}
+
 }
