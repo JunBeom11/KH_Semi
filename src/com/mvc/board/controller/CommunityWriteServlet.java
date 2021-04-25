@@ -67,17 +67,18 @@ public class CommunityWriteServlet extends HttpServlet {
  					break;
  				case "경기": location="2";
  					break;
- 				case "경상": location="3";
+ 				case "충청": location="3";
  					break;
- 				case "전라": location="4";
+ 				case "경상": location="4";
  					break;
- 				case "충청": location="5";
+ 				case "전라": location="5";
  					break;
  				case "강원": location="6";
  					break;
  				default: System.out.println("스케문 오류2");
  					break;
  				}
+ 				
  				post.setPost_LocationNum(location);
  				
  				int result = service.save2(post);

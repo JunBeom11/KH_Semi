@@ -343,6 +343,14 @@ public class BoardDAO {
 					break;
 				case "경기": pstmt.setString(1, "2"); pstmt.setString(4, "2");
 					break;
+				case "충청": pstmt.setString(1, "3"); pstmt.setString(4, "3");
+					break;
+				case "경상": pstmt.setString(1, "4"); pstmt.setString(4, "4");
+					break;
+				case "전라": pstmt.setString(1, "5"); pstmt.setString(4, "5");
+					break;
+				case "강원": pstmt.setString(1, "6"); pstmt.setString(4, "6");
+					break;
 				default : System.out.println("없음");
 					break;
 				}
@@ -551,118 +559,6 @@ public class BoardDAO {
 		
 		return result;
 	}
-
-	public List<Post> findAll3(Connection connection, PageInfo pageInfo, String country) {
-		List<Post> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String query = null;
-		query= " SELECT RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_BOARDNUM, POST_LOCATIONNUM "
-			+	" FROM( "
-			+	"			    SELECT ROWNUM AS RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS,  POST_REMOVE, POST_BOARDNUM, POST_LOCATIONNUM "
-			+	"	 FROM(  "
-			+ 	"	        SELECT P.post_num, P.post_title, P.post_memberid, P.post_enrolltime, P.post_filename, P.post_filerename, P.post_views, P.post_Remove, P.post_BOARDNUM, P.POST_LOCATIONNUM "
-			+ 	"		        FROM POST P JOIN MEMBER M ON(P.post_memberid=M.Member_Id) "
-			+ 	"		        WHERE P.POST_REMOVE='N' AND P.POST_BOARDNUM='2' AND P.POST_LOCATIONNUM=? ORDER BY P.POST_NUM DESC "
-			+ 	"			        ) "
-			+ 	"			    ) "
-			+ 	"		WHERE RNUM BETWEEN 1 and 10 AND POST_BOARDNUM='2' AND POST_LOCATIONNUM=? ";
-		try
-		{
-			pstmt = connection.prepareStatement(query);
-			
-			switch(country)
-			{
-			case "서울": pstmt.setInt(1,1); pstmt.setInt(2,1);
-				break;
-			case "경기": pstmt.setInt(1,2); pstmt.setInt(2,2);
-				break;
-			case "경상": pstmt.setInt(1,3); pstmt.setInt(2,3);
-				break;
-			case "전라": pstmt.setInt(1,4); pstmt.setInt(2,4);
-				break;
-			case "충청": pstmt.setInt(1,5); pstmt.setInt(2,5);
-				break;
-			case "강원": pstmt.setInt(1,6); pstmt.setInt(2,6);
-				break;
-			default: System.out.println("스케문 오류1");
-			break;
-			}
-
-			rs=pstmt.executeQuery();
-			
-			while(rs.next())
-			{
-				Post post = new Post();
-				
-				post.setPost_Num(rs.getInt("POST_NUM"));
-				post.setRowNum(rs.getInt("RNUM"));
-				post.setPost_MemberId(rs.getString("POST_MEMBERID"));
-				post.setPost_Title(rs.getString("POST_TITLE"));
-				post.setEnrollTime(rs.getDate("POST_ENROLLTIME"));
-				post.setPost_FileName(rs.getString("POST_FILENAME"));
-				post.setPost_FileReName(rs.getString("POST_FILERENAME"));
-				post.setPost_Views(rs.getInt("POST_VIEWS"));
-				post.setPost_Remove(rs.getString("POST_REMOVE"));
-				
-				list.add(post);
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return list;
-	}
 	
-	public int getBoardCount3(Connection connection, String country) {
-		int count = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String query = null;
-		
-		try {
-			query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_BoardNum='2' AND POST_LOCATIONNUM=? ";
-			pstmt = connection.prepareStatement(query);
-			
-			switch(country)
-			{
-			case "서울": pstmt.setInt(1,1);
-				break;
-			case "경기": pstmt.setInt(1,2);
-				break;
-			case "경상": pstmt.setInt(1,3);
-				break;
-			case "전라": pstmt.setInt(1,4);
-				break;
-			case "충청": pstmt.setInt(1,5);
-				break;
-			case "강원": pstmt.setInt(1,6);
-				break;
-			default: System.out.println("스케문 오류2");
-				break;
-			}
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				count = rs.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);			
-		}
-
-		return count;
-	}
-
+	
 }
