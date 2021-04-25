@@ -1,8 +1,18 @@
-<%@page import="com.mvc.status.model.vo.Status"%>
+<%@ page import="com.mvc.status.model.vo.Status" %>
+<%@ page import="com.mvc.status.model.vo.Status.decideStatus" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ include file="/views/common/header.jsp"%>
+
+<link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
+<script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
 
 <section>
 	<%
@@ -11,7 +21,7 @@
 		
 		Status todayStatus = (Status)request.getAttribute("todayStatus");	/* 오늘 Status 객체 */
 		
-		int[] decideArr = (int[])request.getAttribute("decideArr");			/* 일일 확진자수 배열 */
+		List<decideStatus> decideList = (ArrayList)request.getAttribute("decideList");			/* 일일 확진자수 배열 */
 		int[] compareArr = (int[])request.getAttribute("compareArr");		/* 전날 비교 배열
 																			 - 확진자, 완치자, 격리자, 사망자, 검사수 */
 	%>
@@ -36,7 +46,7 @@
 				<%
 					if(todayStatus != null){
 				%>
-				<%= todayStatus.getStateDt() %> <%= todayStatus.getStateTime() %> 기준 ('20.01.03. 이후 누계)
+				<fmt:formatDate pattern="yy.MM.dd" value="${todayStatus.decide.stateDt}" /> <%= todayStatus.getStateTime() %> 기준 ('20.01.03. 이후 누계)
 				<%
 					} else {
 				%>
@@ -78,29 +88,82 @@
 					%>
 				</table>
 			</div>
-				
+
 			<div class="row-md-6" id="statusChart">
-				차트자리
-				<%= decideArr[0] %>
-				<%= decideArr[1] %>
-				<%= decideArr[2] %>
-				<%= decideArr[3] %>
-				<%= decideArr[4] %>
-				<%= decideArr[5] %>
-				<%= decideArr[6] %>
+				<p style="text-align:center;font-weight:bold;">확진자 수 일별 현황</p>
+				<div id="statusChartArea"></div>
 			</div>
 		</div>
 		<div class="col-md-5" id="statusMap">
-		지도자리
 		</div>
 	</div>
 	
 	<script>
-		function test(){
-			return "hello";
-		}
+  		var cate = [
+  			<c:forEach items="${decideList}" var="decide">
+				'<fmt:formatDate pattern="yy.MM.dd" value="${decide.stateDt}"/>',
+			</c:forEach>
+  		].reverse();
+		
+  		var decideData = [
+  			<c:forEach items="${decideList}" var="decide">
+  				${decide.decideCnt},
+			</c:forEach>
+  		].reverse();
+  		
+		const el = document.getElementById('statusChartArea');
+	    const data = {
+	      categories: cate,
+	      series: {
+	    	  column: [
+	    		  {
+	    	          name: '확진자 수',
+	    	          data: decideData
+	    	        }
+	    	  ],
+	    	  line:[
+	    		  {
+	    			  name:'확진자 수',
+	    	          data: decideData
+	    	        }
+	    	  ]
+	      },
+	    };
+	    const options = {
+	      chart: { /* title: {
+	    	  			text:'확진자 수',
+	    	  			align: 'center'
+	      			},  */
+	      		width: 600, height: 350 },
+	      legend: {
+	    	  visible:false
+	      },
+	      exportMenu : {
+	    	  visible:false
+	      },
+	      tooltip:{
+	    	  visible:false
+	      }
+	    };
+	
+	    const chart = toastui.Chart.columnLineChart({ el, data, options });
 	</script>
 	
 </section>
-
+	<script>
+		function resizeChart(){
+			var chart_w = $('#statusChart').width();
+			var chart_h = $('#statusChart').height()-20;
+			chart.resize({
+		        width: chart_w,
+		        height: chart_h
+			});
+		}
+		
+		resizeChart();
+		
+		document.body.onresize = function() {
+		    resizeChart();
+		};
+	</script>
 <%@ include file="/views/common/footer.jsp"%>

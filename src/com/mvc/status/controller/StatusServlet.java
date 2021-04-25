@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import com.mvc.status.model.service.StatusService;
 import com.mvc.status.model.vo.Status;
+import com.mvc.status.model.vo.Status.decideStatus;
 
 @WebServlet("")
 public class StatusServlet extends HttpServlet {
@@ -44,15 +45,17 @@ public class StatusServlet extends HttpServlet {
 			if(resultCode != 0) return;
 			
 			
-			//정상적인 결과일 때			
+			//정상적인 결과일 때
+
 			//일일 확진자 수 배열
-	    	int[] decideArr = service.getDecideArr(list);
+	    	List<decideStatus> decideList = service.getDecideList(list);
 
 	    	//전날과 비교
 	    	int[] compareArr = service.getCompareArr(list);
 	    	
+	    	
 			request.setAttribute("todayStatus", list.get(1));	//list.get(0)은 결과코드객체
-	    	request.setAttribute("decideArr", decideArr);
+	    	request.setAttribute("decideList", decideList);
 	    	request.setAttribute("compareArr", compareArr);
 	    	
 		} catch (IOException | SAXException | ParserConfigurationException e) {
