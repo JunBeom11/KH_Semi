@@ -33,11 +33,14 @@
 		var sec_height = $('section').height();
 		
 		if(sec_height <  win_height){
-			//윈도우 창이 컨텐츠보다 더 클때 --> 공백필요
+			//윈도우 창이 컨텐츠보다 더 클때 --> 높이 확장
 			height = doc_height - nav_height - ftnav_height;
 			$('section').css('height', height);
+			$('section').css('padding-bottom','');
 		}else {
+			//윈도우 창이 컨텐츠보다 더 작을 때 -> padding 더함
 			$('section').css('height', '');
+			$('section').css('padding-bottom',ftnav_height);
 		}
 	} 
 	

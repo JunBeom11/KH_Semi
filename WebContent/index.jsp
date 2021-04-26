@@ -41,6 +41,7 @@
 	
 	<div class="row" id="statusContent">
 		<div class="col-md-7">
+			<!-- 코로나 현황 정보 테이블 -->
 			<div class="row-md-5" id="statusTable">	
 				<p id="statusInfo">
 				<%
@@ -88,13 +89,16 @@
 					%>
 				</table>
 			</div>
-
+			<!-- 코로나 확진자 수 일별 현황 차트 -->
 			<div class="row-md-6" id="statusChart">
 				<p style="text-align:center;font-weight:bold;">확진자 수 일별 현황</p>
 				<div id="statusChartArea"></div>
 			</div>
 		</div>
+		<!-- 코로나 거리두기 단계 지도 -->
 		<div class="col-md-5" id="statusMap">
+			<p style="text-align:center;font-weight:bold;">지역별 거리두기 단계</p>
+			<object type="image/svg+xml" data="<%= request.getContextPath() %>/resource/svg/koreaMap.svg">현재 브라우저는 iframe을 지원하지 않습니다.</object>
 		</div>
 	</div>
 	
@@ -111,42 +115,52 @@
 			</c:forEach>
   		].reverse();
   		
-		const el = document.getElementById('statusChartArea');
-	    const data = {
-	      categories: cate,
-	      series: {
-	    	  column: [
-	    		  {
-	    	          name: '확진자 수',
-	    	          data: decideData
-	    	        }
-	    	  ],
-	    	  line:[
-	    		  {
-	    			  name:'확진자 수',
-	    	          data: decideData
-	    	        }
-	    	  ]
-	      },
+		var el = document.getElementById('statusChartArea');
+	    var data = {
+	      	categories: cate,
+		    series: {
+		    	  column: [
+		    		  {
+		    	          name: '확진자 수',
+		    	          data: decideData
+		    	        }
+		    	  ] ,
+		    	  line:[
+		    		  {
+		    			  name:'확진자 수',
+		    	          data: decideData
+		    	        }
+		    	  ] 
+		      }
 	    };
-	    const options = {
+	    var options = {
 	      chart: { /* title: {
 	    	  			text:'확진자 수',
 	    	  			align: 'center'
 	      			},  */
-	      		width: 600, height: 350 },
+	      		width: 600, height: 350},
 	      legend: {
 	    	  visible:false
+	      },
+	      tooltip:{
+	    	  enabled:false
 	      },
 	      exportMenu : {
 	    	  visible:false
 	      },
-	      tooltip:{
-	    	  visible:false
+	      series: {
+	    	  line:{
+	    		dataLabels:{
+	 	    		visible:true,
+	      			offsetY:-10
+	 	    	},
+	 	      	showDot:true
+	    	  }
 	      }
 	    };
 	
-	    const chart = toastui.Chart.columnLineChart({ el, data, options });
+	    var chart = toastui.Chart.columnLineChart({ el, data, options });
+	    chart.hideTooltip();
 	</script>
 	
 </section>
