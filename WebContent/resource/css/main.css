@@ -59,23 +59,31 @@ footer .inner {
 
 
 /* index.jsp */
+#indexSection {
+	text-align:center;
+}
+
 #statusContent{
+	text-align:center;
+	margin:0px;
+	padding:0px;
+}
+
+#statusTableChart {
+	padding:0px;
 	text-align:center;
 }
 
 #statusTable,#statusChart,#statusMap {
 	border:1px solid black;
 	border-radius:20px;
-	margin:10px 10px 0px 0px;
+	margin:20px;
 	padding:15px;
+	min-width:450px;
 }
 
 #statusTable {
-	height:200px;
-}
-
-#statusInfo {
-	text-align:left;
+	
 }
 
 #statusTable th, #statusTable td{
@@ -83,7 +91,6 @@ footer .inner {
 	font-weight:bold;
 	font-size:17px;
 }
-
 #statusTable #compareCnt {
 	font-weight:normal;
 	font-size:13px;
@@ -105,11 +112,39 @@ footer .inner {
 	color:rgb(33,123,182);
 }
 
+#statusInfo {
+	text-align:left;
+}
 
 #statusChart {
-	height:400px;
+	min-width:450px;
+	min-height:500px;
 }
 
 #statusMap {
-	margin-right:0px;
+	min-width:400px;
+}
+
+#statusMapLegend {
+	position:absolute; 
+	right:24px;
+	bottom:20px;
+	float:right;
+	margin:0px;
+	width:150px;
+	text-align:center;
+}
+
+#legend {
+	text-align:center;
+}
+
+#icon.row {
+	width:24px;
+	height:20px;
+	padding:0px;
+}
+
+#legend p {
+	text-align:center;
 }

@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
 <script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
 
-<section>
+<section id="indexSection" class="container">
 	<%
 		int resultCode = (int)request.getAttribute("resultCode");			/* 결과코드 */
 		String resultMsg = (String)request.getAttribute("resultMsg");		/* 결과메세지 */
@@ -38,9 +38,9 @@
 			</script>		
 	<%	}
 	%>
-	
-	<div class="row" id="statusContent">
-		<div class="col-md-7">
+
+ 	<div class="row" id="statusContent">
+		<div class="col-md-6" id="statusTableChart">
 			<!-- 코로나 현황 정보 테이블 -->
 			<div class="row-md-5" id="statusTable">	
 				<p id="statusInfo">
@@ -99,8 +99,15 @@
 		<div class="col-md-5" id="statusMap">
 			<p style="text-align:center;font-weight:bold;">지역별 거리두기 단계</p>
 			<object type="image/svg+xml" data="<%= request.getContextPath() %>/resource/svg/koreaMap.svg">현재 브라우저는 iframe을 지원하지 않습니다.</object>
+			<div id="statusMapLegend" class="row">
+				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#d2f0fb;"><p>1</p></div></div>
+				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#4088da;"><p>1.5</p></div></div>
+				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#ffb911;"><p>2</p></div></div>
+				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#fc7001;"><p>2.5</p></div></div>
+				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#e60000;"><p>3</p></div></div>
+			</div> 
 		</div>
-	</div>
+	</div> 
 	
 	<script>
   		var cate = [
@@ -114,6 +121,14 @@
   				${decide.decideCnt},
 			</c:forEach>
   		].reverse();
+  		
+  		var chart_w = $('#statusChart').width()-30;
+		var chart_h = $('#statusChart').height()-50;
+    	
+    	if($('#statusChart').width() <= 450) {
+    		chart_w = 420;
+			chart_h = 450;
+    	}
   		
 		var el = document.getElementById('statusChartArea');
 	    var data = {
@@ -138,7 +153,7 @@
 	    	  			text:'확진자 수',
 	    	  			align: 'center'
 	      			},  */
-	      		width: 600, height: 350},
+	      		width: chart_w, height: chart_h},
 	      legend: {
 	    	  visible:false
 	      },
@@ -160,24 +175,30 @@
 	    };
 	
 	    var chart = toastui.Chart.columnLineChart({ el, data, options });
-	    chart.hideTooltip();
-	</script>
-	
-</section>
-	<script>
-		function resizeChart(){
-			var chart_w = $('#statusChart').width();
-			var chart_h = $('#statusChart').height()-20;
+	    
+	    function resizeChart(){
+	    	var chart_w = $('#statusChart').width()-30;
+			var chart_h = $('#statusChart').height()-50;
+	    	
+	    	if($('#statusChart').width() <= 450) {
+	    		chart_w = 420;
+				chart_h = 450;
+	    	}
+			
 			chart.resize({
 		        width: chart_w,
 		        height: chart_h
 			});
 		}
 		
-		resizeChart();
-		
-		document.body.onresize = function() {
-		    resizeChart();
-		};
 	</script>
+	<script>
+		window.onload = function(){
+	    	window.addEventListener('resize',function(){
+	    		resizeChart();
+	    	});
+	    };
+	</script>
+	
+</section>
 <%@ include file="/views/common/footer.jsp"%>
