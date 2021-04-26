@@ -6,9 +6,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ include file="/views/common/header.jsp"%>
 
 <link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
@@ -98,18 +95,42 @@
 		<!-- 코로나 거리두기 단계 지도 -->
 		<div class="col-md-5" id="statusMap">
 			<p style="text-align:center;font-weight:bold;">지역별 거리두기 단계</p>
-			<object type="image/svg+xml" data="<%= request.getContextPath() %>/resource/svg/koreaMap.svg">현재 브라우저는 iframe을 지원하지 않습니다.</object>
-			<div id="statusMapLegend" class="row">
+			<!-- 단계표시 -->
+			<button type="button" data-city="step_map_city1" id="step_map_city1"><span class="name">서울</span><span class="num">2</span></button>
+			<button type="button" data-city="step_map_city2" id="step_map_city2"><span class="name">부산</span><span class="num">2</span></button>
+			<button type="button" data-city="step_map_city3" id="step_map_city3"><span class="name">대구</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city4" id="step_map_city4"><span class="name">인천</span><span class="num">2</span></button>
+			<button type="button" data-city="step_map_city5" id="step_map_city5"><span class="name">광주</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city6" id="step_map_city6"><span class="name">대전</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city7" id="step_map_city7"><span class="name">울산</span><span class="num">2</span></button>
+			<button type="button" data-city="step_map_city8" id="step_map_city8"><span class="name">세종</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city9" id="step_map_city9"><span class="name">경기</span><span class="num">2</span></button>
+			<button type="button" data-city="step_map_city10" id="step_map_city10"><span class="name">강원</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city11" id="step_map_city11"><span class="name">충북</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city12" id="step_map_city12"><span class="name">충남</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city13" id="step_map_city13"><span class="name">전북</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city14" id="step_map_city14"><span class="name">전남</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city15" id="step_map_city15"><span class="name">경북</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city16" id="step_map_city16"><span class="name">경남</span><span class="num">1.5</span></button>
+			<button type="button" data-city="step_map_city17" id="step_map_city17"><span class="name">제주</span><span class="num">1.5</span></button>
+			
+			
+			<!-- 지도 -->
+			<object id="statusSvgMap" type="image/svg+xml" data="${ root }/resource/svg/koreaMap.svg">현재 브라우저는 iframe을 지원하지 않습니다.</object>
+
+			<!-- 지도 범례 -->
+			<div id="statusMapLegend" class="row-md-1">
 				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#d2f0fb;"><p>1</p></div></div>
 				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#4088da;"><p>1.5</p></div></div>
 				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#ffb911;"><p>2</p></div></div>
 				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#fc7001;"><p>2.5</p></div></div>
 				<div class="col-md-1" id="legend"><div id="icon" class="row" style="background-color:#e60000;"><p>3</p></div></div>
-			</div> 
+			</div>
 		</div>
 	</div> 
 	
 	<script>
+		/* 차트 설정, 그리기 */
   		var cate = [
   			<c:forEach items="${decideList}" var="decide">
 				'<fmt:formatDate pattern="yy.MM.dd" value="${decide.stateDt}"/>',
@@ -192,10 +213,78 @@
 		}
 		
 	</script>
+	
 	<script>
+		function resizeMapLabel(){
+			/* map label 리사이징 */
+			
+			//SvgMap과 Map div의 갭을 구함
+			var gap_top = $('#statusSvgMap').offset().top - $('#statusMap').offset().top;
+			var gap_left = $('#statusSvgMap').offset().left - $('#statusMap').offset().left;
+			
+			var label_top;
+			var label_left;
+			
+			//지역별 left, top 값 넣어놓기
+			for(var i=1;i<18;i++){
+				var city = "#step_map_city"+i;
+				switch(i){
+				case 1:/*서울*/
+					label_left=134; label_top=70;  break;
+				case 2:/*부산*/
+					label_left=229; label_top=353;  break;
+				case 3:/*대구*/
+					label_left=223; label_top=279;  break;
+				case 4:/*인천*/
+					label_left=36; label_top=64;  break;
+				case 5:/*광주*/
+					label_left=94; label_top=338;  break;
+				case 6:/*대전*/
+					label_left=140; label_top=218;  break;
+				case 7:/*울산*/
+					label_left=283; label_top=307;  break;
+				case 8:/*세종*/
+					label_left=84; label_top=150;  break;
+				case 9:/*경기*/
+					label_left=104; label_top=20;  break;
+				case 10:/*강원*/
+					label_left=226; label_top=44;  break;
+				case 11:/*충북*/
+					label_left=162; label_top=132;  break;
+				case 12:/*충남*/
+					label_left=26; label_top=182;  break;
+				case 13:/*전북*/
+					label_left=100; label_top=252;  break;
+				case 14:/*전남*/
+					label_left=20; label_top=318;  break;
+				case 15:/*경북*/
+					label_left=233; label_top=198;  break;
+				case 16:/*경남*/
+					label_left=160; label_top=308;  break;
+				case 17:/*제주*/
+					label_left=54; label_top=426;  break;
+				}
+				
+				//값 더하기
+				label_left += gap_left;
+				label_top += gap_top;
+				
+				//적용
+				$(city).css({left:label_left,top:label_top});
+			}
+		}
+		
+	</script>
+	
+	
+	<script>
+		/* resize */
 		window.onload = function(){
+			resizeMapLabel();
+			
 	    	window.addEventListener('resize',function(){
 	    		resizeChart();
+	    		resizeMapLabel();
 	    	});
 	    };
 	</script>
