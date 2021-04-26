@@ -85,8 +85,8 @@
 			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="로그인"/><br>
 			<h8>아직 회원이 아니신가요?</h8>
 			<input type="button" value="회원가입" id="btnEnroll" class="btn btn-default" onclick="location.href='<%= request.getContextPath()%>/member/agreement'"/><br>
-			<a href="">아이디 찾기</a>
-			<a href="">비밀번호 재설정</a>
+			<a href="<%=request.getContextPath()%>/member/confirmFindId">아이디 찾기</a>
+			<a href="<%=request.getContextPath()%>/member/confirmUpdatePw">비밀번호 재설정</a>
 			
 		</form>
 	</div>

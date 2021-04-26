@@ -38,7 +38,7 @@
 </style>
 
 <section id="content">
-	<h3>회원가입</h2>
+	<h3>회원가입</h3>
 	
 	<div id="enroll-container">
 		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/enroll" method="POST">
@@ -147,6 +147,9 @@
 	 	<form name="checkNicknameForm">
 	 		<input type="hidden" name="userNickname">
 	 	</form>
+	 	<form name="checkDuplication">
+	 		<input type="hidden" name="checked_id" id="checked_id" value="">
+	 	</form>
 	</div>
 </section>
 
@@ -172,6 +175,7 @@
 			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 			var checkEnglish =  /[^a-zA-Z]/;
 			var checkNumber = /[^0-9]/;
+			var checkBlank = /[\s]/;
 			
 			if(id.length < 4 || id.length > 10) {
 				$('#checkId').attr('disabled',true);
@@ -191,15 +195,24 @@
 				$("#idresult").html("아이디는 영문과 숫자를 포함해야합니다.");
 				$("#newMemberId").val("");
 				$("#newMemberId").focus();
+			}else if(checkBlank.test(id)){
+				$('#checkId').attr('disabled',true);
+				$('#idresult').attr('style', "display:'';");
+				$("#idresult").html("아이디는 공백을 포함할 수 없습니다");
+				$("#newMemberId").val("");
+				$("#newMemberId").focus();
 			}else{
 				$('#idresult').attr('style', "display:none;");
 				$('#checkId').attr('disabled',false);
+				$("#checkId").focus();
 			}
 		});
 		
 		$("#newMemberNickName").blur((event) => {
 			let nickName = $("#newMemberNickName").val().trim();
 			var checkBlank = /[\s]/;
+			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var checkEnglish =  /[^a-zA-Z]/;
 			
 			if(checkBlank.test(nickName)) {
 				$('#checkNickname').attr('disabled',true);
@@ -207,9 +220,16 @@
 				$("#nicknameresult").html("닉네임은 공백을 포함할 수 없습니다.");
 				$("#newMemberNickName").val("");
 				$("#newMemberNickName").focus();
+			}else if(checkKorean.test(nickName)==false && checkEnglish.test(nickName)==true){
+				$('#checkNickname').attr('disabled',true);
+				$('#nicknameresult').attr('style', "display:'';");
+				$("#nicknameresult").html("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");
+				$("#newMemberNickName").val("");
+				$("#newMemberNickName").focus();
 			}else{
 				$('#nicknameresult').attr('style', "display:none;");
 				$('#checkNickname').attr('disabled',false);
+				$("#checkNickname").focus();
 			}
 		});
 		
@@ -229,6 +249,8 @@
 			checkIdForm.method = "post";
 			checkIdForm.userId.value = id;
 			
+			$("input[name=checked_id]").val('y1'); //중복 체크했는지 확인
+			
 			checkIdForm.submit();
 		});
 		
@@ -247,8 +269,23 @@
 			checkNicknameForm.method = "post";
 			checkNicknameForm.userNickname.value = nickName;
 			
+			$("input[name=checked_id]").val('y2'); //중복 체크했는지 확인
+			
 			checkNicknameForm.submit();
 		});
+		
+		$("#enrollSubmit").on("click", () =>{
+			
+			if($("input[name='checked_id']").val()==''){
+			   	alert('아이디 중복 확인을 해주세요.');
+			   	$("input[name='checked_id']").eq(0).focus();
+			   	return false;
+			}else if($("input[name='checked_id']").val()=='y1'){
+				alert('닉네임 중복 확인을 해주세요');
+				$("input[name='checked_id']").eq(0).focus();
+				return false;
+			}
+		});	
 	});
 </script>
 <%@ include file="/views/common/footer.jsp" %>

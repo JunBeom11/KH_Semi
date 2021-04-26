@@ -45,22 +45,26 @@
 		function validate(){
 			let nickName = document.getElementById("newNickname").value;
 			var checkBlank = /[\s]/;
+			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var checkEnglish =  /[^a-zA-Z]/;
 			
 			if(checkBlank.test(nickName.trim())){
 				alert("닉네임은 공백을 포함할 수 없습니다.");
+				document.getElementById("newNickname").focus();
+				return false;
+			}else if(checkKorean.test(nickName)==false && checkEnglish.test(nickName)==true){
+				alert("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");
 				document.getElementById("newNickname").focus();
 				return false;
 			}
 		}
 		
 		function setUserNickname() {
-			// 입력 된 id를 부모창에 대입
 			const nickName = "<%= request.getParameter("userNickname") %>";
 			
 			opener.memberEnrollFrm.Member_NickName.value = nickName;
 			opener.memberEnrollFrm.Member_Email.focus();
-			
-			// 팝업창 닫아주기
+	
 			close();			
 		}	
 	</script>	

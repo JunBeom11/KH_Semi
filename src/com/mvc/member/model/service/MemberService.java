@@ -1,6 +1,8 @@
 package com.mvc.member.model.service;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.mvc.member.model.dao.MemberDAO;
 import com.mvc.member.model.vo.Member;
@@ -59,6 +61,64 @@ public class MemberService {
 		close(conn);
 		
 		return member != null;
+	}
+
+	public Member confirmUpdateMemberPw(String member_Id, String member_NickName, String member_Birth) {
+		Connection connection = getConnection();
+		String birth;
+		
+		Member member = dao.loginMember(connection, member_Id);
+		if(member != null) {
+			birth = member.getMember_Birth().substring(0,10);
+		}else {
+			birth="";
+		}
+		 
+		close(connection);
+			
+		if(member != null && member.getMember_NickName().equals(member_NickName) && birth.equals(member_Birth)) {
+			return member;
+		}else {
+			return null;
+		}
+	}
+
+	public int updateMemberPw(String member_Pw, String member_Id) {
+		Connection connection = getConnection();
+		
+		int result = dao.updatePassword(connection, member_Pw, member_Id);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
+	public Member findMemberId(String member_NickName, String member_Birth) {
+		Connection connection = getConnection();
+		String birth;
+		
+		Member member = dao.findMemberbyNickname(connection, member_NickName);
+		if(member != null) {
+			 birth = member.getMember_Birth().substring(0,10);
+		}else {
+			birth="";
+		}
+
+		close(connection);
+	
+		if(member != null && birth.equals(member_Birth)) {
+			return member;
+			
+		}else {
+			return null;
+		}
+	
 	}
 
 }
