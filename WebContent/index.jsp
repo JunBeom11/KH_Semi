@@ -130,6 +130,20 @@
 	</div> 
 	
 	<script>
+		function resizeMapCol(){
+			var h = $('#statusTableChart').height()-40;
+			if($(window).width()>900){
+				$('#statusMap').css('height', h);
+			}else {
+				$('#statusMap').css('height', '');
+			}
+			
+			var gap = ($('#statusMap').height() - $('#statusSvgMap').height())/2-20;
+			$('#statusSvgMap').css({'margin-top':gap, 'margin-bottom':gap});
+		}
+	</script>
+	
+	<script>
 		/* 차트 설정, 그리기 */
   		var cate = [
   			<c:forEach items="${decideList}" var="decide">
@@ -280,10 +294,12 @@
 	<script>
 		/* resize */
 		window.onload = function(){
+			resizeMapCol();
 			resizeMapLabel();
 			
 	    	window.addEventListener('resize',function(){
 	    		resizeChart();
+	    		resizeMapCol();
 	    		resizeMapLabel();
 	    	});
 	    };
