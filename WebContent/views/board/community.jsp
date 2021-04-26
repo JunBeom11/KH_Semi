@@ -8,8 +8,12 @@
 <%@ include file="/views/common/header.jsp" %>
 
 <%
-	List<Post> list = (List<Post>) request.getAttribute("list");
+	List<Post> list = (ArrayList) request.getAttribute("list");
 	PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
+%>
+<%
+	Object locnum = request.getAttribute("locnum");
+	String location = (String)locnum;
 %>
 
 <section>
@@ -82,11 +86,13 @@
 			}
 		%>
 		</table>
+		
 		<%if(loginMember!=null){%>
 			<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/communitywrite'">글쓰기</button></div>
 		<%}%>
-		
+
 	</div>
+		<%if(locnum.equals("0")) {%>
 		<div id="pageBar" align="center">
 			<!-- 맨 처음으로 -->
 			<button onclick = "location.href=' <%=request.getContextPath()%>/board/community?page=1'">&lt;&lt;</button>
@@ -110,6 +116,177 @@
 			<!-- 맨 끝으로 -->
 			<button onClick = "location.href=' <%= request.getContextPath() %>/board/community?page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
 		</div>
+		
+		<% }%>
+		
+		<%if(locnum.equals("1"))
+		{%>
+		<div id="pageBar" align="center">
+			<!-- 맨 처음으로 -->
+			<button onclick = "location.href=' <%=request.getContextPath()%>/board/community?country=서울&page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button onclick = "location.href = ' <%= request.getContextPath()%>/board/community?country=서울&page=<%=pageInfo.getPrvePage()%>''">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			
+			<% for (int p = pageInfo.getStartPage(); p<=pageInfo.getEndPage() ; p++) {%>
+				<%if(p == pageInfo.getCurrentPage()) { %>
+					<button disabled><%= p%></button>
+				<% } else {%>
+						<button onclick="location.href='<%= request.getContextPath() %>/board/community?country=서울&page=<%=p%>' " ><%=p %></button>
+				<% } %>
+			<%} %>
+
+			<!-- 다음 페이지로 -->
+			<button onClick="location.href=' <%= request.getContextPath()%>/board/community?country=서울&page=<%=pageInfo.getNextPage()%>'" >&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button onClick = "location.href=' <%= request.getContextPath() %>/board/community?country=서울&page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
+		</div>
+		
+		<%} %>
+		
+		<%if(locnum.equals("2"))
+		{%>
+		<div id="pageBar" align="center">
+			<!-- 맨 처음으로 -->
+			<button onclick = "location.href=' <%=request.getContextPath()%>/board/community?country=경기&page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button onclick = "location.href = ' <%= request.getContextPath()%>/board/community?country=경기&page=<%=pageInfo.getPrvePage()%>''">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			
+			<% for (int p = pageInfo.getStartPage(); p<=pageInfo.getEndPage() ; p++) {%>
+				<%if(p == pageInfo.getCurrentPage()) { %>
+					<button disabled><%= p%></button>
+				<% } else {%>
+						<button onclick="location.href='<%= request.getContextPath() %>/board/community?country=경기&page=<%=p%>' " ><%=p %></button>
+				<% } %>
+			<%} %>
+
+			<!-- 다음 페이지로 -->
+			<button onClick="location.href=' <%= request.getContextPath()%>/board/community?country=경기&page=<%=pageInfo.getNextPage()%>'" >&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button onClick = "location.href=' <%= request.getContextPath() %>/board/community?country=경기&page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
+		</div>
+		
+		<%} %>
+		
+		<%if(locnum.equals("3"))
+		{%>
+		<div id="pageBar" align="center">
+			<!-- 맨 처음으로 -->
+			<button onclick = "location.href=' <%=request.getContextPath()%>/board/community?country=충청&page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button onclick = "location.href = ' <%= request.getContextPath()%>/board/community?country=충청&page=<%=pageInfo.getPrvePage()%>''">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			
+			<% for (int p = pageInfo.getStartPage(); p<=pageInfo.getEndPage() ; p++) {%>
+				<%if(p == pageInfo.getCurrentPage()) { %>
+					<button disabled><%= p%></button>
+				<% } else {%>
+						<button onclick="location.href='<%= request.getContextPath() %>/board/community?country=충청&page=<%=p%>' " ><%=p %></button>
+				<% } %>
+			<%} %>
+
+			<!-- 다음 페이지로 -->
+			<button onClick="location.href=' <%= request.getContextPath()%>/board/community?country=충청&page=<%=pageInfo.getNextPage()%>'" >&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button onClick = "location.href=' <%= request.getContextPath() %>/board/community?country=충청&page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
+		</div>
+		
+		<%} %>
+		
+		<%if(locnum.equals("4"))
+		{%>
+		<div id="pageBar" align="center">
+			<!-- 맨 처음으로 -->
+			<button onclick = "location.href=' <%=request.getContextPath()%>/board/community?country=경상&page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button onclick = "location.href = ' <%= request.getContextPath()%>/board/community?country=경상&page=<%=pageInfo.getPrvePage()%>''">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			
+			<% for (int p = pageInfo.getStartPage(); p<=pageInfo.getEndPage() ; p++) {%>
+				<%if(p == pageInfo.getCurrentPage()) { %>
+					<button disabled><%= p%></button>
+				<% } else {%>
+						<button onclick="location.href='<%= request.getContextPath() %>/board/community?country=경상&page=<%=p%>' " ><%=p %></button>
+				<% } %>
+			<%} %>
+
+			<!-- 다음 페이지로 -->
+			<button onClick="location.href=' <%= request.getContextPath()%>/board/community?country=경상&page=<%=pageInfo.getNextPage()%>'" >&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button onClick = "location.href=' <%= request.getContextPath() %>/board/community?country=경상&page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
+		</div>
+		
+		<%} %>
+		
+		<%if(locnum.equals("5"))
+		{%>
+		<div id="pageBar" align="center">
+			<!-- 맨 처음으로 -->
+			<button onclick = "location.href=' <%=request.getContextPath()%>/board/community?country=전라&page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button onclick = "location.href = ' <%= request.getContextPath()%>/board/community?country=전라&page=<%=pageInfo.getPrvePage()%>''">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			
+			<% for (int p = pageInfo.getStartPage(); p<=pageInfo.getEndPage() ; p++) {%>
+				<%if(p == pageInfo.getCurrentPage()) { %>
+					<button disabled><%= p%></button>
+				<% } else {%>
+						<button onclick="location.href='<%= request.getContextPath() %>/board/community?country=전라&page=<%=p%>' " ><%=p %></button>
+				<% } %>
+			<%} %>
+
+			<!-- 다음 페이지로 -->
+			<button onClick="location.href=' <%= request.getContextPath()%>/board/community?country=전라&page=<%=pageInfo.getNextPage()%>'" >&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button onClick = "location.href=' <%= request.getContextPath() %>/board/community?country=전라&page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
+		</div>
+		
+		<%} %>
+		
+		<%if(locnum.equals("6"))
+		{%>
+		<div id="pageBar" align="center">
+			<!-- 맨 처음으로 -->
+			<button onclick = "location.href=' <%=request.getContextPath()%>/board/community?country=강원&page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button onclick = "location.href = ' <%= request.getContextPath()%>/board/community?country=강원&page=<%=pageInfo.getPrvePage()%>''">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			
+			<% for (int p = pageInfo.getStartPage(); p<=pageInfo.getEndPage() ; p++) {%>
+				<%if(p == pageInfo.getCurrentPage()) { %>
+					<button disabled><%= p%></button>
+				<% } else {%>
+						<button onclick="location.href='<%= request.getContextPath() %>/board/community?country=강원&page=<%=p%>' " ><%=p %></button>
+				<% } %>
+			<%} %>
+
+			<!-- 다음 페이지로 -->
+			<button onClick="location.href=' <%= request.getContextPath()%>/board/community?country=강원&page=<%=pageInfo.getNextPage()%>'" >&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button onClick = "location.href=' <%= request.getContextPath() %>/board/community?country=강원&page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
+		</div>
+		
+		<%} %>
+			
 </section>
 
 <br><br><br>

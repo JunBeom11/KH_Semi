@@ -7,18 +7,23 @@
 
 <% Post post = (Post)request.getAttribute("post");%>
 <section>
-	<h1>&nbsp;뉴스 </h1>
+	<h1>&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
 <br>
 	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
 	<%=post.getPost_MemberId() %>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
-	<br><br>
-	<table class="table" height="450px">
+	<br>
+	<hr>
+	<% if(post.getPost_FileName() !=null) {%>
+		<td><img src="<%=request.getContextPath()%>/resource/upload/board/<%=post.getPost_FileReName() %>" width="300" height="300"><br></td>
+	<%} %>
+	<table class="table" height="350px">
 	<tr>
-		<td><%=post.getPost_Content()%></td>
+	<%=post.getPost_Content()%>
 	</tr>
 	</table>
-	<hr>	
 </section>
+<br><br>
+
 <section id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/reply" method="post">
 	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
@@ -32,7 +37,7 @@
 			
 			<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
 			                            
-				<img src="<%=request.getContextPath()%>/resources/image/file.png" width="20" height="20">
+				<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
 				<%=post.getPost_FileName() %>
 			</a>
 			<script>
@@ -51,7 +56,7 @@
 				<span>-</span>
 			<%} %>
 		</div>
-		
+
 	    <table id="tbl-comment">
 	    <% for(Reply reply : post.getReplies()) { %>
     	   	<tr class="level1">

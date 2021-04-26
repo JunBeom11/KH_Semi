@@ -90,11 +90,20 @@ public class BoardService {
 		return result;
 	}
 	//////////////////커뮤니티
-public int getBoardCount2() {
-		
+	public int getBoardCount2() {
 		Connection connection = getConnection();
 		int count = dao.getBoardCount2(connection);
+
+		close(connection);
+		return count;
+
+	}
+	
+	public int getBoardCount2(String country) {
 		
+		Connection connection = getConnection();
+		int count = dao.getBoardCount2(connection,country);
+		System.out.println(country+"서비스");
 		close(connection);
 		return count;
 	}

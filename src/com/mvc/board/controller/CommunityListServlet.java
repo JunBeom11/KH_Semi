@@ -29,7 +29,7 @@ public class CommunityListServlet extends HttpServlet {
 		PageInfo pageInfo=null;
 		List<Post> list=null;
 		String country = request.getParameter("country");
-
+		
 		try
 		{
 			page=Integer.parseInt(request.getParameter("page"));
@@ -39,9 +39,28 @@ public class CommunityListServlet extends HttpServlet {
 			page = 1; 
 		}
 		
-		listCount = service.getBoardCount2();
+		if(country==null)
+		{
+			listCount = service.getBoardCount2();
+		}
+		else
+		{
+			listCount = service.getBoardCount2(country);
+		}
 		pageInfo = new PageInfo(page,10,listCount,10);
 		list = service.getBoardList2(pageInfo,country);
+		System.out.println(list);
+		if(list.size()!=0 && country!=null)
+		{
+			String locnum = list.get(0).getPost_LocationNum();
+			System.out.println(locnum+"성공!!");
+			request.setAttribute("locnum", locnum);
+		}
+		else
+		{
+			String locnum = "0";
+			request.setAttribute("locnum", locnum);
+		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pageInfo", pageInfo);

@@ -270,15 +270,41 @@ public class BoardDAO {
 	
 	/////////////////////////////////////////////////////////////////////
 	//커뮤니티
-	public int getBoardCount2(Connection connection) {
+	public int getBoardCount2(Connection connection, String country) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
 		
 		try {
-			query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_BoardNum='2' ";
-			pstmt = connection.prepareStatement(query);
+			if(country!=null)
+			{
+				query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_BoardNum='2' AND POST_LOCATIONNUM=? ";
+				pstmt = connection.prepareStatement(query);
+				switch(country)
+				{
+				case "서울": pstmt.setString(1, "1");
+					break;
+				case "경기": pstmt.setString(1, "2");
+					break;
+				case "충청": pstmt.setString(1, "3");
+					break;
+				case "경상": pstmt.setString(1, "4");
+					break;
+				case "전라": pstmt.setString(1, "5");
+					break;
+				case "강원": pstmt.setString(1, "6");
+					break;
+				default :
+					break;
+				}
+			}
+			else
+			{
+				query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_BoardNum='2' ";
+				pstmt = connection.prepareStatement(query);
+			}
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -370,8 +396,10 @@ public class BoardDAO {
 				post.setPost_FileReName(rs.getString("POST_FILERENAME"));
 				post.setPost_Views(rs.getInt("POST_VIEWS"));
 				post.setPost_Remove(rs.getString("POST_REMOVE"));
+				post.setPost_LocationNum(rs.getString("POST_LOCATIONNUM"));
 				
 				list.add(post);
+				
 			}
 		}
 		catch (SQLException e)
@@ -558,6 +586,32 @@ public class BoardDAO {
 		}
 		
 		return result;
+	}
+
+	public int getBoardCount2(Connection connection) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = null;
+		
+		try {
+			query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_BoardNum='2' ";
+			pstmt = connection.prepareStatement(query);
+					
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);			
+		}
+
+		return count;
 	}
 	
 	
