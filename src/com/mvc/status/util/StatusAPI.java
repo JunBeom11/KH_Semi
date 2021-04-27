@@ -1,6 +1,7 @@
 package com.mvc.status.util;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -8,6 +9,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 
 public class StatusAPI {
 	private String serviceKey;
@@ -16,8 +18,13 @@ public class StatusAPI {
 	
 	private URL url;
 	
+	private Properties prop;
+	
 	public StatusAPI() throws IOException{
-		this.serviceKey = "9HwqcEPXlxiz1OXm9ZK0tX66Vtev0r7IAbcenqO0KvaSPEO9IGFAPIFevcXM%2FQrW1lgEbMDDLLH6oqJmQ%2FryvA%3D%3D";
+		prop = new Properties();
+		prop.load(new FileReader(StatusAPI.class.getResource("/com/mvc/common/config/config.properties").getPath()));
+
+		this.serviceKey = prop.getProperty("status.serviceKey");
 		this.pageNo = "1";
 		this.numOfRows = "10";
 		this.url = buildURL();
@@ -52,11 +59,12 @@ public class StatusAPI {
 		DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyyMMdd");
 		LocalDateTime now = LocalDateTime.now();
 		
-		String startCreateDt = now.minusDays(7).format(pattern);
+		//오늘부터 10일 전 정보까지 불러옴
+		String startCreateDt = now.minusDays(10).format(pattern);
 		String endCreateDt = now.format(pattern);			
 		
 		StringBuilder urlBuilder;
-		urlBuilder = new StringBuilder("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson"); 		/*URL*/
+		urlBuilder = new StringBuilder(prop.getProperty("status.url")); 		/*URL*/
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "="+serviceKey); 										/*서비스 키*/
         urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8")); 			/*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8")); 				/*페이지 번호*/
