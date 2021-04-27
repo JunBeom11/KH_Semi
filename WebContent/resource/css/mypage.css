@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.sidebar {
+	width:20%;
+	min-width:250px;
+	
+	height:100%;
+	margin:0;
+	
+	background-color:white;
+}
+
+.sidebar #sidebar-title {
+	margin-top:0;
+	padding:30px 10px 100px 10px;
+	font-weight:bold;
+}
+
+.sidebar-item {
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+	background-color:#4089db;
+}
+
+.sidebar-item a {
+	height:80px;
+	color:#444444;
+	font-size:1.8rem;
+	padding:20px;
+}
