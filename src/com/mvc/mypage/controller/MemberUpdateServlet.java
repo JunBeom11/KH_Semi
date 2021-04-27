@@ -1,6 +1,6 @@
 package com.mvc.mypage.controller;
 
-import java.io.IOException;					
+import java.io.IOException;				
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,15 +29,19 @@ public class MemberUpdateServlet extends HttpServlet {
 		int result = 0;
 		HttpSession session = request.getSession(false);
 		Member loginMember = session != null ? (Member)session.getAttribute("loginMember"):null;
+		String userPwd = request.getParameter("userPwd");
 		
 		if(loginMember  != null) {
-			Member member = new Member();
-	    	
-	    	String member_Id = request.getParameter("Member_Id");
-	    	String member_Pw = request.getParameter("Member_Pw");
-	    	String member_NickName = request.getParameter("Member_NickName");
-	    	String member_Email = request.getParameter("member_Email");
-	    	String member_Birth = request.getParameter("member_Birth");
+			result = service.updatePassword(loginMember.getMember_Id(),userPwd);
+			
+			if(result > 0) {
+				request.setAttribute("msg", "비밀번호 변경이 완료되었습니다.");
+				request.setAttribute("script", "self.close()");
+			}else {
+				request.setAttribute("msg", "비밀번호 변경에 실패했습니다");
+				request.setAttribute("script", "self.close");
+			}
+			
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 	}
