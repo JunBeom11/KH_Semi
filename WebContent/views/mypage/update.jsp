@@ -1,91 +1,118 @@
 <%@page import="com.mvc.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp" %>
-    
+	pageEncoding="UTF-8"%>
+<%@ include file="/views/common/header.jsp"%>
+
 <style>
-	section #view-container {
-		text-align:center;
-	}
-	
-	section #view-container input {  
-		margin:3px;
-	}
-	
-	section #view-container table {
-		margin:0 auto;
-	}
-	
-	section #view-container table th {
-		padding:0 10px; 
-		text-align:right;
-	}
-	
-	section #view-container table td {
-		padding:0 10px; 
-		text-align:left;
-	}
-	#passresult,#idresult,#nicknameresult{
-	
-		font-size:8px;
-		color : red;
-	}
+section #view-container {
+	text-align: center;
+}
+
+section #view-container input {
+	margin: 3px;
+}
+
+section #view-container table {
+	margin: 0 auto;
+}
+
+section #view-container table th {
+	padding: 0 10px;
+	text-align: right;
+}
+
+section #view-container table td {
+	padding: 0 10px;
+	text-align: left;
+}
+
+#passresult, #idresult, #nicknameresult {
+	font-size: 8px;
+	color: red;
+}
 </style>
 <section id="content">
 	<h2 align="center">개인정보 수정</h2>
 	<div id="view-container">
-		<form id="memberFrm" action="<%= request.getContextPath() %>/mypage/update" method="get">
+		<form id="memberEnrollFrm"
+			action="<%=request.getContextPath()%>/mypage/update" method="get">
 			<table>
 				<tr>
-	                <th>아이디</th>
+					<th>아이디</th>
 					<td>
-						<input type="text" name="userNickname" id="newNicckname" 
-							value="<%= loginMember.getMember_Id() %>" required >
-						<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
-						<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
-					</td> 	
-	            </tr>
-	            <tr>
-	                <th>닉네임</th>
+						<div class="input-group">
+							<input type="text" class="form-control" name="Member_Id"
+								id="newMemberId" placeholder="<%=loginMember.getMember_Id()%>"
+								aria-describedby="basic-addon1" required> <span
+								class="input-group-btn"> <input type="button"
+								class="btn btn-default" id="checkId" disabled value="증복검사" />
+							</span>
+						</div>
+					</td>
+
+				</tr>
+				<tr>
+					<td></td>
+					<td id="idresult"></td>
+					<!-- 아이디 확인 메세지 -->
+				</tr>
+
+				<tr>
+					<th>변경 비밀번호</th>
 					<td>
-						<input type="text" name="userNickname" id="newNicckname" 
-							value="<%= loginMember.getMember_NickName() %>" required >
-						<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
-					</td> 	
-	            </tr>
-	             <tr>
-	               <th>생년월일</th>
-	                <td>
-	                    <input type="date" name="Member_Birth" 
-	                    	maxlength="11" value="<%= loginMember.getMember_Birth() %>">
-	                </tr>
-	              <tr>
-	                <th>비밀번호</th>
-					<td>						                 
-    <div class="form-group">
-    <label for="exampleInputPassword1">변경할 비밀번호</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="입력하세요">
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">변경 비밀번호 확인</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="입력하세요">
-    </div>
-	                     <button type="submit" class="btn btn-default">완료</button>
-	                     <input type="button" value="취소"onclick="self.close();">
-		</td> 	
-	            </tr>
-	            <tr>
-	                <th>이메일</th>
+						<div class="input-group">
+							<label for="exampleInputPassword1"></label> <input
+								type="password" class="form-control" id="exampleInputPassword1"
+								name="Member_Pw" placeholder="입력하세요">
+						</div>
+				</tr>
+				<tr>
+					<th>변경 비밀번호 확인</th>
 					<td>
-						<input type="email" placeholder="abc@abc.com" name="email" id="email"
-							 value="<%= loginMember.getMember_Email() %>">												
-					</td> 	
-	            </tr>
-	            <tr>
-	                <th>지역</th>
-						<td>
-							<div class="input-group">
-						 	<select name ="Member_LocationNum" class="form-control">
+						<div class="input-group">
+							<label for="exampleInputPassword1"></label> <input
+								type="password" class="form-control" id="exampleInputPassword1"
+								placeholder="입력하세요">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>닉네임</th>
+					<td>
+						<div class="input-group">
+							<input type="text" class="form-control" name="Member_NickName"
+								id="newMemberNickName"
+								placeholder="<%=loginMember.getMember_NickName()%>"
+								aria-describedby="basic-addon1" required> <span
+								class="input-group-btn"> <input type="button"
+								class="btn btn-default" id="checkNickname" disabled value="증복검사" />
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td id="nicknameresult"></td>
+					<!-- 닉네임 확인 메세지 -->
+				</tr>
+
+				<tr>
+					<th>이메일</th>
+					<td><input type="email"
+						placeholder="<%=loginMember.getMember_Email()%>"
+						name="Member_Email" id="email"></td>
+				</tr>
+				<tr>
+					<th>생년월일</th>
+					<td><input type="date" name="Member_Birth" maxlength="11"
+						value="<%=loginMember.getMember_Birth()%>"></td>
+				</tr>
+
+				<tr>
+					<th>지역</th>
+					<td>
+						<div class="input-group">
+							<select name="Member_LocationNum" class="form-control">
 								<option value="Seoul">서울</option>
 								<option value="Gyeonggi">경기</option>
 								<option value="Daegu">대구</option>
@@ -94,36 +121,42 @@
 								<option value="Daejeon">대전</option>
 								<option value="Ulsan">울산</option>
 								<option value="Busan">부산</option>
-						  		<option value="Gangwon">강원</option>
-				                <optgroup label="충청">
-				                    <option value="South_Chungcheong">충청남도</option>
-				                    <option value="North_Chungcheong">충청북도</option>   
-				                </optgroup>
-				                <optgroup label="전라">
-				                    <option value="South_Jeolla">전라남도</option>
-				                    <option value="North_Jeolla">전라북도</option>   
-				                </optgroup>
-				                <optgroup label="경상">
-				                    <option value="South_Gyeongsang">경상남도</option>
-				                    <option value="North_Gyeongsang">경상북도</option>   
-				                </optgroup>           
-				                <option value="Jeju">제주</option>
-				                <option value="Gangwon">세종</option>
-				            </select>
-				        </div>
-						</td> 	
-	            </tr>
-	        </table>
-	        <input type="submit" value="정보수정" />
-	        <input type="button" id="deleteMember" value="탈퇴" />
-	 	</form>
- 	</div>
+								<option value="Gangwon">강원</option>
+								<optgroup label="충청">
+									<option value="South_Chungcheong">충청남도</option>
+									<option value="North_Chungcheong">충청북도</option>
+								</optgroup>
+								<optgroup label="전라">
+									<option value="South_Jeolla">전라남도</option>
+									<option value="North_Jeolla">전라북도</option>
+								</optgroup>
+								<optgroup label="경상">
+									<option value="South_Gyeongsang">경상남도</option>
+									<option value="North_Gyeongsang">경상북도</option>
+								</optgroup>
+								<option value="Jeju">제주</option>
+								<option value="Gangwon">세종</option>
+							</select>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<input type="submit" value="개인정보수정 완료" /> <input type="button"
+				id="deleteMember" value="탈퇴" />
+		</form>
+		<form name="checkIdForm">
+			<input type="hidden" name="userId">
+		</form>
+		<form name="checkNicknameForm">
+			<input type="hidden" name="userNickname">
+		</form>
+	</div>
 </section>
 <script>
 	$(document).ready(() => {
 		$("#deleteMember").on("click", (e) => {
 			if(confirm("정말로 탈퇴하시겠습니까?!")) {
-				location.replace('<%= request.getContextPath() %>/mypage/delete');
+				location.replace('<%=request.getContextPath()%>/mypage/delete');
 			}
 		});
 		$("#pass2").blur((event) => {
@@ -192,7 +225,7 @@
 		
 			let id = $("#newMemberId").val().trim();
 			
-			const url = "<%= request.getContextPath()%>/member/checkId";
+			const url = "<%=request.getContextPath()%>/member/checkId";
 			const title = "duplicate";
 			const status = "left=500px,top=100px,width=500px,height=300px";
 			
@@ -210,7 +243,7 @@
 		
 			let nickName = $("#newMemberNickName").val().trim();
 			
-			const url = "<%= request.getContextPath()%>/member/checkNickname";
+			const url = "<%=request.getContextPath()%>/member/checkNickname";
 			const title = "duplicate";
 			const status = "left=500px,top=100px,width=500px,height=300px";
 			
@@ -225,4 +258,4 @@
 		});
 	});
 </script>
-<%@ include file="/views/common/footer.jsp" %>
+<%@ include file="/views/common/footer.jsp"%>
