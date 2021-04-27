@@ -32,6 +32,11 @@ div #collapse_row {
 	margin:0px;
 }
 
+#collapse_row button {
+	margin:10px;
+	background-color:#4089db;
+	color:#ffffff;
+}
 
 /* footer.jsp */
 footer .navbar-static-bottom {	
