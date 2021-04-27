@@ -1,7 +1,9 @@
 <%@ page import="com.mvc.member.model.vo.Member" %>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <%
 	Member loginMember = (Member)session.getAttribute("loginMember");
@@ -14,20 +16,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link href="<%= request.getContextPath() %>/resource/css/bootstrap.min.css" rel="stylesheet">
+    <c:set var="root" value="<%= request.getContextPath() %>" />
+    
+    <link href="${root}/resource/css/bootstrap.min.css" rel="stylesheet">
     
 	<title>inCORONA</title>
 	
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-    <script src="<%= request.getContextPath() %>/resource/js/jquery-3.6.0.min.js"></script>
+    <script src="${root}/resource/js/jquery-3.6.0.min.js"></script>
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-
-    <script src="<%= request.getContextPath() %>/resource/js/jquery-3.6.0.min.js"></script>
-
-    <script src="<%= request.getContextPath() %>/resource/js/bootstrap.min.js"></script>
+    <script src="${root}/resource/js/bootstrap.min.js"></script>
 	
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/resource/css/main.css">
+	<link rel="stylesheet" href="${root}/resource/css/main.css">
 	
 </head>
 <body>
@@ -46,7 +47,7 @@
 						</button>
 					</div>
 					<div class="navbar-collapse collapse" id="member-collapse" >
-						<div class="row">
+						<div class="row" id="collapse_row">
 							<ul class="nav navbar-nav navbar-right navbar-upper">
 								<% if(loginMember==null){ %>
 									<li><a href="/inCorona/member/login">로그인</a></li>
@@ -57,7 +58,7 @@
 								<% } %>
 							</ul>
 						</div>
-						<div class="row">
+						<div class="row" id="collapse_row">
 							<ul class="nav navbar-nav navbar-right navbar-lower">
 								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='/inCorona/board/news'">뉴스</button></li>
 								<li><button type="button" class="btn btn-default btn-primary navbar-btn" onclick="location.href='/inCorona/hospital'">주변 병원/선별진료소</button></li>
@@ -69,16 +70,5 @@
 				
 				</div>
 			</nav>
-			<script>
-				function sizeCheck(){
-					//navbar 높이에 맞게 body padding 수정
-					var height = $('.navbar-default').height()+15;
-					$('body').css("padding-top",height);
-				}
-				
-				sizeCheck();
-				
-				$(window).resize(sizeCheck);
-			</script>
 		</header>
 
