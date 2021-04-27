@@ -38,7 +38,7 @@
 			<nav class="navbar navbar-default navbar-static-top navbar-fixed-top">
 				<div class="container">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="">inCORONA</a>
+						<a class="navbar-brand" href="/inCorona">inCORONA</a>
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#member-collapse">
 					        <span class="sr-only">Toggle navigation</span>
 					        <span class="icon-bar"></span>
