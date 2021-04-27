@@ -10,7 +10,7 @@
 	<div>
 	<h1>&nbsp;정보공유 수정</h1>
 <hr>
-		<form action="<%=request.getContextPath()%>/board/updatecommunity" method="POST" 
+		<form method="POST" 
 					enctype="multipart/form-data">
 			<table id='tbl-board'>
 				<tr>
@@ -48,8 +48,7 @@
 				<tr>
 					<th colspan="2">
 					<div align="right">
-						<input type="submit" value="등록">
-						<input type="button" value="취소" onclick="location.href=<%= request.getContextPath()%>/board/community';">
+						<input type="submit" value="등록" onClick="location.href='<%=request.getContextPath()%>/board/updatecommunity' ">
 					</div>
 					</th>
 				</tr>

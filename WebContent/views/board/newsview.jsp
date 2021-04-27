@@ -7,10 +7,15 @@
 
 <% Post post = (Post)request.getAttribute("post");%>
 <section>
-	<h1>&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
+	<h1>&nbsp;뉴스 </h1>&nbsp;&nbsp;&nbsp;
 <br>
 	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
 	<%=post.getPost_MemberId() %>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
+						<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
+							|| loginMember.getMember_Id().equals("admin"))) { %>
+					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatenews?boardNo=<%= post.getPost_Num()%>'">수정</button>
+					<button type="button" id="btnDelete">삭제</button>
+				<% } %>
 	<br>
 	<hr>
 	<% if(post.getPost_FileName() !=null) {%>
@@ -37,11 +42,6 @@
 					<input type="text" name="content" style = "width:723px">
 					<button type="submit" id="btn-insert">등록</button>	    			
 	    		</form>
- 					<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
-							|| loginMember.getMember_Id().equals("admin"))) { %>
-					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatenews?boardNo=<%= post.getPost_Num()%>'">수정</button>
-					<button type="button" id="btnDelete">삭제</button>
-				<% } %>
 		<div>
 			<% if(post.getPost_FileName() !=null) {%>
 			
