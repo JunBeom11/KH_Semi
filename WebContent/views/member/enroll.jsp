@@ -32,6 +32,7 @@
 		float:none;
 		margin:0 auto;
 	}
+
 	
 	
 </style>
@@ -42,7 +43,7 @@
 	<br>
 	<div id="enroll-container">
 		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/enroll" method="POST">
-			<table>
+			<table id="inform">
 				<tr>
 					<td>
 						<div class="input-group">
@@ -52,11 +53,11 @@
 					 	 	</span>
 						</div>	
 					</td>
-					
 				</tr>
 				<tr>
 					<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group" style = "width:100%">
@@ -64,6 +65,7 @@
 						</div>	
 					</td>
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group" style = "width:100%">
@@ -74,6 +76,7 @@
 				<tr>
 					<td id="passresult"></td> <!-- 비민번호 확인 메세지 -->
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group">
@@ -87,6 +90,7 @@
 				<tr>
 					<td id="nicknameresult"></td> <!-- 닉네임 확인 메세지 -->
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group" style = "width:100%">
@@ -94,6 +98,7 @@
 						</div>	
 					</td>
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group" style = "width:100%">
@@ -102,6 +107,7 @@
 						</div>	
 					</td>
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group" style = "width:100%">
@@ -133,7 +139,7 @@
 				            </select>
 				        </div>
 			        </td>
-			       </tr>
+			      </tr>
 			</table>
 			<br>
 			<br>
@@ -209,7 +215,7 @@
 			let nickName = $("#newMemberNickName").val().trim();
 			var checkBlank = /[\s]/;
 			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-			var checkEnglish =  /[^a-zA-Z]/;
+			var checkEnglish =  /[a-zA-Z]/;
 			
 			if(checkBlank.test(nickName)) {
 				$('#checkNickname').attr('disabled',true);
@@ -217,7 +223,7 @@
 				$("#nicknameresult").html("닉네임은 공백을 포함할 수 없습니다.");
 				$("#newMemberNickName").val("");
 				$("#newMemberNickName").focus();
-			}else if(!checkKorean.test(nickName) ^ !checkEnglish.test(nickName)){
+			}else if((!checkKorean.test(nickName)) && (!checkEnglish.test(nickName))){
 				$('#checkNickname').attr('disabled',true);
 				$('#nicknameresult').attr('style', "display:'';");
 				$("#nicknameresult").html("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");

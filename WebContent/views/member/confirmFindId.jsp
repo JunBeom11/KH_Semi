@@ -53,6 +53,7 @@
 				<tr>
 					<td id="nicknameresult"></td> <!-- 닉네임 확인 메세지 -->
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group row col-md-9">
@@ -77,14 +78,14 @@ $(document).ready(() => {
 		let nickName = $("#newMemberNickName").val().trim();
 		var checkBlank = /[\s]/;
 		var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-		var checkEnglish =  /[^a-zA-Z]/;
+		var checkEnglish =  /[a-zA-Z]/;
 		
 		if(checkBlank.test(nickName)) {
 			$('#nicknameresult').attr('style', "display:'';");
 			$("#nicknameresult").html("닉네임은 공백을 포함할 수 없습니다.");
 			$("#newMemberNickName").val("");
 			$("#newMemberNickName").focus();
-		}else if(checkKorean.test(nickName)==false && checkEnglish.test(nickName)==true){
+		}else if((!checkKorean.test(nickName)) && (!checkEnglish.test(nickName))){
 			$('#nicknameresult').attr('style', "display:'';");
 			$("#nicknameresult").html("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");
 			$("#newMemberNickName").val("");

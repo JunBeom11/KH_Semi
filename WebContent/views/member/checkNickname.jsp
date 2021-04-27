@@ -46,7 +46,7 @@
 			let nickName = document.getElementById("newNickname").value;
 			var checkBlank = /[\s]/;
 			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-			var checkEnglish =  /[^a-zA-Z]/;
+			var checkEnglish =  /[a-zA-Z]/;
 			
 			if(checkBlank.test(nickName.trim())){
 				alert("닉네임은 공백을 포함할 수 없습니다.");

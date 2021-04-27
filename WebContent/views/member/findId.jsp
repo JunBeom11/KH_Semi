@@ -27,17 +27,18 @@
 
 <section id="content">
 	<h3>아이디 찾기</h3>
-	
+	<br>
+	<br>
 	<div id="enroll-container">
 		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/findId" method="POST">
 			<table>
 				<tr>
 					<td>
-						<h3 ><span class="label label-default">ID</span><%=updatePwMember.getMember_Id() %> </h3>
+						<h3 ><span class="label label-default">ID</span>&nbsp;&nbsp;<%=updatePwMember.getMember_Id() %> </h3>
 					</td>
 				</tr>
 				<tr>
-					<td><br><br></td>
+					<td><br><br><br><br></td>
 				</tr>
 				<tr>
 					<td>
