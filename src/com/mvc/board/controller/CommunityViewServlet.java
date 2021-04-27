@@ -12,14 +12,15 @@ import com.mvc.board.model.service.BoardService;
 import com.mvc.board.model.vo.Post;
 
 
-@WebServlet("/board/newsview")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/communityview")
+public class CommunityViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private BoardService service = new BoardService();
-    public BoardViewServlet() {
+	private BoardService service = new BoardService();    
+
+    public CommunityViewServlet() {
 
     }
+
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,10 +59,12 @@ public class BoardViewServlet extends HttpServlet {
 			response.addCookie(cookie);
 		}
 		
-		post = service.findPostbyNo(post_num, hasRead);
+		post = service.findPostbyNo2(post_num, hasRead);
 		System.out.println(post);
 		request.setAttribute("post",post);
-		request.getRequestDispatcher("/views/board/newsview.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/communityview.jsp").forward(request, response);
 	}
+
+
 
 }
