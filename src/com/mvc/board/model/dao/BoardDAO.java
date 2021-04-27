@@ -133,7 +133,7 @@ public class BoardDAO {
 
 		try {
 			query =
-					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS FROM POST "
+					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM FROM POST "
 					+ "WHERE POST_REMOVE='N' AND POST_NUM=? AND POST_BOARDNUM =1 ";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setInt(1, post_num);
@@ -143,6 +143,7 @@ public class BoardDAO {
 			if(rs.next())
 			{
 				post = new Post();
+				post.setBoard_Num(rs.getString("POST_BOARDNUM"));
 				post.setRowNum(rs.getInt("ROWNUM"));
 				post.setPost_Num(rs.getInt("POST_NUM"));
 				post.setPost_Title(rs.getString("POST_TITLE"));
@@ -453,7 +454,7 @@ public class BoardDAO {
 
 		try {
 			query =
-					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS FROM POST "
+					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM FROM POST "
 					+ "WHERE POST_REMOVE='N' AND POST_NUM=? AND POST_BOARDNUM ='2' ";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setInt(1, post_num);
@@ -463,6 +464,7 @@ public class BoardDAO {
 			if(rs.next())
 			{
 				post = new Post();
+				post.setBoard_Num(rs.getString("POST_BOARDNUM"));
 				post.setRowNum(rs.getInt("ROWNUM"));
 				post.setPost_Num(rs.getInt("POST_NUM"));
 				post.setPost_Title(rs.getString("POST_TITLE"));
@@ -612,6 +614,78 @@ public class BoardDAO {
 		}
 
 		return count;
+	}
+
+	public int updateStatus(Connection connection, int boardNo, String status) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query=null;
+		
+		try {
+			query="UPDATE POST SET POST_REMOVE=? WHERE POST_NUM=? " ;
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1,status);
+			pstmt.setInt(2,boardNo);			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int updatePost2(Connection connection, Post post) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = null;
+		
+		try {
+			query = "UPDATE POST SET POST_TITLE=?, POST_CONTENTS=?, POST_FILENAME=?, POST_FILERENAME=?, POST_LOCATIONNUM=? WHERE POST_NUM=?";
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, post.getPost_Title());
+			pstmt.setString(2, post.getPost_Content());
+			pstmt.setString(3, post.getPost_FileName());
+			pstmt.setString(4, post.getPost_FileReName());
+			pstmt.setString(5, post.getPost_LocationNum());
+			pstmt.setInt(6, post.getPost_Num());
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updatePost(Connection connection, Post post) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = null;
+		
+		try {
+			query = "UPDATE POST SET POST_TITLE=?, POST_CONTENTS=?, POST_FILENAME=?, POST_FILERENAME=? WHERE POST_NUM=?";
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, post.getPost_Title());
+			pstmt.setString(2, post.getPost_Content());
+			pstmt.setString(3, post.getPost_FileName());
+			pstmt.setString(4, post.getPost_FileReName());
+			pstmt.setInt(5, post.getPost_Num());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

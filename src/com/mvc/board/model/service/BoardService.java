@@ -35,7 +35,7 @@ public class BoardService {
 		Connection connection = getConnection();
 		
 		if(post.getPost_Num() != 0) {
-		//	result = dao.updateMember(connection, post);
+			result = dao.updatePost(connection, post);
 		} else {
 			result = dao.insertPost(connection, post);
 		}
@@ -121,7 +121,7 @@ public class BoardService {
 		Connection connection = getConnection();
 		
 		if(post.getPost_Num() != 0) {
-		//	result = dao.updateMember(connection, post);
+			result = dao.updatePost2(connection, post);
 		} else {
 			result = dao.insertPost2(connection, post);
 		}
@@ -173,6 +173,19 @@ public class BoardService {
 		
 		close(connection);
 		
+		return result;
+	}
+
+	public int delete(int boardNo) {
+		int result = 0;
+		Connection connection = getConnection();
+		result = dao.updateStatus(connection, boardNo, "Y");
+		if(result>0) {
+			commit(connection);
+		}else {
+			rollback(connection);
+		}
+		close(connection);
 		return result;
 	}
 

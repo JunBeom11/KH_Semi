@@ -14,7 +14,13 @@
 	<br>
 	<hr>
 	<% if(post.getPost_FileName() !=null) {%>
-		<td><img src="<%=request.getContextPath()%>/resource/upload/board/<%=post.getPost_FileReName() %>" width="300" height="300"><br></td>
+		<% 
+		int rlen = post.getPost_FileReName().length()-4;
+		String form = post.getPost_FileReName().substring(rlen);%>
+		<% System.out.println(form); %>
+		<%if(form.equals(".jpg")||form.equals(".png")||form.equals("jpeg")){ %>
+			<img src="<%=request.getContextPath()%>/resource/upload/board/<%=post.getPost_FileReName() %>" width="300" height="300"><br>
+		<%} %>
 	<%} %>
 	<table class="table" height="350px">
 	<tr>
@@ -31,7 +37,11 @@
 					<input type="text" name="content" style = "width:723px">
 					<button type="submit" id="btn-insert">등록</button>	    			
 	    		</form>
- 
+ 					<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
+							|| loginMember.getMember_Id().equals("admin"))) { %>
+					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatenews?boardNo=<%= post.getPost_Num()%>'">수정</button>
+					<button type="button" id="btnDelete">삭제</button>
+				<% } %>
 		<div>
 			<% if(post.getPost_FileName() !=null) {%>
 			
@@ -73,7 +83,16 @@
 </section>
 
 <br><br><br>
-
+<script>
+	$(document).ready(()=>{
+		$("#btnDelete").on("click",(e) =>{
+			if(confirm("정말로 게시글을 삭제 하시겠습니까?"))
+				{
+					location.replace("<%=request.getContextPath()%>/board/erase?boardNo=<%=post.getPost_Num()%>&bNum=<%=post.getBoard_Num()%>")
+				}
+		});
+	});
+</script>
 
 
 
