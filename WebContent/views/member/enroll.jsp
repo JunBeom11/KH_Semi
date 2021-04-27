@@ -6,12 +6,6 @@
 	section #enroll-container {
 		text-align:center;
 	}
-	
-	section #enroll-container input {
-		margin:3px;
-	}
-	
-	
 	section #enroll-container table {
 		margin:0 auto;
 	}
@@ -33,13 +27,19 @@
 		font-size:8px;
 		color : red;
 	}
+	#enrollSubmit{
+		width: 20%; 
+		float:none;
+		margin:0 auto;
+	}
 	
 	
 </style>
 
 <section id="content">
 	<h3>회원가입</h3>
-	
+	<br>
+	<br>
 	<div id="enroll-container">
 		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/enroll" method="POST">
 			<table>
@@ -59,14 +59,14 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="input-group">
+						<div class="input-group" style = "width:100%">
 					 	 	<input type="password" class="form-control" name="Member_Pw" id="pass1" placeholder="비밀번호" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<div class="input-group">
+						<div class="input-group" style = "width:100%">
 					 	 	<input type="password" class="form-control" id="pass2" placeholder="비밀번호 확인" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>
@@ -89,14 +89,14 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="input-group">
+						<div class="input-group" style = "width:100%">
 					 	 	<input type="email" class="form-control" name="Member_Email"  placeholder="이메일 abc@abc.com" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<div class="input-group">
+						<div class="input-group" style = "width:100%">
 							<span class="input-group-addon" id="basic-addon1">생년월일</span>
 					 	 	<input type="date" class="form-control" name="Member_Birth"  placeholder="생년월일" aria-describedby="basic-addon1" required>
 						</div>	
@@ -104,7 +104,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="input-group">
+						<div class="input-group" style = "width:100%">
 							<span class="input-group-addon" id="basic-addon1">지역</span>
 						 	<select name ="Member_LocationNum" class="form-control">
 								<option value="Seoul">서울</option>
@@ -137,7 +137,7 @@
 			</table>
 			<br>
 			<br>
-			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="가입하기" style="width: 30%; float:none; margin:0 auto"/>
+			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="가입하기" />
 			<br>
 			<br>
 		</form>
@@ -146,9 +146,6 @@
 	 	</form>
 	 	<form name="checkNicknameForm">
 	 		<input type="hidden" name="userNickname">
-	 	</form>
-	 	<form name="checkDuplication">
-	 		<input type="hidden" name="checked_id" id="checked_id" value="">
 	 	</form>
 	</div>
 </section>
@@ -220,7 +217,7 @@
 				$("#nicknameresult").html("닉네임은 공백을 포함할 수 없습니다.");
 				$("#newMemberNickName").val("");
 				$("#newMemberNickName").focus();
-			}else if(checkKorean.test(nickName)==false && checkEnglish.test(nickName)==true){
+			}else if(!checkKorean.test(nickName) ^ !checkEnglish.test(nickName)){
 				$('#checkNickname').attr('disabled',true);
 				$('#nicknameresult').attr('style', "display:'';");
 				$("#nicknameresult").html("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");

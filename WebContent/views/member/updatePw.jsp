@@ -9,11 +9,6 @@
 		text-align:center;
 	}
 	
-	section #enroll-container input {
-		margin:3px;
-	}
-	
-	
 	section #enroll-container table {
 		margin:0 auto;
 	}
@@ -41,7 +36,8 @@
 
 <section id="content">
 	<h3>비밀번호 수정</h3>
-	
+	<br>
+	<br>
 	<div id="enroll-container">
 		<form name ="updatePwFrm" action="<%=request.getContextPath() %>/member/updatePw" method="POST">
 			<table>

@@ -6,12 +6,6 @@
 	section #enroll-container {
 		text-align:center;
 	}
-	
-	section #enroll-container input {
-		margin:3px;
-	}
-	
-	
 	section #enroll-container table {
 		margin:0 auto;
 	}
@@ -40,14 +34,15 @@
 	}
 </style>
  <section id="content">
-	<h3>본인확인</h2>
-	
+	<h3>본인확인</h3>
+	<br>
+	<br>
 	<div id="enroll-container">
 		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/confirmUpdatePw" method="POST">
 			<table>
 				<tr>
 					<td>
-						<div class="input-group">
+						<div class="input-group" style = "width:100%">
 					 	 	<input type="text" class="form-control" name="Member_Id" id="newMemberId" placeholder="아이디" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>
@@ -58,7 +53,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="input-group">
+						<div class="input-group" style = "width:100%">
 					 	 	<input type="text" class="form-control" name="Member_NickName" id="newMemberNickName" placeholder="닉네임" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>

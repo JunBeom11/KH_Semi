@@ -27,7 +27,7 @@ public class MemberDAO {
 			//pstmt.setString(5, member.getMember_EnrollDate());
 			pstmt.setString(5, member.getMember_Birth());
 			pstmt.setString(6, member.getMember_LocationNum());
-			//pstmt.setString(8, member.getMember_role());
+			//pstmt.setString(8, member.getMember_role()); //사용자로 회원가입됨
 			//pstmt.setString(9, member.getMember_status());
 			
 			result = pstmt.executeUpdate();

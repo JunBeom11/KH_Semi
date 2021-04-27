@@ -21,11 +21,6 @@
 	section #enroll-container {
 		text-align:center;
 	}
-	
-	section #enroll-container input {
-		margin:3px;
-	}
-	
 	section #enroll-container table {
 		margin:0 auto;
 	}
@@ -55,7 +50,8 @@
 
 <section id="content">
 	<h3>로그인</h3>
-	
+	<br>
+	<br>
 	<div id="enroll-container">
 		<form action="<%=request.getContextPath() %>/member/login" method="POST">
 			<table>
