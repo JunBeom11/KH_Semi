@@ -11,9 +11,14 @@ import org.xml.sax.SAXException;
 import com.mvc.status.util.StatusAPI;
 import com.mvc.status.util.StatusParser;
 import com.mvc.status.model.vo.Status;
+import com.mvc.status.model.vo.Status.decideStatus;
 
 public class StatusService {
-	public List<Status> getStatus() throws IOException, SAXException, ParserConfigurationException{
+	private List<Status> list;
+	private int[] compareArr = new int[5];
+	private List<decideStatus> decideList;
+	
+	public List<Status> getStatusList() throws IOException, SAXException, ParserConfigurationException{
 		String xml = readAPI();
 		
 		//xml을 제대로 불러오지 못했을 때 임시데이터 객체 리턴
@@ -32,4 +37,35 @@ public class StatusService {
 	private List<Status> parseStatus(String xml) throws SAXException, ParserConfigurationException, IOException{
 		return new StatusParser().parseStatus(xml);
 	}
+	
+	public int[] getCompareArr(List<Status> list) {
+		//전날과 비교
+		if(list==null) return null;
+    	
+		this.compareArr[0] = list.get(1).getDecideCnt() - list.get(2).getDecideCnt();	/* 확진자 */
+    	this.compareArr[1] = list.get(1).getClearCnt() - list.get(2).getClearCnt();		/* 완치자 */
+    	this.compareArr[2] = list.get(1).getCareCnt() - list.get(2).getCareCnt();		/* 격리자 */
+    	this.compareArr[3] = list.get(1).getDeathCnt() - list.get(2).getDeathCnt();		/* 사망자 */
+    	this.compareArr[4] = list.get(1).getAccExamCnt() - list.get(2).getAccExamCnt();	/* 검사수 */
+    	
+    	return this.compareArr;
+	}
+
+	public List<decideStatus> getDecideList(List<Status> list) {
+		//일주일 간 확진자 수&날짜
+		if(list==null) return null;
+		
+		this.decideList = new ArrayList<>();
+		
+		for(int i=0;i<7;i++) {
+			decideStatus ds = new Status().getDecide();
+			
+    		ds.setDecideCnt(list.get(i+1).getDecideCnt() - list.get(i+2).getDecideCnt());	/* 확진자 수 차이 */
+    		ds.setStateDt(list.get(i+1).getStateDt());										/* 기준일 */
+    		
+    		this.decideList.add(ds);
+    	}
+		return this.decideList;
+	}
+	
 }

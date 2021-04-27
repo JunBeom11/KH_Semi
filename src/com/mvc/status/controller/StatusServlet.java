@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import com.mvc.status.model.service.StatusService;
 import com.mvc.status.model.vo.Status;
+import com.mvc.status.model.vo.Status.decideStatus;
 
 @WebServlet("")
 public class StatusServlet extends HttpServlet {
@@ -30,22 +31,32 @@ public class StatusServlet extends HttpServlet {
     	List<Status> list;
     	
 		try {
-			list = service.getStatus();
+			list = service.getStatusList();
 			
+			//결과코드, 결과메세지
 			int resultCode = list.get(0).getResultCode();
 			String resultMsg = list.get(0).getResultMsg();
 			
-			//정상적인 결과일 때: 결과코드,결과메세지,임시데이터가 담긴 첫번째 객체 지움
-			if(resultCode == 0) list.remove(0);
-			
 			request.setAttribute("resultCode",resultCode);
-			request.setAttribute("resultMsg", resultMsg);	
-	    	request.setAttribute("statusList", list);
+			request.setAttribute("resultMsg", resultMsg);
+			
+			
+			//정상적인 결과가 아닐 때 리턴
+			if(resultCode != 0) return;
+			
+			
+			//정상적인 결과일 때
+
+			//일일 확진자 수 배열
+	    	List<decideStatus> decideList = service.getDecideList(list);
+
+	    	//전날과 비교
+	    	int[] compareArr = service.getCompareArr(list);
 	    	
-	    	//테스트용 콘솔찍기
-	    	for(Status status:list) {
-	    		System.out.println(status.getDecideCnt());
-	    	}
+	    	
+			request.setAttribute("todayStatus", list.get(1));	//list.get(0)은 결과코드객체
+	    	request.setAttribute("decideList", decideList);
+	    	request.setAttribute("compareArr", compareArr);
 	    	
 		} catch (IOException | SAXException | ParserConfigurationException e) {
 			
