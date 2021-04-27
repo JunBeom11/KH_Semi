@@ -1,4 +1,4 @@
-package com.mvc.mypage.controller;
+package com.mvc.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,19 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/member/update")
-public class MemberUpdateServlet extends HttpServlet {
+@WebServlet("/member/agreement")
+public class MemberEnrollAgreemetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public MemberUpdateServlet() {
-        
+    public MemberEnrollAgreemetServlet() {
+        super();
+  
     }
-
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/views/member/agreement.jsp").forward(request, response);   
 	}
 
 }

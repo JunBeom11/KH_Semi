@@ -74,5 +74,42 @@ public class MemberDAO {
 		}
 		return member;
 	}
+	
+	public Member checkNickname(Connection connection, String userNickname) {
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = null;
+		
+		try {
+			query= "SELECT * FROM MEMBER WHERE MEMBER_NICKNAME=? ";
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, userNickname);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new Member();
+				member.setMember_Id(rs.getString("MEMBER_ID"));
+				member.setMember_Pw(rs.getString("MEMBER_PW"));
+				member.setMember_NickName(rs.getString("MEMBER_NICKNAME"));
+				member.setMember_Email(rs.getString("MEMBER_EMAIL"));
+				member.setMember_EnrollDate(rs.getString("MEMBER_ENROLLDATE"));
+				member.setMember_Birth(rs.getString("MEMBER_BIRTH"));
+				member.setMember_LocationNum(rs.getString("MEMBER_LOCATIONNUM"));
+				member.setMember_role(rs.getString("MEMBER_ROLE"));
+				member.setMember_status(rs.getString("MEMBER_STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		return member;
+	}
+	
+	
 
 }

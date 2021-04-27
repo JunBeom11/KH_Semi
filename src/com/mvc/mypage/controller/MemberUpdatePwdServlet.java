@@ -1,6 +1,6 @@
 package com.mvc.mypage.controller;
 
-import java.io.IOException;		
+import java.io.IOException;			
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.mvc.member.model.service.MemberService;
 import com.mvc.member.model.vo.Member;
 
-@WebServlet(name= "updatePwd", urlPatterns="/mypage/updatePwd")
+@WebServlet(name= "update", urlPatterns="/mypage/update")
 public class MemberUpdatePwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,7 +21,7 @@ public class MemberUpdatePwdServlet extends HttpServlet {
     }
     @Override	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/mypage/updatePwd.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/mypage/update.jsp").forward(request, response);
 	}
 
 	@Override

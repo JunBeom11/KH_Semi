@@ -1,111 +1,90 @@
+<%@page import="com.mvc.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-
+    
 <style>
-	section #enroll-container {
+	section #view-container {
 		text-align:center;
 	}
 	
-	section #enroll-container input {
+	section #view-container input {  
 		margin:3px;
 	}
 	
-	
-	section #enroll-container table {
+	section #view-container table {
 		margin:0 auto;
 	}
 	
-	section #enroll-container table th {
+	section #view-container table th {
 		padding:0 10px; 
 		text-align:right;
 	}
 	
-	section #enroll-container table td {
+	section #view-container table td {
 		padding:0 10px; 
 		text-align:left;
-	}
-	h3{
-		text-align:center;
 	}
 	#passresult,#idresult,#nicknameresult{
 	
 		font-size:8px;
 		color : red;
 	}
-	
-	
 </style>
-
 <section id="content">
-	<h3>회원가입</h2>
-	
-	<div id="enroll-container">
-		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/enroll" method="POST">
+	<h2 align="center">개인정보 수정</h2>
+	<div id="view-container">
+		<form id="memberFrm" action="<%= request.getContextPath() %>/mypage/update" method="get">
 			<table>
 				<tr>
+	                <th>아이디</th>
 					<td>
-						<div class="input-group">
-					 	 	<input type="text" class="form-control" name="Member_Id" id="newMemberId" placeholder="아이디" aria-describedby="basic-addon1" required>
-					 	 	<span class="input-group-btn">
-					 	 		<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
-					 	 	</span>
-						</div>	
-					</td>
-					
-				</tr>
-				<tr>
-					<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
-				</tr>
-				<tr>
+						<input type="text" name="userNickname" id="newNicckname" 
+							value="<%= loginMember.getMember_Id() %>" required >
+						<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
+						<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
+					</td> 	
+	            </tr>
+	            <tr>
+	                <th>닉네임</th>
 					<td>
-						<div class="input-group">
-					 	 	<input type="password" class="form-control" name="Member_Pw" id="pass1" placeholder="비밀번호" aria-describedby="basic-addon1" required>
-						</div>	
-					</td>
-				</tr>
-				<tr>
+						<input type="text" name="userNickname" id="newNicckname" 
+							value="<%= loginMember.getMember_NickName() %>" required >
+						<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
+					</td> 	
+	            </tr>
+	             <tr>
+	               <th>생년월일</th>
+	                <td>
+	                    <input type="date" name="Member_Birth" 
+	                    	maxlength="11" value="<%= loginMember.getMember_Birth() %>">
+	                </tr>
+	              <tr>
+	                <th>비밀번호</th>
+					<td>						                 
+    <div class="form-group">
+    <label for="exampleInputPassword1">변경할 비밀번호</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="입력하세요">
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">변경 비밀번호 확인</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="입력하세요">
+    </div>
+	                     <button type="submit" class="btn btn-default">완료</button>
+	                     <input type="button" value="취소"onclick="self.close();">
+		</td> 	
+	            </tr>
+	            <tr>
+	                <th>이메일</th>
 					<td>
-						<div class="input-group">
-					 	 	<input type="password" class="form-control" id="pass2" placeholder="비밀번호 확인" aria-describedby="basic-addon1" required>
-						</div>	
-					</td>
-				</tr>
-				<tr>
-					<td id="passresult"></td> <!-- 비민번호 확인 메세지 -->
-				</tr>
-				<tr>
-					<td>
-						<div class="input-group">
-					 	 	<input type="text" class="form-control" name="Member_NickName" id="newMemberNickName" placeholder="닉네임" aria-describedby="basic-addon1" required>
-					 	 	<span class="input-group-btn">
-					 	 		<input type="button" class="btn btn-default" id="checkNickname" disabled value="증복검사"/>
-					 	 	</span>
-						</div>	
-					</td>
-				</tr>
-				<tr>
-					<td id="nicknameresult"></td> <!-- 닉네임 확인 메세지 -->
-				</tr>
-				<tr>
-					<td>
-						<div class="input-group">
-					 	 	<input type="email" class="form-control" name="Member_Email"  placeholder="이메일 abc@abc.com" aria-describedby="basic-addon1" required>
-						</div>	
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">생년월일</span>
-					 	 	<input type="date" class="form-control" name="Member_Birth"  placeholder="생년월일" aria-describedby="basic-addon1" required>
-						</div>	
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">지역</span>
+						<input type="email" placeholder="abc@abc.com" name="email" id="email"
+							 value="<%= loginMember.getMember_Email() %>">												
+					</td> 	
+	            </tr>
+	            <tr>
+	                <th>지역</th>
+						<td>
+							<div class="input-group">
 						 	<select name ="Member_LocationNum" class="form-control">
 								<option value="Seoul">서울</option>
 								<option value="Gyeonggi">경기</option>
@@ -132,26 +111,21 @@
 				                <option value="Gangwon">세종</option>
 				            </select>
 				        </div>
-			        </td>
-			       </tr>
-			</table>
-			<br>
-			<br>
-			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="가입하기" style="width: 30%; float:none; margin:0 auto"/>
-			<br>
-			<br>
-		</form>
-		<form name="checkIdForm">
-	 		<input type="hidden" name="userId">
+						</td> 	
+	            </tr>
+	        </table>
+	        <input type="submit" value="정보수정" />
+	        <input type="button" id="deleteMember" value="탈퇴" />
 	 	</form>
-	 	<form name="checkNicknameForm">
-	 		<input type="hidden" name="userNickname">
-	 	</form>
-	</div>
+ 	</div>
 </section>
-
 <script>
 	$(document).ready(() => {
+		$("#deleteMember").on("click", (e) => {
+			if(confirm("정말로 탈퇴하시겠습니까?!")) {
+				location.replace('<%= request.getContextPath() %>/mypage/delete');
+			}
+		});
 		$("#pass2").blur((event) => {
 			let pass1 = $("#pass1").val();
 			let pass2 = $(event.target).val();

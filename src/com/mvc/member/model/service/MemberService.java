@@ -33,7 +33,7 @@ public class MemberService {
 		
 		close(connection);
 		
-		if(member.getMember_Pw().equals(Member_Pw) && member != null) {
+		if(member != null && member.getMember_Pw().equals(Member_Pw)) {
 			return member;
 		}else {
 			return null;
@@ -41,9 +41,31 @@ public class MemberService {
 		
 	}
 
+
+	public boolean isIdDuplicated(String userId) {
+		Connection conn = getConnection();
+		
+		Member member = dao.loginMember(conn, userId);
+		
+		close(conn);
+		
+		return member != null;
+	}
+
+	public boolean isNickNameDuplicated(String userNickname) {
+		Connection conn = getConnection();
+		
+		Member member = dao.checkNickname(conn, userNickname);
+		
+		close(conn);
+		return false;
+	}
+		
+
 	public int updatePassword(String member_Id, String userPwd) {
 		
 		return 0;
+
 	}
 
 }
