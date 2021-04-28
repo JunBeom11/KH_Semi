@@ -132,20 +132,27 @@ public class MypageDAO {
 		String query = null;
 		
 		try{
-			query="SELECT comment_Num, comment_Contents, Comment_EnrollTime, Comment_Remove, comment_MemberId, comment_EnrollNum "
-				+	" FROM COMMENTS "
-				+ 	" WHERE COMMENT_REMOVE='N' AND COMMENT_MEMBERID=? "
-				+	" ORDER BY COMMENT_NUM DESC ";
+			query = "SELECT * "
+		            + "FROM ("
+		            + "SELECT ROWNUM RNUM,COMMENT_NUM,COMMENT_CONTENTS,COMMENT_ENROLLTIME,COMMENT_REMOVE,COMMENT_MEMBERID,COMMENT_ENROLLNUM,MEMBER_NICKNAME "
+		            + "FROM (SELECT * FROM COMMENTS C LEFT JOIN MEMBER M ON(C.COMMENT_MEMBERID=M.MEMBER_ID) WHERE C.COMMENT_REMOVE='N' AND C.COMMENT_MEMBERID=? ORDER BY C.COMMENT_NUM)"
+		            + ")"
+		            + "WHERE RNUM BETWEEN ? AND ?";
+
 			
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setString(1, loginId);
+			pstmt.setInt(2, pageInfo.getStartList());
+			pstmt.setInt(3, pageInfo.getEndList());
+			
 			rs = pstmt.executeQuery();
 
 			while(rs.next())
 			{
 				Reply reply = new Reply();
 				
+				reply.setRowNum(rs.getInt("RNUM"));
 				reply.setComment_Num(rs.getInt("COMMENT_NUM"));
 				reply.setComment_EnrollNum(rs.getInt("COMMENT_ENROLLNUM"));
 				reply.setComment_Contents(rs.getString("COMMENT_CONTENTS"));
@@ -166,5 +173,30 @@ public class MypageDAO {
 		
 		return replies;
 	}
-
+	
+	public int updateStatus(Connection connection, int[] numList, String type) {
+		int result=0;
+		PreparedStatement pstmt = null;
+		String query="UPDATE POST SET POST_REMOVE='Y' WHERE POST_NUM = ?";
+		
+		if(type.equals("COMMENTS")) {
+			query = "UPDATE COMMENTS SET COMMENT_REMOVE='Y' WHERE COMMENT_NUM=?";
+		}		
+		
+		try {
+			for(int i=0;i<numList.length;i++) {
+				pstmt = connection.prepareStatement(query);
+				
+				pstmt.setInt(1,numList[i]);
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result==numList.length? result:0;
+	}
 }

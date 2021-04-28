@@ -54,5 +54,20 @@ public class MypageService {
 		
 		return list;
 	}
+	
+	public int deleteList(int[] numList, String type) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = dao.updateStatus(connection, numList, type);
+		
+		if(result>0) {
+			commit(connection);
+		}else {
+			rollback(connection);
+		}
+		close(connection);
+		return result;
+	}
 
 }

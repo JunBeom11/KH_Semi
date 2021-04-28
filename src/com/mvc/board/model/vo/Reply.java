@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reply {
+	private int rowNum;
 	private int comment_Num;
 	private String comment_Contents;
 	private Date comment_EnrollTime;

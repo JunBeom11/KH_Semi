@@ -19,9 +19,8 @@
 		<form action="/inCorona/mypage/mypost/delete" method="POST">
 		<div id="deleteList">
 			<button type="button" class="btn btn-default btn-sm"  onclick="checkAllPost();">전부 선택</button>
-			<input type="submit" class="btn btn-default btn-sm" id="ListSubmit" value="선택한 글 삭제하기"></button>
-			<!-- <input type="submit" class="btn btn-default btn-sm" id="ListSubmit" onclick="return deletePost();" value="선택한 글 삭제하기"></button>
- -->		</div>
+			<input type="submit" class="btn btn-default btn-sm" id="ListSubmit" value="선택한 글 삭제하기" />
+		</div>
 		<table id="tbl-board" class = "table table-striped">
 			<tr>
 				<th>번호</th>
@@ -77,13 +76,6 @@
 	function checkAllPost(){
 		var isChecked = $('input[name=checkPost]:checked').length == $('input[name=checkPost]').length;
 		$("input[name=checkPost]:checkbox").prop("checked", !isChecked);
-	}
-	
-	function deletePost(){
-		var deletePostList = [];
-		$("input[name=checkPost]:checkbox").each(function() {
-			if(this.checked) deletePostList.push(this.value);
-		});
 	}
 </script>
 

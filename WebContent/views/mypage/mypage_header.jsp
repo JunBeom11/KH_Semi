@@ -14,7 +14,6 @@
 			<li class="sidebar-item" id="update-info"><a href="${root}/mypage/update" >개인정보 수정</a></li>
 		</ul>
 	</div>
-	<!-- onclick="changeMypageLink(this,'${root}/mypage/mypost/list');return false;" -->
 	<script>
 		toggleSidebar();
 	
@@ -32,16 +31,6 @@
 			
 			document.getElementById(targetId).classList.toggle("active");
 		}
-		//alert(window.location.href);
-		function changeMypageLink(aTag,link){
-			//var itemID = "";
-			var parentTag = aTag.parents("li");
-			alert(parentTag.classList);
-			//var sidebar = document.getElementById("post-list");
-			parentTag.classList.toggle("active");
-			document.location.href=link;
-		}
-		
 	</script>
 	
 	<div class="col-md-8 mypage-content">

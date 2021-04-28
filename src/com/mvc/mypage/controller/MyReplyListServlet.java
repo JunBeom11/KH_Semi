@@ -15,13 +15,13 @@ import com.mvc.member.model.vo.Member;
 import com.mvc.mypage.model.service.MypageService;
 
 
-@WebServlet("/mypage/myreply/list")
-public class replyListServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/mypage/myreply/list","/mypage/myreply"})
+public class MyReplyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MypageService service = new MypageService();
   
-    public replyListServlet() {
+    public MyReplyListServlet() {
 
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +39,7 @@ public class replyListServlet extends HttpServlet {
     		request.setAttribute("msg", "로그인 해주세요.");
     		request.setAttribute("location", "/member/login");
     		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+    		return;
     	}
     	
     	String loginId = loginMember.getMember_Id();

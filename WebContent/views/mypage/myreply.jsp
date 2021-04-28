@@ -13,16 +13,16 @@
 
 %>
 
-<style>
-	/*페이지바*/
-	div#pageBar{margin-top:10px; text-align:center;}
-</style>
-
-<section id="content">
+<div id="content">
 	<h2 align="center">내 댓글 </h2>
 	<br><br>
 	<div id="board-list-container">
-		<table id="tbl-board" class = "table">
+		<form action="/inCorona/mypage/myreply/delete" method="POST">
+		<div id="deleteList">
+			<button type="button" class="btn btn-default btn-sm"  onclick="checkAllReply();">전부 선택</button>
+			<input type="submit" class="btn btn-default btn-sm" id="ListSubmit" value="선택한 댓글 삭제하기" />
+		</div>
+		<table id="tbl-board" class = "table tlable-striped">
 			<tr>
 				<th>번호</th>
 				<th>댓글내용</th>
@@ -30,50 +30,54 @@
 				<th>등록일</th>
 				<th>삭제</th>
 			</tr>
-			<% if(list.isEmpty()) {%>
-			<tr>
-				<td colspan="5">
-					조회된 게시글이 없습니다.
-				</td>
-			</tr>	
-		<% } else {
-				for(Reply reply : list) {
-		%>
-			<tr>
-				<td><%= reply.getComment_EnrollNum() %></td>
-				<td><%= reply.getComment_Contents() %></td>
-				<td><%= reply.getComment_MemberId() %></td>
-				<td><%= reply.getComment_EnrollTime() %></td>
-				<td><input type="checkbox" ></td>
-			</tr>
-		<% 
-				}
-			} 
-		%>
+			
+			<c:choose>
+				<c:when test="${list eq null || list.isEmpty()}">
+					<tr>
+						<td colspan="5">조회된 게시글이 없습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="reply" items="${list}">
+					<tr>
+						<td>${ reply.rowNum }</td>
+						<td>${ reply.comment_Contents }</td>
+						<td>${ reply.comment_MemberId }</td>
+						<td>${ reply.comment_EnrollTime }</td>
+						<td><input type="checkbox" name="checkReply" value="${reply.comment_Num}"></td>
+					</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</table>
-		<div id="pageBar">
-			<!-- 맨 처음으로 -->
-			<button class="btn btn-primary" onclick="location.href='${root}/mypage/myreply/list?page=1'">&lt;&lt;</button>
+		</form>
+		
+		<nav>
+			<ul class="pagination" id="pageBar">
+				<li><a href="${root}/mypage/myreply/list?page=1">&laquo;</a></li>
+				<li><a href="${root}/mypage/myreply/list?page=${pageInfo.getPrvePage()}">&lt;</a></li>
+				<c:forEach var="p" begin="${pageInfo.getStartPage()}" end="${pageInfo.getEndPage()}">
+					<c:choose>
+						<c:when test="${p eq pageInfo.getCurrentPage()}">
+							<li class="active"><a href="">${p}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="${root}/mypage/mypost/list?page=${p}">${p}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<li><a href="${root}/mypage/mmyreply/list?page=${pageInfo.getNextPage()}">&gt;</a></li>
+				<li><a href="${root}/mypage/myreply/list?page=${pageInfo.getMaxPage()}">&raquo;</a></li>
 			
-			<!-- 이전 페이지로 -->
-			<button  class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/myreply/list?page=<%= pageInfo.getPrvePage() %>'">&lt;</button>
-
-			<!--  10개 페이지 목록 -->
-			<% for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) { %>
-				<% if(p == pageInfo.getCurrentPage()) { %>
-					<button disabled><%= p %></button>
-				<% } else { %>
-					<button class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/myreply/list?page=<%= p %>'"><%= p %></button>
-				<% } %>
-			<% } %>
-			
-			<!-- 다음 페이지로 -->
-			<button class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/myreply/list?page=<%= pageInfo.getNextPage()%>'">&gt;</button>
-			
-			<!-- 맨 끝으로 -->
-			<button class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/myreply/list?page=<%= pageInfo.getMaxPage() %>'">&gt;&gt;</button>
-		</div>
+			</ul>
+		</nav>
 	</div>
-</section>
-</body>
+</div>
+
+<script>
+	function checkAllReply(){
+		var isChecked = $('input[name=checkReply]:checked').length == $('input[name=checkReply]').length;
+		$("input[name=checkReply]:checkbox").prop("checked", !isChecked);
+	}
+</script>
 <%@ include file="/views/mypage/mypage_footer.jsp"%>

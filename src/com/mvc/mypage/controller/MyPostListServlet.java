@@ -16,13 +16,13 @@ import com.mvc.member.model.vo.Member;
 import com.mvc.mypage.model.service.MypageService;
 
 
-@WebServlet(urlPatterns={"/mypage","/mypage/mypost/list"})
-public class PostListServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/mypage","/mypage/","/mypage/mypost/list","/mypage/mypost"})
+public class MyPostListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MypageService service = new MypageService();
 	
-    public PostListServlet() {
+    public MyPostListServlet() {
   
     }
     
