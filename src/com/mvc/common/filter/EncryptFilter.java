@@ -15,7 +15,7 @@ import com.mvc.common.wrapper.EncryptPasswordWrapper;
 
 
 
-@WebFilter(filterName="encryFilter", servletNames = {"enroll","login"})
+@WebFilter(filterName="encryFilter", servletNames = {"enroll","login","updatePw"})
 public class EncryptFilter implements Filter {
 
   

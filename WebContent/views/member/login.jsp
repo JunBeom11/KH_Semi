@@ -4,13 +4,13 @@
 <%
 	String saveId = null;
 	Cookie[] cookies = request.getCookies();
-	
+
 	// 쿠키값 받아오기
 	if(cookies != null) {
 		for(Cookie c : cookies) {
 			if(c.getName().equals("saveId")) {
 				saveId = c.getValue();
-				
+
 				break;
 			}
 		}
@@ -21,64 +21,70 @@
 	section #enroll-container {
 		text-align:center;
 	}
-	
-	section #enroll-container input {
-		margin:3px;
-	}
-	
 	section #enroll-container table {
 		margin:0 auto;
 	}
-	
+
 	section #enroll-container table th {
-		padding:0 10px; 
+		padding:0 10px;
 		text-align:right;
 	}
-	
+
 	section #enroll-container table td {
-		padding:0 10px; 
+		padding:0 10px;
 		text-align:left;
 	}
 	h3{
 		text-align:center;
 	}
-	
+	label{
+		float:right;
+	}
+	#enrollSubmit{
+		width: 20%;
+		float:none;
+		margin:0 auto;
+	}
+
 </style>
 
 <section id="content">
-	<h3>로그인</h2>
-	
+	<h3>로그인</h3>
+	<br>
+	<br>
 	<div id="enroll-container">
 		<form action="<%=request.getContextPath() %>/member/login" method="POST">
 			<table>
 				<tr>
-					<th>아이디</th>
 					<td>
-						<input type="text" name="Member_Id" value="<%= saveId != null ? saveId : "" %>" placeholder="아이디" required/>
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+						  <input type="text" class="form-control" name="Member_Id" placeholder="아이디" aria-describedby="basic-addon1" value="<%= saveId != null ? saveId : "" %>" required>
+						</div>
+					</td>
+				</tr>
+				<tr height="10"></tr>
+				<tr>
+					<td>
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+						  <input type="password" class="form-control" name="Member_Pw" placeholder="비밀번호" aria-describedby="basic-addon1" required>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<th>패스워드</th>
-					<td><input type="password" name="Member_Pw" placeholder="비밀번호" required/></td>
-				</tr>
-				<tr>
-					<td></td>
 					<td>
 						<label><input type="checkbox" name="saveId" <%= saveId != null? "checked" : "" %>/>아이디 저장</label>
 					</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td>
-						<input type="submit" id="enrollSubmit" value="로그인"/>
-					</td>	
-				</tr>
 			</table>
+			<br>
+			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="로그인"/><br><br>
 			<h8>아직 회원이 아니신가요?</h8>
-			<input type="button" value="회원가입" onclick="location.href='<%= request.getContextPath()%>/member/enroll';"/><br>
-			<a href="">아이디 찾기</a>
-			<a href="">비밀번호 재설정</a>
-			
+			<input type="button" value="회원가입" id="btnEnroll" class="btn btn-default" onclick="location.href='<%= request.getContextPath()%>/member/agreement'"/><br>
+			<a href="<%=request.getContextPath()%>/member/confirmFindId">아이디 찾기</a>
+			<a href="<%=request.getContextPath()%>/member/confirmUpdatePw">비밀번호 재설정</a>
+
 		</form>
 	</div>
 </section>

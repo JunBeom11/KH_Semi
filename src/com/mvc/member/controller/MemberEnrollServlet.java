@@ -63,8 +63,11 @@ public class MemberEnrollServlet extends HttpServlet {
 			request.setAttribute("location", "/");
 		
 		}else {
+			
+			System.out.println(result);
 			request.setAttribute("msg","회원가입실패!");
 			request.setAttribute("location", "/member/enroll");
+	
 		}
 		
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);

@@ -47,15 +47,12 @@ public class MemberLoginServlet extends HttpServlet {
 		if(loginMember != null){
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
-			System.out.println("로그인 성공");
 			
 			request.setAttribute("msg", "로그인 성공");
 			request.setAttribute("location", "/");
-			//response.sendRedirect(request.getContextPath()+"/");
 		}else {
-			System.out.println("로그인 실패");
 			
-			request.setAttribute("msg", "로그인 실패");
+			request.setAttribute("msg", "로그인 실패 : 아이디, 비밀번호를 확인해 주세요");
 			request.setAttribute("location", "/member/login");
 		}
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);

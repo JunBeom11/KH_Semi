@@ -32,14 +32,14 @@
 		
 		var sec_height = $('section').height();
 		
-		if(sec_height <  win_height){
+		if(sec_height <=  win_height){
 			//윈도우 창이 컨텐츠보다 더 클때 --> 높이 확장
-			height = doc_height - nav_height - ftnav_height;
+			height = win_height - nav_height - ftnav_height;
 			$('section').css('height', height);
-			$('section').css('padding-bottom','');
+			$('section').css('padding-bottom',0);
 		}else {
 			//윈도우 창이 컨텐츠보다 더 작을 때 -> padding 더함
-			$('section').css('height', '');
+			$('section').css('height', sec_height);
 			$('section').css('padding-bottom',ftnav_height);
 		}
 	} 
