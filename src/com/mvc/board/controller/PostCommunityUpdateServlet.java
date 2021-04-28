@@ -44,13 +44,13 @@ public class PostCommunityUpdateServlet extends HttpServlet {
  		String location = mr.getParameter("location");
  		String content = mr.getParameter("content");
  		content = content.replaceAll("\n", "<br>");
- 		
+ 		String fileName= mr.getOriginalFileName("reloadFile");
+		String upfileName = mr.getFilesystemName("reloadFile");
      	post.setPost_Num(Integer.parseInt(mr.getParameter("boardNo")));
-     	post.setPost_Title("["+location+"]"+mr.getParameter("title"));
+     	post.setPost_Title(mr.getParameter("title"));
      	post.setPost_Content(mr.getParameter("content"));
      	post.setPost_MemberId(mr.getParameter("writer"));
-     	post.setPost_FileName("fileName");
-     	post.setPost_FileReName("upfileName");
+     	post.setPost_MemberNickname(mr.getParameter("nickname"));
 			switch(location)
 			{
 			case "서울": location="1";
@@ -70,8 +70,7 @@ public class PostCommunityUpdateServlet extends HttpServlet {
 			}
 		post.setPost_LocationNum(location);
      	System.out.println(post.getPost_LocationNum()+"번호");
- 		String fileName= mr.getFilesystemName("upfile");
- 		String upfileName = mr.getOriginalFileName("upfile");
+ 
  		if(fileName !=null && !fileName.equals(""))
  		{
  			String deleteFilePath=path+"/"+post.getPost_FileReName();

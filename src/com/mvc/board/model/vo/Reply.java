@@ -17,4 +17,5 @@ public class Reply {
 	private String comment_Remove;
 	private String comment_MemberId;
 	private int comment_EnrollNum;
+	private String comment_MemberNickname;
 }

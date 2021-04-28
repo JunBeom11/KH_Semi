@@ -6,12 +6,31 @@
 
 
 <% Post post = (Post)request.getAttribute("post");%>
-
+<% String num = post.getPost_LocationNum(); %>
+<% String country = null; %>
 <div>
 	<h1>&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
 	<hr>
-	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
-	<%=post.getPost_MemberId() %>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
+	<%if(num.equals("1")){%>
+		<% country = "서울";%>
+	<%} %>
+	<%if(num.equals("2")){%>
+		<% country = "경기";%>
+	<%} %>
+	<%if(num.equals("3")){%>
+		<% country = "충청";%>
+	<%} %>
+	<%if(num.equals("4")){%>
+		<% country = "경상";%>
+	<%} %>
+	<%if(num.equals("5")){%>
+		<% country = "전라";%>
+	<%} %>
+	<%if(num.equals("6")){%>
+		<% country = "강원";%>
+	<%} %>
+<div style="font-weight: bold; font-size: 16px">[<%=country%>]<%=post.getPost_Title()%><br></div>
+	<span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span>(<%=post.getPost_MemberId() %>)&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
 					<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
 							|| loginMember.getMember_Id().equals("admin"))) { %>
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatecommunity?boardNo=<%= post.getPost_Num()%>'">수정</button>
@@ -26,7 +45,7 @@
 		int rlen = post.getPost_FileReName().length()-4;
 		String form = post.getPost_FileReName().substring(rlen);%>
 		<% System.out.println(form); %>
-		<%if(form.equals(".jpg")||form.equals(".png")||form.equals("jpeg")){ %>
+		<%if(form.equals(".jpg")||form.equals(".png")||form.equals("jpeg")||form.equals(".JPG")||form.equals(".JPEG")||form.equals(".PNG")){ %>
 			<img src="<%=request.getContextPath()%>/resource/upload/board/<%=post.getPost_FileReName() %>" width="300" height="300"><br>
 		<%} %>
 	<%} %>
@@ -41,6 +60,7 @@
 <section id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/communityreply" method="post">
 	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
+	    			<input type="hidden" name="nickname" value="<%=loginMember !=null?loginMember.getMember_NickName() : "" %>">
 	    			<input type="hidden" name="writer" value="<%=loginMember != null ? loginMember.getMember_Id() : ""%>">
 					<input type="text" name="content" style = "width:723px">
 					<button type="submit" id="btn-insert">등록</button>	    			
@@ -75,10 +95,11 @@
 	    <% for(Reply reply : post.getReplies()) { %>
     	   	<tr class="level1">
 	    		<td>
-	    			<sub class="comment-writer"><%= reply.getComment_MemberId() %></sub>
+	    			<sub class="comment-writer"><span style="font-weight:bold"><%=reply.getComment_MemberNickname() %></span>(<%= reply.getComment_MemberId() %>)</sub>
 	    			<sub class="comment-date"><%=reply.getComment_EnrollTime() %></sub>
 	    			<br>
 	    			<%=reply.getComment_Contents() %>
+	    			<%System.out.println(reply);%>
 	    		</td>
 	    	</tr>
 	    <%} %>

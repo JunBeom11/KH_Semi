@@ -26,6 +26,7 @@
 							</select></td>
 				</tr>
 				<tr>
+					<td><input type="hidden" name="nickname" value="<%= loginMember.getMember_NickName()%>" class="nickname" readonly></td>
 					<td><input type="hidden" name="writer" value="<%= loginMember.getMember_Id() %>" class="writer" readonly></td>
 					<td><input type="hidden" name="boardNo" value="<%=post.getPost_Num()%>" readonly>
 				</tr>
@@ -39,7 +40,7 @@
 					<th>첨부파일</th>
 					<td><input type="file" name="reloadFile">
 					<%if(post.getPost_FileName()!=null){%>
-										<img src="<%=request.getContextPath()%>/resource/images/file.png" width="20" height="20">
+										<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
 										<%=post.getPost_FileName() %>
 					<%} %>
 					</td>

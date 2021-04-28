@@ -24,6 +24,7 @@ public class Post {
 	private String board_Num;
 	private String post_MemberId;
 	private String post_LocationNum;
+	private String post_MemberNickname;
 	private List<Reply> replies;
 	
 	
