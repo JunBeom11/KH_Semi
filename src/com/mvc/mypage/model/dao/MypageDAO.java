@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mvc.board.model.vo.Post;
+import com.mvc.board.model.vo.Reply;
+import com.mvc.common.jdbc.JDBCTemplate;
 import com.mvc.common.util.PageInfo;
 
 import static com.mvc.common.jdbc.JDBCTemplate.*;
@@ -41,7 +43,7 @@ public class MypageDAO {
 		return count;
 	}
 
-	public List<Post> findAll(Connection connection, PageInfo pageInfo, String loginId) {
+	public List<Post> findPostAll(Connection connection, PageInfo pageInfo, String loginId) {
 		List<Post> list= new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -96,6 +98,75 @@ public class MypageDAO {
 		}		
 		
 		return list;
+	}
+
+	public int getReplyCount(Connection connection, String loginId) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = null;
+		System.out.println("getpostCont"+loginId);
+		
+		try {
+			query = "SELECT COUNT(*) FROM COMMENTS WHERE COMMENT_REMOVE='N' AND COMMENT_MEMBERID=?";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, loginId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);			
+		}
+		
+		return count;
+	}
+
+	public List<Reply> findReplyAll(Connection connection, PageInfo pageInfo, String loginId) {
+		List<Reply> replies = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		String query = null;
+		
+		try{
+			query="SELECT comment_Num, comment_Contents, Comment_EnrollTime, Comment_Remove, comment_MemberId, comment_EnrollNum "
+				+	" FROM COMMENTS "
+				+ 	" WHERE COMMENT_REMOVE='N' AND COMMENT_MEMBERID=? "
+				+	" ORDER BY COMMENT_NUM DESC ";
+			
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, loginId);
+			rs = pstmt.executeQuery();
+
+			while(rs.next())
+			{
+				Reply reply = new Reply();
+				
+				reply.setComment_Num(rs.getInt("COMMENT_NUM"));
+				reply.setComment_EnrollNum(rs.getInt("COMMENT_ENROLLNUM"));
+				reply.setComment_Contents(rs.getString("COMMENT_CONTENTS"));
+				reply.setComment_MemberId(rs.getString("COMMENT_MEMBERID"));
+				reply.setComment_EnrollTime(rs.getDate("COMMENT_ENROLLTIME"));
+				replies.add(reply);
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return replies;
 	}
 
 }

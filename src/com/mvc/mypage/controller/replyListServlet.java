@@ -9,23 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.mvc.board.model.vo.Post;
+import com.mvc.board.model.vo.Reply;
 import com.mvc.common.util.PageInfo;
 import com.mvc.member.model.vo.Member;
 import com.mvc.mypage.model.service.MypageService;
 
 
-@WebServlet("/mypage/mypost/list")
-public class postListServlet extends HttpServlet {
+@WebServlet("/mypage/myreply/list")
+public class replyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MypageService service = new MypageService();
-	
-    public postListServlet() {
   
+    public replyListServlet() {
+
     }
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 게시물 리스트 조회
     	// 페이징 처리
@@ -33,7 +31,7 @@ public class postListServlet extends HttpServlet {
     	int page = 0;
     	int listCount = 0;
     	PageInfo pageInfo = null;
-    	List<Post> list = null;
+    	List<Reply> list = null;
     	HttpSession session = request.getSession();
     	Member loginMember = (Member)session.getAttribute("loginMember");
     	String loginId = loginMember.getMember_Id();
@@ -45,7 +43,7 @@ public class postListServlet extends HttpServlet {
     		page = 1;
 		}
     	
-    	listCount = service.getPostCount(loginId);    
+    	listCount = service.getReplyCount(loginId);    
     	pageInfo = new PageInfo(page, 10, listCount, 10);
     	/**
     	 * 
@@ -54,14 +52,13 @@ public class postListServlet extends HttpServlet {
     	 * @param listCount 전체 리스트의 수
     	 * @param listLimit 한 페이지에 표시될 리스트의 수
     	 */
-    	list = service.getPostList(pageInfo, loginId);
+    	list = service.getReplyList(pageInfo, loginId);
     	
     	System.out.println(list);
     	    	
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
-    	request.getRequestDispatcher("/views/mypage/mypost.jsp").forward(request, response);
+    	request.getRequestDispatcher("/views/mypage/myreply.jsp").forward(request, response);
 	}
-
 
 }

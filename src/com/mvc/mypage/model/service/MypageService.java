@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.mvc.board.model.vo.Post;
+import com.mvc.board.model.vo.Reply;
 import com.mvc.common.util.PageInfo;
 import com.mvc.mypage.model.dao.MypageDAO;
 
@@ -29,7 +30,25 @@ public class MypageService {
 
 	public List<Post> getPostList(PageInfo pageInfo, String loginId) {
 		Connection connection = getConnection();
-		List<Post> list = dao.findAll(connection, pageInfo, loginId);
+		List<Post> list = dao.findPostAll(connection, pageInfo, loginId);
+		
+		close(connection);
+		
+		return list;
+	}
+
+	public int getReplyCount(String loginId) {
+		Connection connection = getConnection();
+		int count = dao.getReplyCount(connection, loginId);
+		
+		close(connection);
+		
+		return count;
+	}
+
+	public List<Reply> getReplyList(PageInfo pageInfo, String loginId) {
+		Connection connection = getConnection();
+		List<Reply> list = dao.findReplyAll(connection, pageInfo, loginId);
 		
 		close(connection);
 		
