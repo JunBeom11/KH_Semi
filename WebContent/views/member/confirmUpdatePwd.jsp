@@ -51,6 +51,7 @@
 				<tr>
 					<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group" style = "width:100%">
@@ -61,6 +62,7 @@
 				<tr>
 					<td id="nicknameresult"></td> <!-- 닉네임 확인 메세지 -->
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group">
@@ -88,6 +90,7 @@
 			var checkEnglish =  /[^a-zA-Z]/;
 			var checkNumber = /[^0-9]/;
 			var checkBlank = /[\s]/;
+			var checkNEnglish = /[a-zA-Z]/;
 			
 			if(id.length < 4 || id.length > 10) {
 				$('#idresult').attr('style', "display:'';");
@@ -119,7 +122,7 @@
 				$("#nicknameresult").html("닉네임은 공백을 포함할 수 없습니다.");
 				$("#newMemberNickName").val("");
 				$("#newMemberNickName").focus();
-			}else if(checkKorean.test(nickName)==false && checkEnglish.test(nickName)==true){
+			}else if((!checkKorean.test(nickName)) && (!checkNEnglish.test(nickName))){
 				$('#nicknameresult').attr('style', "display:'';");
 				$("#nicknameresult").html("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");
 				$("#newMemberNickName").val("");

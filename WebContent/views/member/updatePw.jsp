@@ -48,6 +48,7 @@
 						</div>	
 					</td>
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group">

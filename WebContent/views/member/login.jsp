@@ -63,6 +63,7 @@
 						</div>	
 					</td>	
 				</tr>
+				<tr height="10"></tr>
 				<tr>
 					<td>
 						<div class="input-group">
@@ -78,7 +79,7 @@
 				</tr>
 			</table>
 			<br>
-			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="로그인"/><br>
+			<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="로그인"/><br><br>
 			<h8>아직 회원이 아니신가요?</h8>
 			<input type="button" value="회원가입" id="btnEnroll" class="btn btn-default" onclick="location.href='<%= request.getContextPath()%>/member/agreement'"/><br>
 			<a href="<%=request.getContextPath()%>/member/confirmFindId">아이디 찾기</a>
