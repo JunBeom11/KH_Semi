@@ -42,7 +42,7 @@
 					<tr>
 						<td>${ reply.rowNum }</td>
 						<td>${ reply.comment_Contents }</td>
-						<td>${ reply.comment_MemberId }</td>
+						<td>${ reply.comment_MemberNickname }</td>
 						<td>${ reply.comment_EnrollTime }</td>
 						<td><input type="checkbox" name="checkReply" value="${reply.comment_Num}"></td>
 					</tr>

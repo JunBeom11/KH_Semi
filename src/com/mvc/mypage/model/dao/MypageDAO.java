@@ -75,6 +75,7 @@ public class MypageDAO {
 				post.setPost_Num(rs.getInt("POST_NUM"));
 				post.setRowNum(rs.getInt("RNUM"));
 				post.setPost_MemberId(rs.getString("POST_MEMBERID"));
+				post.setPost_MemberNickname(rs.getString("MEMBER_NICKNAME"));
 				post.setPost_Title(rs.getString("POST_TITLE"));
 				post.setEnrollTime(rs.getDate("POST_ENROLLTIME"));
 				post.setPost_FileName(rs.getString("POST_FILENAME"));
@@ -157,6 +158,7 @@ public class MypageDAO {
 				reply.setComment_EnrollNum(rs.getInt("COMMENT_ENROLLNUM"));
 				reply.setComment_Contents(rs.getString("COMMENT_CONTENTS"));
 				reply.setComment_MemberId(rs.getString("COMMENT_MEMBERID"));
+				reply.setComment_MemberNickname(rs.getString("MEMBER_NICKNAME"));
 				reply.setComment_EnrollTime(rs.getDate("COMMENT_ENROLLTIME"));
 				replies.add(reply);
 			}

@@ -40,7 +40,7 @@
 					<tr>
 						<td>${ post.rowNum }</td>
 						<td>${ post.post_Title }</td>
-						<td>${ post.post_MemberId }</td>
+						<td>${ post.post_MemberNickname }</td>
 						<td>${ post.getEnrollTime() }</td>
 						<td><input type="checkbox" name="checkPost" value="${post.post_Num}"></td>
 					</tr>
