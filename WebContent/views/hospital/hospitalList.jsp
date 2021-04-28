@@ -12,6 +12,9 @@
 List<Hospital> list = (ArrayList) request.getAttribute("list");
 PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
 Hospital hospital= (Hospital) request.getAttribute("hospital");
+
+Object locationNum = request.getAttribute("locationNum");
+String location = (String)locationNum;
 %>
 
 <style>
@@ -62,28 +65,28 @@ div #map {
 </style>
 
 
-<section class=hospital-header>
-	<!--  <form  action="<%=request.getContextPath()%>/hospital/list">-->
+<div class=hospital-header style="height: 200px">
+	    <form  action="<%=request.getContextPath()%>/hospital/list" method="get">
 		<h2 align="center" class="locationNow">
 			현재 지역 : <select name="locationName" onchange="this.form.submit();">
-				<option value="">지역</option>
-				<option value="서울">서울</option>
-				<option value="경기">경기</option>
-				<option value="대구">대구</option>
-				<option value="인천">인천</option>
-				<option value="광주">광주</option>
-				<option value="대전">대전</option>
-				<option value="울산">울산</option>
-				<option value="부산">부산</option>
-				<option value="강원">강원</option>
-				<option value="충남">충남</option>
-				<option value="충북">충북</option>
-				<option value="전남">전남</option>
-				<option value="전북">전북</option>
-				<option value="경남">경남</option>
-				<option value="경북">경북</option>
-				<option value="제주">제주</option>
-				<option value="세종">세종</option>
+				<option value="" >지역</option>
+				<option value="서울" name="locationName">서울</option>
+				<option value="경기" name="locationName">경기</option>
+				<option value="대구" name="locationName">대구</option>
+				<option value="인천" name="locationName">인천</option>
+				<option value="광주" name="locationName">광주</option>
+				<option value="대전" name="locationName">대전</option>
+				<option value="울산" name="locationName">울산</option>
+				<option value="부산" name="locationName">부산</option>
+				<option value="강원" name="locationName">강원</option>
+				<option value="충남" name="locationName">충남</option>
+				<option value="충북" name="locationName">충북</option>
+				<option value="전남" name="locationName">전남</option>
+				<option value="전북" name="locationName">전북</option>
+				<option value="경남" name="locationName">경남</option>
+				<option value="경북" name="locationName">경북</option>
+				<option value="제주" name="locationName">제주</option>
+				<option value="세종" name="locationName">세종</option>
 			</select>
 		</h2>
 	<!-- </form>
@@ -95,7 +98,7 @@ div #map {
 	<button class="button button2"
 		onclick="location.href='<%=request.getContextPath()%>/hospital/cList'">선별진료소</button>
 
-</section>
+</div>
 <br>
 
 <div class="row">
@@ -128,6 +131,7 @@ div #map {
 			</table>
 		</div>
 		
+		<%if(locationNum.equals("0")) { %>
 		<div class="row-md-5">
 			<div id="pageBar">
 				<!-- 맨 처음으로 -->
@@ -147,8 +151,7 @@ div #map {
 				%>
 				<button disabled><%=p%></button>
 				<%
-				} else {
-				%>
+				} else {%>
 				<button
 					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
 				<%
@@ -167,6 +170,705 @@ div #map {
 					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
 			</div>
 		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("1")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("2")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("3")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대구&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대구&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대구&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대구&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("4")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=인천&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=인천&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=인천&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=인천&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("5")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=광주&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=광주&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=광주&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=광주&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("6")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대전&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대전&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대전&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=대전&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("7")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=울산&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=울산&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=울산&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=울산&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("8")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=부산&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=부산&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=부산&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=부산&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("9")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=강원&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=강원&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=강원&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=강원&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("10")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충남&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충남&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충남&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충남&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("11")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충북&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충북&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충북&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=충북&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("12")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전남&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전남&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전남&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전남&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("13")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전북&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전북&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전북&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=전북&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("14")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경남&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경남&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경남&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경남&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("15")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경북&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경북&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경북&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경북&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("16")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=제주&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=제주&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=제주&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=제주&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
+		<%if(locationNum.equals("17")) { %>
+		<div class="row-md-5">
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=세종&page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=세종&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<%
+				for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) {
+				%>
+				<%
+				if (p == pageInfo.getCurrentPage()) {
+				%>
+				<button disabled><%=p%></button>
+				<%
+				} else {%>
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?page=<%=p%>'"><%=p%></button>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=세종&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=세종&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+			</div>
+		</div>
+		<% } %>
+		
 	</div>
 </div>
 

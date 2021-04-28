@@ -1,8 +1,6 @@
 package com.mvc.hospital.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -34,6 +32,8 @@ public class HospitalListServlet extends HttpServlet {
     	int listCount = 0;
     	PageInfo pageInfo = null;
     	List<Hospital> list = null;
+    	String locationName=request.getParameter("locationName");
+    	
     	
     	try {
     		page = Integer.parseInt(request.getParameter("page"));
@@ -41,11 +41,26 @@ public class HospitalListServlet extends HttpServlet {
     		page = 1;
 		}
     	
-    	listCount = service.getHospitalCount();    	
+    	if(locationName==null) {
+    		listCount = service.getHospitalCount2(locationName);    	
+    		
+    	}
+    	else {
+    		listCount = service.getHospitalCount2(locationName);
+    	}
+    	
     	pageInfo = new PageInfo(page, 10, listCount, 10);
-//    	list = service.getHospitalList(pageInfo);
-    	list = service.getHospitalSeoulList(pageInfo);
-    	    	
+    	list = service.getHospitalList(pageInfo);
+    	
+    	if(list.size()!=0 && locationName!=null) {
+    		String locationNum=list.get(0).getLocation_Hnum();
+    		request.setAttribute("locationNum", locationNum);
+    	}
+    	else {
+    		String locationNum="0";
+    		request.setAttribute("locationNum", locationNum);
+    	}
+    	
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
     	request.getRequestDispatcher("/views/hospital/hospitalList.jsp").forward(request, response);

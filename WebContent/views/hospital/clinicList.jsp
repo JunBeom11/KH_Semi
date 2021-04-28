@@ -61,7 +61,7 @@ div #map {
 </style>
 
 
-<section class=hospital-header>
+<section class=hospital-header style="height: 200px">
 	<form action="<%=request.getContextPath()%>/clinic/list">
 		<h2 align="center" class="locationNow">
 			현재 지역 : <select name="locationName" onchange="this.form.submit();">
