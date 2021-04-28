@@ -44,7 +44,11 @@
 			<td><%= post.getPost_MemberId() %></td>
 			<td><%= post.getEnrollTime() %></td>
 			<td>
-				<span> - </span>
+				<% if(post.getPost_FileName() != null) { %>
+					<img src="<%= request.getContextPath() %>/resource/image/file.png" width="20" height="20"/>
+				<% } else { %>
+					<span> - </span>
+				<% } %>
 			</td>
 			<td><%= post.getPost_Views() %></td>
 		</tr>
