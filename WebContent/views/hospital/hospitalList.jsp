@@ -89,8 +89,8 @@ div #map {
 				<option value="세종" name="locationName">세종</option>
 			</select>
 		</h2>
-	<!-- </form>
-	-->
+	</form>
+	
 	<br>
 
 	<button class="button button1"
@@ -177,11 +177,11 @@ div #map {
 			<div id="pageBar">
 				<!-- 맨 처음으로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=1'">&lt;&lt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=서울&page=1'">&lt;&lt;</button>
 
 				<!-- 이전 페이지로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=서울&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
 
 				<!--  10개 페이지 목록 -->
 				<%
@@ -194,7 +194,7 @@ div #map {
 				<%
 				} else {%>
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=p%>'"><%=p%></button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=서울&page=<%=p%>'"><%=p%></button>
 				<%
 				}
 				%>
@@ -204,11 +204,11 @@ div #map {
 
 				<!-- 다음 페이지로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=서울&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
 
 				<!-- 맨 끝으로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=서울&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=서울&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
 			</div>
 		</div>
 		<% } %>
@@ -218,11 +218,11 @@ div #map {
 			<div id="pageBar">
 				<!-- 맨 처음으로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=1'">&lt;&lt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=경기&page=1'">&lt;&lt;</button>
 
 				<!-- 이전 페이지로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=경기&page=<%=pageInfo.getPrvePage()%>'">&lt;</button>
 
 				<!--  10개 페이지 목록 -->
 				<%
@@ -235,7 +235,7 @@ div #map {
 				<%
 				} else {%>
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=p%>'"><%=p%></button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=경기&page=<%=p%>'"><%=p%></button>
 				<%
 				}
 				%>
@@ -245,11 +245,11 @@ div #map {
 
 				<!-- 다음 페이지로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=경기&page=<%=pageInfo.getNextPage()%>'">&gt;</button>
 
 				<!-- 맨 끝으로 -->
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/hospital/list?location=경기&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
+					onclick="location.href='<%=request.getContextPath()%>/hospital/list?locationName=경기&page=<%=pageInfo.getMaxPage()%>'">&gt;&gt;</button>
 			</div>
 		</div>
 		<% } %>

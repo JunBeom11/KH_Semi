@@ -76,6 +76,12 @@ public class HospitalService {
 	public int getHospitalCount(String locationName) {
 		return 0;
 	}
+	public List<Hospital> gethType_location(PageInfo pageInfo, String locationName) {
+		Connection connection = getConnection();
+		List<Hospital> list = dao.gethType_location(connection, pageInfo, locationName);
+		close(connection);
+		return list;
+	}
 
 	
 

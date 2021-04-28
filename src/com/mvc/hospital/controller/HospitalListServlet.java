@@ -50,10 +50,13 @@ public class HospitalListServlet extends HttpServlet {
     	}
     	
     	pageInfo = new PageInfo(page, 10, listCount, 10);
-    	list = service.getHospitalList(pageInfo);
+    	list = service.gethType_location(pageInfo, locationName);
+    	System.out.println("list : "+list);
+    	System.out.println("locationName : "+locationName);
     	
     	if(list.size()!=0 && locationName!=null) {
     		String locationNum=list.get(0).getLocation_Hnum();
+    		System.out.println(locationNum + "성공");
     		request.setAttribute("locationNum", locationNum);
     	}
     	else {

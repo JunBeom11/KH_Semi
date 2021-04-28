@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.mvc.common.util.PageInfo;
 import com.mvc.hospital.model.vo.Hospital;
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import static com.mvc.common.jdbc.JDBCTemplate.*;
 
@@ -151,7 +152,6 @@ public class HospitalDAO {
 		ResultSet rs = null;
 		String query = null;
 		try {
-//			query = "select HOSPITAL_NAME, hospital_address, hospital_tel, location_num from hospital";
 			query = "select rown, hospital_name, hospital_address, hospital_tel, location_num from( "
 					+ "select rownum as rown, hospital_name, hospital_address, hospital_tel, location_num from( "
 					+ "select  hospital_name, hospital_address, hospital_tel, location_num from hospital "
@@ -249,8 +249,8 @@ public class HospitalDAO {
 			// ? 값을 set하는 구문
 //			System.out.println(pageInfo.getStartList());
 //			System.out.println(pageInfo.getEndList());
-			pstmt.setInt(1, pageInfo.getStartList());
-			pstmt.setInt(2, pageInfo.getEndList());
+			pstmt.setInt(2, pageInfo.getStartList());
+			pstmt.setInt(3, pageInfo.getEndList());
 
 			rs = pstmt.executeQuery();
 
@@ -276,4 +276,96 @@ public class HospitalDAO {
 
 		return list;
 	}
+
+	public List<Hospital> gethType_location(Connection connection, PageInfo pageInfo, String locationName) {
+		List<Hospital> list=new ArrayList<>();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String query=null;
+		
+		System.out.println(locationName);
+		
+		query="select rownum, hospital_name, hospital_address, hospital_tel, location_num "
+				+ "from hospital ";
+		
+//		select rownum,hospital_name, hospital_address, hospital_tel, location_num 
+//		from hospital 
+//		where location_num=2
+//		and rownum between 1 and 10;
+		
+		
+		if(locationName!=null) {
+			query+="where location_num = ?";
+			System.out.println("첫번째 if 문 : "+locationName);
+			System.out.println("첫번째 if문 list : "+list);
+		}
+		query+= "and rownum between ? and ?";
+		System.out.println("rownum  list : "+list);
+		if(locationName!=null) {
+			query+="and location_num = ?";
+			System.out.println("두번째 if 문 : "+locationName);
+			System.out.println("두번째 if 문  list : "+list);
+		}
+		try {
+			pstmt=connection.prepareStatement(query);
+			System.out.println("try list : "+list);
+			if(locationName==null) {
+				pstmt.setInt(1, pageInfo.getStartList());
+				pstmt.setInt(2, pageInfo.getEndList());
+				System.out.println("locationName==null : "+list);
+			}
+			else {
+				pstmt.setInt(2, pageInfo.getStartList());
+				pstmt.setInt(3, pageInfo.getEndList());
+				System.out.println("locationName!=null : "+list);
+				
+				switch(locationName) {
+				case "서울": pstmt.setString(1, "1"); pstmt.setString(4, "1");
+					break;
+				case "경기": pstmt.setString(1, "2"); pstmt.setString(4, "2");
+				break;
+				case "대구": pstmt.setString(1, "3"); pstmt.setString(4, "3");
+				break;
+				case "인천": pstmt.setString(1, "4"); pstmt.setString(4, "4");
+				break;
+				case "광주": pstmt.setString(1, "5"); pstmt.setString(4, "5");
+				break;
+				case "대전": pstmt.setString(1, "6"); pstmt.setString(4, "6");
+				break;
+				case "울산": pstmt.setString(1, "7"); pstmt.setString(4, "7");
+				break;
+				case "부산": pstmt.setString(1, "8"); pstmt.setString(4, "8");
+				break;
+				case "강원": pstmt.setString(1, "9"); pstmt.setString(4, "9");
+				break;
+				case "충남": pstmt.setString(1, "10"); pstmt.setString(4, "10");
+				break;
+				default : System.out.println("없음");
+				break;
+				}
+			}
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Hospital hospital = new Hospital();
+				
+				hospital.setRowNum(rs.getInt("rownum"));
+				hospital.setHospital_Name(rs.getString("hospital_name"));
+				hospital.setHospital_Address(rs.getString("hospital_address"));
+				hospital.setHospital_Tel(rs.getString("hospital_tel"));
+				hospital.setLocation_Hnum(rs.getString("location_Num"));
+				
+				list.add(hospital);
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 }
