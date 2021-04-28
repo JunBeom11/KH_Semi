@@ -10,7 +10,7 @@
 <body>
 	<form name="checkLogoutForm" ></form>
 	<script type="text/javascript">
-			if (confirm("정말 로그아웃 하시겠습니다?") == true){  
+			if (confirm("정말 로그아웃 하시겠습니까?") == true){  
 				checkLogoutForm.action="<%=request.getContextPath() %>/member/logout";
 				checkLogoutForm.method="post";
 				checkLogoutForm.submit();
