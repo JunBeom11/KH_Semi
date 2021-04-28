@@ -20,9 +20,9 @@
 	<div class="col-md-3 sidebar navbar-static-top">
 		<h2 id="sidebar-title">마이페이지</h2>
 		<ul class="nav nav-pills nav-stacked">
-			<li class="sidebar-item active"><a href="#" >개인정보 수정</a></li>
-			<li class="sidebar-item"><a href="#">내 글</a></li>
-			<li class="sidebar-item"><a href="#">내 댓글</a></li>
+			<li class="sidebar-item active"><a href="<%= request.getContextPath() %>/mypage/update" >개인정보 수정</a></li>
+			<li class="sidebar-item"><a href="<%= request.getContextPath() %>/mypage/mypost/list">내 글</a></li>
+			<li class="sidebar-item"><a href="<%= request.getContextPath() %>/mypage/myreply/list">내 댓글</a></li>
 		</ul>
 	</div>
 	<div class="col-md-8">
