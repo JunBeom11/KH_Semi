@@ -12,16 +12,17 @@
 
 %>
 
-<style>
-	/*페이지바*/
-	div#pageBar{margin-top:10px; text-align:center;}
-</style>
-
-<section id="content">
+<div id="content">
 	<h2 align="center">내 게시글 </h2>
 	<br><br>
 	<div id="board-list-container">
-		<table id="tbl-board" class = "table">
+		<form action="/inCorona/mypage/mypost/delete" method="POST">
+		<div id="deleteList">
+			<button type="button" class="btn btn-default btn-sm"  onclick="checkAllPost();">전부 선택</button>
+			<input type="submit" class="btn btn-default btn-sm" id="ListSubmit" value="선택한 글 삭제하기"></button>
+			<!-- <input type="submit" class="btn btn-default btn-sm" id="ListSubmit" onclick="return deletePost();" value="선택한 글 삭제하기"></button>
+ -->		</div>
+		<table id="tbl-board" class = "table table-striped">
 			<tr>
 				<th>번호</th>
 				<th>게시글 제목</th>
@@ -29,50 +30,61 @@
 				<th>등록일</th>
 				<th>삭제</th>
 			</tr>
-			<% if(list.isEmpty()) {%>
-			<tr>
-				<td colspan="5">
-					조회된 게시글이 없습니다.
-				</td>
-			</tr>	
-		<% } else {
-				for(Post post : list) {
-		%>
-			<tr>
-				<td><%= post.getRowNum() %></td>
-				<td><%= post.getPost_Title() %></td>
-				<td><%= post.getPost_MemberId() %></td>
-				<td><%= post.getEnrollTime() %></td>
-				<td><input type="checkbox" ></td>
-			</tr>
-		<% 
-				}
-			} 
-		%>
+			<c:choose>
+				<c:when test="${list eq null || list.isEmpty()}">
+					<tr>
+						<td colspan="5">조회된 게시글이 없습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="post" items="${list}">
+					<tr>
+						<td>${ post.rowNum }</td>
+						<td>${ post.post_Title }</td>
+						<td>${ post.post_MemberId }</td>
+						<td>${ post.getEnrollTime() }</td>
+						<td><input type="checkbox" name="checkPost" value="${post.post_Num}"></td>
+					</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</table>
-		<div id="pageBar">
-			<!-- 맨 처음으로 -->
-			<button class="btn btn-primary" onclick="location.href='${root}/mypage/mypost/list?page=1'">&lt;&lt;</button>
+		</form>
+		<nav>
+			<ul class="pagination" id="pageBar">
+				<li><a href="${root}/mypage/mypost/list?page=1">&laquo;</a></li>
+				<li><a href="${root}/mypage/mypost/list?page=${pageInfo.getPrvePage()}">&lt;</a></li>
+				<c:forEach var="p" begin="${pageInfo.getStartPage()}" end="${pageInfo.getEndPage()}">
+					<c:choose>
+						<c:when test="${p eq pageInfo.getCurrentPage()}">
+							<li class="active"><a href="">${p}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="${root}/mypage/mypost/list?page=${p}">${p}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<li><a href="${root}/mypage/mypost/list?page=${pageInfo.getNextPage()}">&gt;</a></li>
+				<li><a href="${root}/mypage/mypost/list?page=${pageInfo.getMaxPage()}">&raquo;</a></li>
 			
-			<!-- 이전 페이지로 -->
-			<button  class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/mypost/list?page=<%= pageInfo.getPrvePage() %>'">&lt;</button>
-
-			<!--  10개 페이지 목록 -->
-			<% for (int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++) { %>
-				<% if(p == pageInfo.getCurrentPage()) { %>
-					<button disabled><%= p %></button>
-				<% } else { %>
-					<button class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/mypost/list?page=<%= p %>'"><%= p %></button>
-				<% } %>
-			<% } %>
-			
-			<!-- 다음 페이지로 -->
-			<button class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/mypost/list?page=<%= pageInfo.getNextPage()%>'">&gt;</button>
-			
-			<!-- 맨 끝으로 -->
-			<button class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/mypage/mypost/list?page=<%= pageInfo.getMaxPage() %>'">&gt;&gt;</button>
-		</div>
+			</ul>
+		</nav>
+		
 	</div>
-</section>
-</body>
+</div>
+
+<script>
+	function checkAllPost(){
+		var isChecked = $('input[name=checkPost]:checked').length == $('input[name=checkPost]').length;
+		$("input[name=checkPost]:checkbox").prop("checked", !isChecked);
+	}
+	
+	function deletePost(){
+		var deletePostList = [];
+		$("input[name=checkPost]:checkbox").each(function() {
+			if(this.checked) deletePostList.push(this.value);
+		});
+	}
+</script>
+
 <%@ include file="/views/mypage/mypage_footer.jsp"%>

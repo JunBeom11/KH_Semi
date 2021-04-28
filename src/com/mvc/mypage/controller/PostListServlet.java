@@ -16,13 +16,13 @@ import com.mvc.member.model.vo.Member;
 import com.mvc.mypage.model.service.MypageService;
 
 
-@WebServlet("/mypage/mypost/list")
-public class postListServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/mypage","/mypage/mypost/list"})
+public class PostListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MypageService service = new MypageService();
 	
-    public postListServlet() {
+    public PostListServlet() {
   
     }
     
@@ -36,6 +36,14 @@ public class postListServlet extends HttpServlet {
     	List<Post> list = null;
     	HttpSession session = request.getSession();
     	Member loginMember = (Member)session.getAttribute("loginMember");
+    	
+    	if(loginMember==null) {
+    		request.setAttribute("msg", "로그인 해주세요.");
+    		request.setAttribute("location", "/member/login");
+    		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+    		return;
+    	}
+    	
     	String loginId = loginMember.getMember_Id();
     	System.out.println("servlet"+loginId);
  

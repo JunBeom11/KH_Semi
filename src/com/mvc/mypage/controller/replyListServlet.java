@@ -34,6 +34,13 @@ public class replyListServlet extends HttpServlet {
     	List<Reply> list = null;
     	HttpSession session = request.getSession();
     	Member loginMember = (Member)session.getAttribute("loginMember");
+    	
+    	if(loginMember==null) {
+    		request.setAttribute("msg", "로그인 해주세요.");
+    		request.setAttribute("location", "/member/login");
+    		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+    	}
+    	
     	String loginId = loginMember.getMember_Id();
     	System.out.println("servlet"+loginId);
  

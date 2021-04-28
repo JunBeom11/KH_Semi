@@ -24,7 +24,7 @@ public class MypageDAO {
 		System.out.println("getpostCont"+loginId);
 		
 		try {
-			query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_BoardNum='1' AND POST_MEMBERID=?";
+			query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_MEMBERID=?";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setString(1, loginId);
 			rs = pstmt.executeQuery();
@@ -51,17 +51,14 @@ public class MypageDAO {
 		System.out.println("findall"+loginId);
 		
 		try {
-				
-			query="SELECT RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE " 
-					+"FROM( " 
-					+	    "SELECT ROWNUM AS RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS,  POST_REMOVE " 
-					+	   " FROM( " 
-					+"	        SELECT P.post_num, P.post_title, P.post_memberid, P.post_enrolltime, P.post_filename, P.post_filerename, P.post_views, P.post_Remove "
-					+"	        FROM POST P JOIN MEMBER M ON(P.post_memberid=M.Member_Id) " 
-					+"	        WHERE P.POST_REMOVE='N' AND P.POST_BOARDNUM='1' AND P.POST_MEMBERID=? ORDER BY P.POST_NUM DESC " 
-					+"	        ) "
-					+"	    ) "
-					+"	WHERE RNUM BETWEEN ? and ?"; 
+			query="SELECT *"
+					+ "FROM ("
+					+ "    SELECT ROWNUM AS RNUM,POST_NUM,POST_TITLE,POST_MEMBERID,POST_ENROLLTIME,POST_FILENAME,POST_FILERENAME,POST_VIEWS,POST_REMOVE,MEMBER_NICKNAME"
+					+ "    FROM ("
+					+ "        SELECT * FROM POST P LEFT JOIN MEMBER M ON(P.POST_MEMBERID=M.MEMBER_ID) WHERE P.POST_REMOVE='N' AND P.POST_MEMBERID=? ORDER BY P.POST_NUM DESC"
+					+ "    )"
+					+ ")"
+					+ "WHERE RNUM BETWEEN ? AND ?";
 			
 			pstmt = connection.prepareStatement(query);
 			
@@ -86,6 +83,7 @@ public class MypageDAO {
 				post.setPost_Remove(rs.getString("POST_REMOVE"));				
 				
 				list.add(post);
+				System.out.println(post);
 			}			
 			
 			System.out.println(list);
