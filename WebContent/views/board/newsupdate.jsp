@@ -18,6 +18,7 @@
 					<td><input type="text" name="title" id="title" value="<%=post.getPost_Title() %>" style = "width:723px"></td>
 				</tr>
 				<tr>
+					<td><input type="hidden" name="nickname" value="<%= loginMember.getMember_NickName()%>" class="nickname" readonly></td>
 					<td><input type="hidden" name="writer" value="<%= loginMember.getMember_Id() %>" class="writer" readonly></td>
 					<td><input type="hidden" name="boardNo" value="<%=post.getPost_Num()%>" readonly>
 				</tr>
