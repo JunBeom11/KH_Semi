@@ -18,12 +18,12 @@
 	<div id="board-list-container">
 		<table class = "table">
 			<tr>
-				<th>&nbsp;&nbsp;&nbsp;번호</th>
-				<th>작성자</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th>첨부파일</th>
-				<th>조회수</th>
+				<th bgcolor="#E6E6E6">&nbsp;&nbsp;&nbsp;번호</th>
+				<th bgcolor="#E6E6E6">제목</th>
+				<th bgcolor="#E6E6E6">작성자</th>
+				<th bgcolor="#E6E6E6">작성일</th>
+				<th bgcolor="#E6E6E6">첨부파일</th>
+				<th bgcolor="#E6E6E6">조회수</th>
 			</tr>
 	<% if(list.isEmpty()){ %>
 			<tr>
@@ -37,14 +37,18 @@
 	%>
 		<tr>
 			<td><%= post.getRowNum() %></td>
-			<td><%= post.getPost_MemberId() %></td>
 			<td>
 			<a href = "<%= request.getContextPath()%>/board/newsview?boardNo=<%=post.getPost_Num() %>">
 			<%= post.getPost_Title() %></a>
 			</td>
+			<td><%= post.getPost_MemberId() %></td>
 			<td><%= post.getEnrollTime() %></td>
 			<td>
-				<span> - </span>
+				<% if(post.getPost_FileName() != null) { %>
+					<img src="<%= request.getContextPath() %>/resource/image/file.png" width="20" height="20"/>
+				<% } else { %>
+					<span> - </span>
+				<% } %>
 			</td>
 			<td><%= post.getPost_Views() %></td>
 		</tr>

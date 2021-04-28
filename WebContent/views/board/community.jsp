@@ -16,47 +16,29 @@
 	String location = (String)locnum;
 %>
 
+<br>
 <section>
-<h1 style="display:inline">&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
-<form method="GET" action="<%=request.getContextPath()%>/board/community">
-    <input type='submit' value="전체"/>
-</form>
-<form method="GET" action="<%=request.getContextPath()%>/board/community">
-	<input type="hidden" name="country" value="서울">
-    <input type='submit' value="서울"/>
-</form>
-<form method="GET" action="<%=request.getContextPath()%>/board/community">
-	<input type="hidden" name="country" value="경기">
-    <input type='submit' value="경기"/>
-</form>
-<form method="GET" action="<%=request.getContextPath()%>/board/community">
-	<input type="hidden" name="country" value="충청">
-    <input type='submit' value="충청"/>
-</form>
-<form method="GET" action="<%=request.getContextPath()%>/board/community">
-	<input type="hidden" name="country" value="경상">
-    <input type='submit' value="경상"/>
-</form>
-<form method="GET" action="<%=request.getContextPath()%>/board/community">
-	<input type="hidden" name="country" value="전라">
-    <input type='submit' value="전라"/>
-</form>
-<form method="GET" action="<%=request.getContextPath()%>/board/community">
-	<input type="hidden" name="country" value="강원">
-    <input type='submit' value="강원"/>
-</form>
-
-
-	<br><br>
+<h1 style="display:inline">&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="display:inline-block; margin:10px; padding:5px; border:1px solid; color:Lightgray; font-weight:bold; background:#E6E6E6; width:300px; text-align:center">
+&nbsp;&nbsp;<a style = "color:gray" href="<%=request.getContextPath()%>/board/community">전체</a>&nbsp;&nbsp;
+<a style = "color:gray" href="<%=request.getContextPath()%>/board/community?country=서울">서울</a>&nbsp;&nbsp;
+<a style = "color:gray" href="<%=request.getContextPath()%>/board/community?country=경기">경기</a>&nbsp;&nbsp;
+<a style = "color:gray" href="<%=request.getContextPath()%>/board/community?country=충청">충청</a>&nbsp;&nbsp;
+<a style = "color:gray" href="<%=request.getContextPath()%>/board/community?country=경상">경상</a>&nbsp;&nbsp;
+<a style = "color:gray" href="<%=request.getContextPath()%>/board/community?country=전라">전라</a>&nbsp;&nbsp;
+<a style = "color:gray" href="<%=request.getContextPath()%>/board/community?country=강원">강원</a>&nbsp;&nbsp;
+</span>
+	<br>
+	<br>
 	<div id="board-list-container">
 		<table class = "table">
 			<tr>
-				<th>&nbsp;&nbsp;&nbsp;번호</th>
-				<th>작성자</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th>첨부파일</th>
-				<th>조회수</th>
+				<th bgcolor="#E6E6E6">&nbsp;&nbsp;&nbsp;번호</th>
+				<th bgcolor="#E6E6E6">제목</th>
+				<th bgcolor="#E6E6E6">작성자</th>
+				<th bgcolor="#E6E6E6">작성일</th>
+				<th bgcolor="#E6E6E6">첨부파일</th>
+				<th bgcolor="#E6E6E6">조회수</th>
 			</tr>
 	<% if(list.isEmpty()){ %>
 			<tr>
@@ -70,14 +52,18 @@
 	%>
 		<tr>
 			<td><%= post.getRowNum() %></td>
-			<td><%= post.getPost_MemberId() %></td>
 			<td>
 			<a href = "<%= request.getContextPath()%>/board/communityview?boardNo=<%=post.getPost_Num() %>">
 			<%= post.getPost_Title() %></a>
 			</td>
+			<td><%= post.getPost_MemberId() %></td>
 			<td><%= post.getEnrollTime() %></td>
 			<td>
-				<span> - </span>
+				<% if(post.getPost_FileName() != null) { %>
+					<img src="<%= request.getContextPath() %>/resource/image/file.png" width="20" height="20"/>
+				<% } else { %>
+					<span> - </span>
+				<% } %>
 			</td>
 			<td><%= post.getPost_Views() %></td>
 		</tr>
