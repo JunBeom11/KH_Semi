@@ -9,32 +9,32 @@
 	section #enroll-container table {
 		margin:0 auto;
 	}
-	
+
 	section #enroll-container table th {
-		padding:0 10px; 
+		padding:0 10px;
 		text-align:right;
 	}
-	
+
 	section #enroll-container table td {
-		padding:0 10px; 
+		padding:0 10px;
 		text-align:left;
 	}
 	h3{
 		text-align:center;
 	}
 	#passresult,#idresult,#nicknameresult{
-	
+
 		font-size:8px;
 		color : red;
 	}
 	#enrollSubmit{
-		width: 20%; 
+		width: 20%;
 		float:none;
 		margin:0 auto;
 	}
 
-	
-	
+
+
 </style>
 
 <section id="content">
@@ -51,8 +51,12 @@
 					 	 	<span class="input-group-btn">
 					 	 		<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
 					 	 	</span>
-						</div>	
+						</div>
 					</td>
+
+				</tr>
+				<tr>
+					<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
 				</tr>
 				<tr>
 					<td id="idresult"></td> <!-- 아이디 확인 메세지 -->
@@ -62,7 +66,7 @@
 					<td>
 						<div class="input-group" style = "width:100%">
 					 	 	<input type="password" class="form-control" name="Member_Pw" id="pass1" placeholder="비밀번호" aria-describedby="basic-addon1" required>
-						</div>	
+						</div>
 					</td>
 				</tr>
 				<tr height="10"></tr>
@@ -70,7 +74,7 @@
 					<td>
 						<div class="input-group" style = "width:100%">
 					 	 	<input type="password" class="form-control" id="pass2" placeholder="비밀번호 확인" aria-describedby="basic-addon1" required>
-						</div>	
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -84,7 +88,7 @@
 					 	 	<span class="input-group-btn">
 					 	 		<input type="button" class="btn btn-default" id="checkNickname" disabled value="증복검사"/>
 					 	 	</span>
-						</div>	
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -95,7 +99,7 @@
 					<td>
 						<div class="input-group" style = "width:100%">
 					 	 	<input type="email" class="form-control" name="Member_Email"  placeholder="이메일 abc@abc.com" aria-describedby="basic-addon1" required>
-						</div>	
+						</div>
 					</td>
 				</tr>
 				<tr height="10"></tr>
@@ -104,7 +108,7 @@
 						<div class="input-group" style = "width:100%">
 							<span class="input-group-addon" id="basic-addon1">생년월일</span>
 					 	 	<input type="date" class="form-control" name="Member_Birth"  placeholder="생년월일" aria-describedby="basic-addon1" required>
-						</div>	
+						</div>
 					</td>
 				</tr>
 				<tr height="10"></tr>
@@ -124,16 +128,16 @@
 						  		<option value="Gangwon">강원</option>
 				                <optgroup label="충청">
 				                    <option value="South_Chungcheong">충청남도</option>
-				                    <option value="North_Chungcheong">충청북도</option>   
+				                    <option value="North_Chungcheong">충청북도</option>
 				                </optgroup>
 				                <optgroup label="전라">
 				                    <option value="South_Jeolla">전라남도</option>
-				                    <option value="North_Jeolla">전라북도</option>   
+				                    <option value="North_Jeolla">전라북도</option>
 				                </optgroup>
 				                <optgroup label="경상">
 				                    <option value="South_Gyeongsang">경상남도</option>
-				                    <option value="North_Gyeongsang">경상북도</option>   
-				                </optgroup>           
+				                    <option value="North_Gyeongsang">경상북도</option>
+				                </optgroup>
 				                <option value="Jeju">제주</option>
 				                <option value="Gangwon">세종</option>
 				            </select>
@@ -161,7 +165,7 @@
 		$("#pass2").blur((event) => {
 			let pass1 = $("#pass1").val();
 			let pass2 = $(event.target).val();
-			
+
 			if(pass1.trim() != pass2.trim()){
 				$('#passresult').attr('style', "display:'';");
 				$("#passresult").html("  비밀번호가 일치하지 않습니다.");
@@ -172,14 +176,14 @@
 				$('#passresult').attr('style', "display:none;");
 			}
 		});
-			
+
 		$("#newMemberId").blur((event) => {
 			let id = $("#newMemberId").val().trim();
 			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 			var checkEnglish =  /[^a-zA-Z]/;
 			var checkNumber = /[^0-9]/;
 			var checkBlank = /[\s]/;
-			
+
 			if(id.length < 4 || id.length > 10) {
 				$('#checkId').attr('disabled',true);
 				$('#idresult').attr('style', "display:'';");
@@ -210,13 +214,13 @@
 				$("#checkId").focus();
 			}
 		});
-		
+
 		$("#newMemberNickName").blur((event) => {
 			let nickName = $("#newMemberNickName").val().trim();
 			var checkBlank = /[\s]/;
 			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 			var checkEnglish =  /[a-zA-Z]/;
-			
+
 			if(checkBlank.test(nickName)) {
 				$('#checkNickname').attr('disabled',true);
 				$('#nicknameresult').attr('style', "display:'';");
@@ -235,50 +239,50 @@
 				$("#checkNickname").focus();
 			}
 		});
-		
-		
+
+
 		$("#checkId").on("click", () => {
-		
+
 			let id = $("#newMemberId").val().trim();
-			
+
 			const url = "<%= request.getContextPath()%>/member/checkId";
 			const title = "duplicate";
 			const status = "left=500px,top=100px,width=500px,height=300px";
-			
+
 			open("", title, status);
-			
+
 			checkIdForm.target = title;
 			checkIdForm.action = url;
 			checkIdForm.method = "post";
 			checkIdForm.userId.value = id;
-			
+
 			$("input[name=checked_id]").val('y1'); //중복 체크했는지 확인
-			
+
 			checkIdForm.submit();
 		});
-		
+
 		$("#checkNickname").on("click", () => {
-		
+
 			let nickName = $("#newMemberNickName").val().trim();
-			
+
 			const url = "<%= request.getContextPath()%>/member/checkNickname";
 			const title = "duplicate";
 			const status = "left=500px,top=100px,width=500px,height=300px";
-			
+
 			open("", title, status);
-			
-			checkNicknameForm.target = title; 
+
+			checkNicknameForm.target = title;
 			checkNicknameForm.action = url;
 			checkNicknameForm.method = "post";
 			checkNicknameForm.userNickname.value = nickName;
-			
+
 			$("input[name=checked_id]").val('y2'); //중복 체크했는지 확인
-			
+
 			checkNicknameForm.submit();
 		});
-		
+
 		$("#enrollSubmit").on("click", () =>{
-			
+
 			if($("input[name='checked_id']").val()==''){
 			   	alert('아이디 중복 확인을 해주세요.');
 			   	$("input[name='checked_id']").eq(0).focus();
@@ -288,7 +292,7 @@
 				$("input[name='checked_id']").eq(0).focus();
 				return false;
 			}
-		});	
+		});
 	});
 </script>
 <%@ include file="/views/common/footer.jsp" %>

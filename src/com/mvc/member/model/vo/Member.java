@@ -1,6 +1,6 @@
 package com.mvc.member.model.vo;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data

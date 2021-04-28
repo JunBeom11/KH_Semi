@@ -14,12 +14,12 @@ public class MemberDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = null;
-		
+
 		try {
 			query = "INSERT INTO MEMBER VALUES(?,?,?,?,DEFAULT,?,?,DEFAULT,DEFAULT)";
 			pstmt = connection.prepareStatement(query);
 			System.out.println();
-			
+
 			pstmt.setString(1, member.getMember_Id());
 			pstmt.setString(2, member.getMember_Pw());
 			pstmt.setString(3, member.getMember_NickName());
@@ -29,9 +29,9 @@ public class MemberDAO {
 			pstmt.setString(6, member.getMember_LocationNum());
 			//pstmt.setString(8, member.getMember_role()); //사용자로 회원가입됨
 			//pstmt.setString(9, member.getMember_status());
-			
+
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -45,15 +45,15 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		
+
 		try {
 			query= "SELECT * FROM MEMBER WHERE MEMBER_ID=? ";
 			pstmt = connection.prepareStatement(query);
-			
+
 			pstmt.setString(1, Member_Id);
-			
+
 			rs= pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				member = new Member();
 				member.setMember_Id(rs.getString("MEMBER_ID"));
@@ -74,21 +74,21 @@ public class MemberDAO {
 		}
 		return member;
 	}
-	
+
 	public Member checkNickname(Connection connection, String userNickname) {
 		Member member = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		
+
 		try {
 			query= "SELECT * FROM MEMBER WHERE MEMBER_NICKNAME=? ";
 			pstmt = connection.prepareStatement(query);
-			
+
 			pstmt.setString(1, userNickname);
-			
+
 			rs= pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				member = new Member();
 				member.setMember_Id(rs.getString("MEMBER_ID"));
@@ -114,17 +114,17 @@ public class MemberDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = null;
-		
+
 		try {
 			query = "UPDATE MEMBER SET MEMBER_PW=? WHERE MEMBER_ID=?";
 			pstmt = connection.prepareStatement(query);
-			
+
 			pstmt.setString(1, member_Pw);
 			pstmt.setString(2, member_Id);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -137,15 +137,15 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		
+
 		try {
 			query= "SELECT * FROM MEMBER WHERE MEMBER_NICKNAME=? ";
 			pstmt = connection.prepareStatement(query);
-			
+
 			pstmt.setString(1, member_NickName);
-			
+
 			rs= pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				member = new Member();
 				member.setMember_Id(rs.getString("MEMBER_ID"));
