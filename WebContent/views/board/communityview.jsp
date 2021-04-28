@@ -7,9 +7,9 @@
 
 <% Post post = (Post)request.getAttribute("post");%>
 
-<section>
+<div>
 	<h1>&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
-<br>
+	<hr>
 	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
 	<%=post.getPost_MemberId() %>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
 					<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
@@ -30,13 +30,13 @@
 			<img src="<%=request.getContextPath()%>/resource/upload/board/<%=post.getPost_FileReName() %>" width="300" height="300"><br>
 		<%} %>
 	<%} %>
-	<table class="table" height="350px">
+	<table class="table" height="300px">
 	<tr>
 	<%=post.getPost_Content()%>
 	</tr>
 	</table>
 
-</section>
+</div>
 <br><br>
 <section id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/communityreply" method="post">
