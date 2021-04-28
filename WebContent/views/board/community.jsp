@@ -14,7 +14,10 @@
 <%
 	Object locnum = request.getAttribute("locnum");
 	String location = (String)locnum;
+	String country=null;
 %>
+
+
 
 <br>
 <section>
@@ -48,12 +51,30 @@
 			</tr>	
 			
 	<%} else { 
-				for(Post post : list) {
+				for(Post post : list) {			
 	%>
+		<%if(post.getPost_LocationNum().equals("1")){%>
+		<% country = "서울";%>
+		<%} %>
+		<%if(post.getPost_LocationNum().equals("2")){%>
+			<% country = "경기";%>
+		<%} %>
+		<%if(post.getPost_LocationNum().equals("3")){%>
+			<% country = "충청";%>
+		<%} %>
+		<%if(post.getPost_LocationNum().equals("4")){%>
+			<% country = "경상";%>
+		<%} %>
+		<%if(post.getPost_LocationNum().equals("5")){%>
+			<% country = "전라";%>
+		<%} %>
+		<%if(post.getPost_LocationNum().equals("6")){%>
+			<% country = "강원";%>
+		<%} %>
 		<tr>
 			<td><%= post.getRowNum() %></td>
 			<td>
-			<a href = "<%= request.getContextPath()%>/board/communityview?boardNo=<%=post.getPost_Num() %>">
+			[<%=country%>]<a href = "<%= request.getContextPath()%>/board/communityview?boardNo=<%=post.getPost_Num() %>">
 			<%= post.getPost_Title() %></a>
 			</td>
 			<td><span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span>(<%= post.getPost_MemberId() %>)</td>

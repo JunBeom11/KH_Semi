@@ -6,11 +6,30 @@
 
 
 <% Post post = (Post)request.getAttribute("post");%>
-
+<% String num = post.getPost_LocationNum(); %>
+<% String country = null; %>
 <div>
 	<h1>&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
 	<hr>
-	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
+	<%if(num.equals("1")){%>
+		<% country = "서울";%>
+	<%} %>
+	<%if(num.equals("2")){%>
+		<% country = "경기";%>
+	<%} %>
+	<%if(num.equals("3")){%>
+		<% country = "충청";%>
+	<%} %>
+	<%if(num.equals("4")){%>
+		<% country = "경상";%>
+	<%} %>
+	<%if(num.equals("5")){%>
+		<% country = "전라";%>
+	<%} %>
+	<%if(num.equals("6")){%>
+		<% country = "강원";%>
+	<%} %>
+<div style="font-weight: bold; font-size: 16px">[<%=country%>]<%=post.getPost_Title()%><br></div>
 	<span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span>(<%=post.getPost_MemberId() %>)&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
 					<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
 							|| loginMember.getMember_Id().equals("admin"))) { %>

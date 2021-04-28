@@ -47,7 +47,7 @@ public class PostCommunityUpdateServlet extends HttpServlet {
  		String fileName= mr.getOriginalFileName("reloadFile");
 		String upfileName = mr.getFilesystemName("reloadFile");
      	post.setPost_Num(Integer.parseInt(mr.getParameter("boardNo")));
-     	post.setPost_Title("["+location+"]"+mr.getParameter("title"));
+     	post.setPost_Title(mr.getParameter("title"));
      	post.setPost_Content(mr.getParameter("content"));
      	post.setPost_MemberId(mr.getParameter("writer"));
      	post.setPost_MemberNickname(mr.getParameter("nickname"));

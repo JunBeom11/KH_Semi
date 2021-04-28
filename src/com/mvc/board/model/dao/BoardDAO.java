@@ -460,7 +460,7 @@ public class BoardDAO {
 
 		try {
 			query =
-					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM, POST_MEMBERNICKNAME FROM POST "
+					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM, POST_MEMBERNICKNAME, POST_LOCATIONNUM FROM POST "
 					+ "WHERE POST_REMOVE='N' AND POST_NUM=? AND POST_BOARDNUM ='2' ";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setInt(1, post_num);
@@ -483,6 +483,7 @@ public class BoardDAO {
 				post.setPost_Content(rs.getString("POST_CONTENTS"));
 				post.setReplies(this.getRepliesByNo(connection, post_num));
 				post.setPost_MemberNickname(rs.getString("POST_MEMBERNICKNAME"));
+				post.setPost_LocationNum(rs.getString("POST_LOCATIONNUM"));
 			}
 		} catch (SQLException e) {
 

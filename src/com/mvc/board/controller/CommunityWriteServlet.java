@@ -58,7 +58,7 @@ public class CommunityWriteServlet extends HttpServlet {
  				Post post = new Post();
  				
  				post.setPost_MemberId(writer);
- 				post.setPost_Title("["+location+"]"+title);
+ 				post.setPost_Title(title);
  				post.setPost_Content(content);
  				post.setPost_FileName(upfileName);
  				post.setPost_FileReName(fileName);
