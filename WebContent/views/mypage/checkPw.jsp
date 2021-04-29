@@ -6,13 +6,13 @@
 	<p>안전을 위해 비밀번호를 다시 한 번 입력해주세요.</p>
 	
 	<div id="checkPw-container">
-		<form action="/inCorona/mypage/update" method="GET">
+		<form action="/inCorona/mypage/update" method=POST">
 			<table>
 				<tr>
 					<td><input type="text" class="form-control"  name="Member_Id" id="newMemberId" value="${ loginMember.member_Id }" aria-describedby="basic-addon1" readonly required></td>
 				</tr>
 				<tr>
-					<td><input type="password" class="form-control"  id="checkPw" placeholder="비밀번호"/></td>
+					<td><input type="password" class="form-control"  id="checkPw" name="Member_Pw" placeholder="비밀번호"/></td>
 				</tr>
 				<tr>
 					<td><input type="submit" class="btn btn-primary" id="confirmPw" value="확인" /></td>

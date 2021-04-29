@@ -11,7 +11,7 @@
 		<ul class="nav nav-pills nav-stacked">
 			<li class="sidebar-item" id="post-list"><a href="${root}/mypage/mypost/list">내 글</a></li>
 			<li class="sidebar-item" id="reply-list"><a href="${root}/mypage/myreply/list">내 댓글</a></li>
-			<li class="sidebar-item" id="update-info"><a href="${root}/mypage/update" >개인정보 수정</a></li>
+			<li class="sidebar-item" id="update-info"><a href="${root}/mypage/checkpw" >개인정보 수정</a></li>
 		</ul>
 	</div>
 	<script>
@@ -22,7 +22,7 @@
 			
 			var targetId = "post-list";
 			
-			if(currentUrl.includes("update")){
+			if(currentUrl.includes("checkpw")){
 				targetId = "update-info";
 			}
 			else if(currentUrl.includes("myreply")) {
