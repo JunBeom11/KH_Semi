@@ -4,7 +4,7 @@
 <%@ include file="/views/mypage/mypage_header.jsp"%>
 
 <div id="content">
-	<h2 align="center">개인정보 수정</h2>
+	<h2 align="center"><strong>개인정보 수정</strong></h2>
 	<br><br>
 	<div id="mypage-container">
 		<form id="memberEnrollFrm" action="/inCorona/mypage/update" method="post">

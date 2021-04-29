@@ -13,7 +13,7 @@
 %>
 
 <div id="content">
-	<h2 align="center">내 게시글</h2>
+	<h2 align="center"><strong>내 게시글</strong></h2>
 	<br><br>
 	<div id="board-list-container">
 		<form action="/inCorona/mypage/mypost/delete" method="POST">
@@ -21,7 +21,9 @@
 			<button type="button" class="btn btn-default btn-sm"  onclick="checkAllPost();">전부 선택</button>
 			<input type="submit" class="btn btn-default btn-sm" id="ListSubmit" value="선택한 글 삭제하기" />
 		</div>
-		<table id="tbl-board" class = "table table-striped">
+		<br><br><br>
+		<div class="table-responsive">
+		<table id="tbl-board" class ="table table-striped">
 			<tr>
 				<th>번호</th>
 				<th>게시글 제목</th>
@@ -48,6 +50,7 @@
 				</c:otherwise>
 			</c:choose>
 		</table>
+		</div>
 		</form>
 		<nav>
 			<ul class="pagination" id="pageBar">

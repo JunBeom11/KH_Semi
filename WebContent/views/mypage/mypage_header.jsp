@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="${root}/resource/css/mypage.css">
 
-<section>
+<section class="container-fluid">
 <div class="row" id="mypage">
 	<div class="col-md-3 sidebar navbar-static-top">
 		<h2 id="sidebar-title">마이페이지</h2>
@@ -33,5 +33,5 @@
 		}
 	</script>
 	
-	<div class="col-md-8 mypage-content">
+	<div class="col mypage-content">
 	

@@ -1,14 +1,15 @@
 @charset "UTF-8";
 
+/* mypage_header.jsp */
 #mypage {
-	min-width:1000px;
+	/* min-width:1000px; */
 }
 
 .sidebar {
 	width:20%;
 	min-width:250px;
 	
-	height:100%;
+	height:100vh;
 	margin:0;
 	
 	background-color:white;
@@ -36,24 +37,37 @@
 
 .mypage-content {
 	min-width:750px;
+	text-align:center !important;
+}
+
+/* mypost.jsp, myreply.jsp */
+#board-list-container {
+	text-align: center;
+}
+
+#align {
 	text-align:center;
 }
 
 #deleteList {
 	float:right;
-	
 }
 
 #deleteList button {
-	margin:10px 0px 10px 10px;
+	margin:5px;
 }
 
 #tbl-board th, #tbl-board td{
 	text-align:center;
 }
 
+.mypage-content nav {
+	text-align:cetner;
+}
+
 #pageBar {
-	margin-top:10px; text-align:center;
+	margin-top:10px; 
+	text-align:center;
 }
 
 /* update.jsp */
@@ -95,4 +109,34 @@
 #updateBtns * {
 	margin:10px !important;
 	width:auto !important;
+}
+
+/* checkPw.jsp */
+#checkPw-container {
+	text-align: center;
+	margin-top:100px;
+}
+
+#checkPw-container table {
+	margin: 0 auto;
+}
+
+#checkPw-container table th {
+	padding: 0 10px;
+	text-align: right;
+}
+
+#checkPw-container table td {
+	padding: 0 10px;
+	text-align: left;
+}
+
+
+#checkPw-container .input-group {
+	width:100%;
+}
+
+#checkPw-container input {
+	margin: 5px;
+	width:100%;
 }

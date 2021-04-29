@@ -14,7 +14,7 @@
 %>
 
 <div id="content">
-	<h2 align="center">내 댓글 </h2>
+	<h2 align="center"><strong>내 댓글</strong></h2>
 	<br><br>
 	<div id="board-list-container">
 		<form action="/inCorona/mypage/myreply/delete" method="POST">
@@ -22,6 +22,8 @@
 			<button type="button" class="btn btn-default btn-sm"  onclick="checkAllReply();">전부 선택</button>
 			<input type="submit" class="btn btn-default btn-sm" id="ListSubmit" value="선택한 댓글 삭제하기" />
 		</div>
+		<br><br><br>
+		<div class="table-responsive">
 		<table id="tbl-board" class = "table tlable-striped">
 			<tr>
 				<th>번호</th>
@@ -50,6 +52,7 @@
 				</c:otherwise>
 			</c:choose>
 		</table>
+		</div>
 		</form>
 		
 		<nav>
