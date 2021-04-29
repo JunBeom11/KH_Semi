@@ -15,26 +15,26 @@ import com.mvc.common.wrapper.EncryptPasswordWrapper;
 
 
 
-@WebFilter(filterName="encryFilter", servletNames = {"enroll","login","updatePw"})
+@WebFilter(filterName="encryFilter", servletNames = {"enroll","login","update","updatePw"})
 public class EncryptFilter implements Filter {
 
-  
+
     public EncryptFilter() {
-       
+
     }
     @Override
     public void init(FilterConfig fConfig) throws ServletException {
-		
+
 	}
     @Override
     public void destroy() {
-		
+
 	}
     @Override
  	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	//request의 파라미터 값을 변경할 수 없기 때문에 RequestWrapper를 생성한다.
     	EncryptPasswordWrapper wrapper = new EncryptPasswordWrapper((HttpServletRequest)request);
-    	//request 대신에 생성한 wrapper를 
+    	//request 대신에 생성한 wrapper를
  		chain.doFilter(wrapper, response);
  	}
 }

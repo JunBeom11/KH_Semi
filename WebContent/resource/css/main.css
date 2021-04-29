@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 /* header.jsp */
+section {
+	height:100vh;
+}
 .navbar-default {
 	max-height:none;
 }
@@ -36,6 +39,10 @@ div #collapse_row {
 	margin:10px;
 	background-color:#4089db;
 	color:#ffffff;
+}
+
+section {
+	width:100%;
 }
 
 /* footer.jsp */

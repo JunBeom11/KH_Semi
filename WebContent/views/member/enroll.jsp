@@ -49,7 +49,7 @@
 						<div class="input-group">
 					 	 	<input type="text" class="form-control" name="Member_Id" id="newMemberId" placeholder="아이디" aria-describedby="basic-addon1" required>
 					 	 	<span class="input-group-btn">
-					 	 		<input type="button" class="btn btn-default" id="checkId" disabled value="증복검사"/>
+					 	 		<input type="button" class="btn btn-default" id="checkId" value="증복검사"/>
 					 	 	</span>
 						</div>
 					</td>
