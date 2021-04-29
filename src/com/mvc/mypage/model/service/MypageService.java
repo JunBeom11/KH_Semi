@@ -19,10 +19,7 @@ public class MypageService {
 
 	private MypageDAO dao = new MypageDAO();
 
-public class MypageService {
-     private MypageDAO dao = new MypageDAO();
-
-     public int updateMypage(Member member, String loginId) {
+     public Member updateMypage(Member member, String loginId) {
 		Connection connection = getConnection();
 		int result = dao.updateMypage(connection, member, loginId);
 
@@ -35,7 +32,7 @@ public class MypageService {
 
 		close(connection);
 
-    	 return result;
+    	 return result>0? member:null;
 
      }
      public boolean isNickNameDuplicated(String userNickname) {
@@ -51,11 +48,8 @@ public class MypageService {
  		int result = 0;
  		Connection connection = getConnection();
 
- 		if(member.getNo() != 0) {
- 			result = dao.updateMypage(connection, member, loginId);
- 		} else {
- 			result = dao.enrollMember(connection, member);
- 		}
+ 		
+ 		result = dao.updateMypage(connection, member, loginId);
 
  		if(result > 0) {
  			commit(connection);

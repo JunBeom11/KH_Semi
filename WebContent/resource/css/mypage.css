@@ -55,3 +55,44 @@
 #pageBar {
 	margin-top:10px; text-align:center;
 }
+
+/* update.jsp */
+#mypage-container {
+	text-align: center;
+}
+
+#mypage-container .input-group {
+	width:100%;
+}
+#mypage-container input,select {
+	margin: 3px;
+	width:100%;
+}
+
+#mypage-container table {
+	margin: 0 auto;
+}
+
+#mypage-container table th {
+	padding: 0 10px;
+	text-align: right;
+}
+
+#mypage-container table td {
+	padding: 0 10px;
+	text-align: left;
+}
+
+#passresult, #idresult, #nicknameresult {
+	font-size: 8px;
+	color: red;
+}
+
+#updateBtns {
+	margin-top:50px;
+}
+
+#updateBtns * {
+	margin:10px !important;
+	width:auto !important;
+}

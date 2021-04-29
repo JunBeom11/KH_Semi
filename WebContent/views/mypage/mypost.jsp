@@ -13,7 +13,7 @@
 %>
 
 <div id="content">
-	<h2 align="center">내 게시글 </h2>
+	<h2 align="center">내 게시글</h2>
 	<br><br>
 	<div id="board-list-container">
 		<form action="/inCorona/mypage/mypost/delete" method="POST">

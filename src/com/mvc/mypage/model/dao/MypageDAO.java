@@ -24,21 +24,17 @@ public class MypageDAO {
 			String query = null;
 			System.out.println(member+ loginId);
 			try {
-			query = "UPDATE MEMBER SET MEMBER_ID=?, MEMBER_PW=?, MEMBER_NICKNAME=?, MEMBER_EMAIL=?, MEMBER_BIRTH=?, MEMBER_LOCATIONNUM=? WHERE MEMBER_ID=?";
-			pstmt = connection.prepareStatement(query);
-
-			pstmt.setString(1, member.getMember_Id());
-			pstmt.setString(2, member.getMember_Pw());
-			pstmt.setString(3, member.getMember_NickName());
-			pstmt.setString(4, member.getMember_Email());
-			pstmt.setString(5, member.getMember_Birth());
-			pstmt.setString(6, member.getMember_LocationNum());
-			pstmt.setString(7, loginId);
-
-
-
-
-			result = pstmt.executeUpdate();
+				query = "UPDATE MEMBER SET MEMBER_PW=?, MEMBER_NICKNAME=?, MEMBER_EMAIL=?, MEMBER_BIRTH=?, MEMBER_LOCATIONNUM=? WHERE MEMBER_ID=?";
+				pstmt = connection.prepareStatement(query);
+	
+				pstmt.setString(1, member.getMember_Pw());
+				pstmt.setString(2, member.getMember_NickName());
+				pstmt.setString(3, member.getMember_Email());
+				pstmt.setString(4, member.getMember_Birth());
+				pstmt.setString(5, member.getMember_LocationNum());
+				pstmt.setString(6, loginId);
+	
+				result = pstmt.executeUpdate();
 
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -21,17 +21,25 @@ public class MemberUpdateServlet extends HttpServlet {
     }
     @Override	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  
+    	HttpSession session = request.getSession();
+    	Member loginMember = (Member)session.getAttribute("loginMember");
+    	
+    	if(loginMember==null) {
+    		request.setAttribute("msg", "로그인 해주세요.");
+    		request.setAttribute("location", "/member/login");
+    		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+    		return;
+    	}
+    	
 		request.getRequestDispatcher("/views/mypage/update.jsp").forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int result = 0;
 		HttpSession session = request.getSession(false);
 		Member loginMember = session != null ? (Member)session.getAttribute("loginMember"):null;
 		//String userPwd = request.getParameter("userPwd");
-		Member member = new Member();
+		Member member = new Member(loginMember);
 		int LocationNum = 0;
 		
 		String loginId = loginMember.getMember_Id();
@@ -56,17 +64,19 @@ public class MemberUpdateServlet extends HttpServlet {
 			case "Sejong" :				LocationNum = 17; break;
 		}
 		
-		member.setMember_Id(request.getParameter("Member_Id"));
+		member.setMember_Id(loginId);
 		member.setMember_Pw(request.getParameter("Member_Pw"));
 		member.setMember_NickName(request.getParameter("Member_NickName"));
 		member.setMember_Birth(request.getParameter("Member_Birth"));
 		member.setMember_Email(request.getParameter("Member_Email"));
 		member.setMember_LocationNum(String.valueOf(LocationNum));
 		
-		result = service.updateMypage(member, loginId );
+		//업데이트와 동시에 member객체 갈아끼움
+		member = service.updateMypage(member, loginId);
 		
-		if(result > 0) {
-    		//session.setAttribute("loginMember", service.updateMypage(member.getMember_Id()));
+		if(member!=null) {
+			//세션에 저장
+    		session.setAttribute("loginMember", member);
     		
     		request.setAttribute("msg", "회원 정보 수정이 완료되었습니다.");
     		request.setAttribute("location", "/");

@@ -34,7 +34,7 @@
 			<c:choose>
 				<c:when test="${list eq null || list.isEmpty()}">
 					<tr>
-						<td colspan="5">조회된 게시글이 없습니다.</td>
+						<td colspan="5">조회된 댓글이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>

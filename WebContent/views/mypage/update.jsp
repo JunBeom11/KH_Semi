@@ -3,46 +3,17 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/mypage/mypage_header.jsp"%>
 
-<style>
-section #mypage-container {
-	text-align: center;
-}
-
-section #mypage-container input {
-	margin: 3px;
-}
-
-section #mypage-container table {
-	margin: 0 auto;
-}
-
-section #mypage-container table th {
-	padding: 0 10px;
-	text-align: right;
-}
-
-section #mypage-container table td {
-	padding: 0 10px;
-	text-align: left;
-}
-
-#passresult, #idresult, #nicknameresult {
-	font-size: 8px;
-	color: red;
-}
-</style>
-
-<section id="content">
+<div id="content">
 	<h2 align="center">개인정보 수정</h2>
-	
+	<br><br>
 	<div id="mypage-container">
-		<form id="memberEnrollFrm"action="<%=request.getContextPath()%>/mypage/update" method="post">
+		<form id="memberEnrollFrm" action="/inCorona/mypage/update" method="post">
 			<table>
 				<tr>
 					<th>아이디</th>
 					<td>
 						<div class="input-group">
-							<input type="text" class="form-control" name="Member_Id" id="newMemberId" placeholder="<%=loginMember.getMember_Id()%>" aria-describedby="basic-addon1" readonly required> 
+							<input type="text" class="form-control" name="Member_Id" id="newMemberId" value="${ loginMember.member_Id }" aria-describedby="basic-addon1" readonly required> 
 						</div>
 					</td>
 
@@ -52,13 +23,13 @@ section #mypage-container table td {
 					<th>변경 비밀번호</th>
 					<td>
 						<div class="input-group">
-						<input type="password" class="form-control" id="exampleInputPassword1"name="Member_Pw" placeholder="입력하세요">
+						<input type="password" class="form-control" id="newPassword" name="Member_Pw" placeholder="입력하세요">
 					</div>
 				</tr>
 				<tr>
 					<th>변경 비밀번호 확인</th>
 					<td>
-						<div class="input-group"> <input type="password" class="form-control" id="exampleInputPassword1"placeholder="입력하세요">
+						<div class="input-group"> <input type="password" class="form-control" id="checkNewPassword" placeholder="입력하세요">
 						</div>
 					</td>
 				</tr>
@@ -70,9 +41,9 @@ section #mypage-container table td {
 					<th>닉네임</th>
 					<td>
 						<div class="input-group">
-							<input type="text" class="form-control" name="Member_NickName"id="newMemberNickName"placeholder="<%=loginMember.getMember_NickName()%>"aria-describedby="basic-addon1" required> 
+							<input type="text" class="form-control" name="Member_NickName"id="newMemberNickName" value="${ loginMember.member_NickName }" aria-describedby="basic-addon1" required> 
 							<span class="input-group-btn"> 
-								<input type="button"class="btn btn-default" id="checkNickname" disabled value="증복검사" />
+								<input type="button" class="btn btn-default" id="checkNickname" disabled value="중복검사" />
 							</span>
 						</div>
 					</td>
@@ -84,12 +55,11 @@ section #mypage-container table td {
 
 				<tr>
 					<th>이메일</th>
-					<td><input type="email" placeholder="<%=loginMember.getMember_Email()%>" name="Member_Email" id="email" class="form-control"></td>
+					<td><input type="email" value="${ loginMember.member_Email }" name="Member_Email" id="email" class="form-control"></td>
 				</tr>
 				<tr>
 					<th>생년월일</th>
-					<td><input type="date" name="Member_Birth" maxlength="11"
-						value="<%=loginMember.getMember_Birth()%>"></td>
+					<td><input type="date" name="Member_Birth" maxlength="11" value="${ loginMember.member_Birth }"></td>
 				</tr>
 
 				<tr>
@@ -125,17 +95,17 @@ section #mypage-container table td {
 					</td>
 				</tr>
 			</table>
-			<input type="submit"class="btn btn-primary" value="개인정보수정 완료" /> 
-			<a href="/inCorona/member/update"class="btn btn-primary" role="button" id="deleteMember">탈퇴</a>
-		</form>
-		<form name="checkIdForm">
-			<input type="hidden" name="userId">
+			<div id="updateBtns">
+				<input type="submit" class="btn btn-primary" value="개인정보수정 완료" /> 
+				<a href="/inCorona/member/update" class="btn btn-default" role="button" id="deleteMember">탈퇴</a>
+			</div>
+			
 		</form>
 		<form name="checkNicknameForm">
-			<input type="hidden" name="userNickname">
+			<input type="hidden" name="userNickname" />
 		</form>
 	</div>
-</section>
+</div>
 <script>
 	$(document).ready(() => {
 		$("#deleteMember").on("click", (e) => {
@@ -143,16 +113,16 @@ section #mypage-container table td {
 				location.replace('<%=request.getContextPath()%>/mypage/update');
 			}
 		});
-		$("#pass2").blur((event) => {
-			let pass1 = $("#pass1").val();
+		$("#checkNewPassword").blur((event) => {
+			let pass1 = $("#NewPassword").val();
 			let pass2 = $(event.target).val();
 			
 			if(pass1.trim() != pass2.trim()){
 				$('#passresult').attr('style', "display:'';");
 				$("#passresult").html("  비밀번호가 일치하지 않습니다.");
-				$("#pass1").val("");
+				$("#NewPassword").val("");
 				$(event.target).val("");
-				$("#pass1").focus();
+				$("#NewPassword").focus();
 			}else{
 				$('#passresult').attr('style', "display:none;");
 			}
@@ -174,24 +144,6 @@ section #mypage-container table td {
 			}
 		});
 		
-		
-		$("#checkId").on("click", () => {
-		
-			let id = $("#newMemberId").val().trim();
-			
-			const url = "<%=request.getContextPath()%>/member/checkId";
-			const title = "duplicate";
-			const status = "left=500px,top=100px,width=500px,height=300px";
-			
-			open("", title, status);
-			
-			checkIdForm.target = title;
-			checkIdForm.action = url;
-			checkIdForm.method = "post";
-			checkIdForm.userId.value = id;
-			
-			checkIdForm.submit();
-		});
 		
 		$("#checkNickname").on("click", () => {
 		
