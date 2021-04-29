@@ -29,13 +29,6 @@ public class HospitalService {
 		return count;
 	}
 	
-//	public int getHospitalCount2(PageInfo pageInfo, String locationName) {
-//		Connection connection = JDBCTemplate.getConnection();
-//		int count = dao.getHospitalCount2(connection, locationName);
-//		
-//		JDBCTemplate.close(connection);
-//		return count;
-//	}
 	
 	
 	public int getClinicCount() {
@@ -47,40 +40,30 @@ public class HospitalService {
 		return count;
 	}
 	
-
-	public List<Hospital> getHospitalList(PageInfo pageInfo) {
-		Connection connection = getConnection();
-		List<Hospital> list = dao.findHospitalAll(connection, pageInfo);
+	public int getClinicCount2(String locationName) {
+		Connection connection = JDBCTemplate.getConnection();
+		int count = dao.getClinicCount2(connection, locationName);
 		
-		close(connection);
-		
-		return list;
-	}
-	public List<Hospital> getClinicList(PageInfo pageInfo) {
-		Connection connection = getConnection();
-		List<Hospital> list = dao.findClinicAll(connection, pageInfo);
-		
-		close(connection);
-		
-		return list;
+		JDBCTemplate.close(connection);
+		return count;
 	}
 	
-	public List<Hospital> getHospitalSeoulList(PageInfo pageInfo) {
-		Connection connection = getConnection();
-		List<Hospital> list = dao.findClinic_typeLocation(connection, pageInfo);
-		
-		close(connection);
-		
-		return list;
-	}
-	public int getHospitalCount(String locationName) {
-		return 0;
-	}
+
 	public List<Hospital> gethType_location(PageInfo pageInfo, String locationName) {
 		Connection connection = getConnection();
 		List<Hospital> list = dao.gethType_location(connection, pageInfo, locationName);
 		close(connection);
 		return list;
+	}
+	public List<Hospital> getcType_location(PageInfo pageInfo, String locationName) {
+		Connection connection = getConnection();
+		List<Hospital> list = dao.getcType_location(connection, pageInfo, locationName);
+		close(connection);
+		return list;
+	}
+	public List<Hospital> getClinicList(PageInfo pageInfo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

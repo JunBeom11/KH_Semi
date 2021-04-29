@@ -30,16 +30,38 @@ public class ClinicListServlet extends HttpServlet {
     	int listCount=0;
     	PageInfo pageInfo = null;
     	List<Hospital> list = null;
+    	String locationName=request.getParameter("locationName");
     	
     	try {
     		page=Integer.parseInt(request.getParameter("page"));
+    		System.out.println("page : "+ page);
     	} catch(NumberFormatException e) {
+    		System.out.println("오류");
     		page = 1;
     	}
     	
-    	listCount=service.getClinicCount();
+    	if(locationName==null) {
+    		listCount=service.getClinicCount();
+    		System.out.println(listCount);
+    	}
+    	else {
+    		listCount=service.getClinicCount2(locationName);
+    		System.out.println(listCount);
+    	}
+    	
     	pageInfo=new PageInfo(page,10,listCount,10);
-    	list=service.getClinicList(pageInfo);
+    	list=service.getcType_location(pageInfo, locationName);
+    	
+    	if(list.size()!= 0 && locationName != null) {
+    		String locationNum=list.get(0).getLocation_Cnum();
+    		System.out.println(locationNum + "성공");
+    		request.setAttribute("locationNum", locationNum);
+    	}
+    	else {
+    		String locationNum="0";
+    		request.setAttribute("locationNum", locationNum);
+    		System.out.println("elselocationNum : "+locationNum);
+    	}
     	
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
