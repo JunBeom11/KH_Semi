@@ -1,9 +1,11 @@
 @charset "UTF-8";
 
 /* header.jsp */
-section {
+
+#basicContainer {
 	height:100vh;
 }
+
 .navbar-default {
 	max-height:none;
 }
