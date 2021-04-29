@@ -40,12 +40,12 @@
 	<h3>본인 확인</h3>
 	<br>
 	<br>
- 	<div id="enroll-container" class="col">
+ 	<div id="enroll-container">
 		<form name ="memberEnrollFrm" action="<%=request.getContextPath() %>/member/confirmFindId" method="POST">
 			<table>
 				<tr>
 					<td>
-						<div class="input-group row col-md-9" style = "width:100%">
+						<div class="input-group" style = "width:100%">
 					 	 	<input type="text" class="form-control" name="Member_NickName" id="newMemberNickName" placeholder="닉네임" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>
@@ -56,9 +56,9 @@
 				<tr height="10"></tr>
 				<tr>
 					<td>
-						<div class="input-group row col-md-9">
-							<span class="input-group-addon row-md-1" id="basic-addon1">생년월일</span>
-					 	 	<input type="date" class="form-control row-md-1" name="Member_Birth"  placeholder="생년월일" aria-describedby="basic-addon1" required>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">생년월일</span>
+					 	 	<input type="date" class="form-control" name="Member_Birth"  placeholder="생년월일" aria-describedby="basic-addon1" required>
 						</div>	
 					</td>
 				</tr>
