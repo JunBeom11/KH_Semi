@@ -45,7 +45,7 @@ public class MyPostListServlet extends HttpServlet {
     	}
     	
     	String loginId = loginMember.getMember_Id();
-    	System.out.println("servlet"+loginId);
+    	String role = loginMember.getMember_role();
  
     	try {
     		page = Integer.parseInt(request.getParameter("page"));
@@ -53,7 +53,7 @@ public class MyPostListServlet extends HttpServlet {
     		page = 1;
 		}
     	
-    	listCount = service.getPostCount(loginId);    
+    	listCount = service.getPostCount(loginId, role);    
     	pageInfo = new PageInfo(page, 10, listCount, 10);
     	/**
     	 * 
@@ -62,7 +62,7 @@ public class MyPostListServlet extends HttpServlet {
     	 * @param listCount 전체 리스트의 수
     	 * @param listLimit 한 페이지에 표시될 리스트의 수
     	 */
-    	list = service.getPostList(pageInfo, loginId);
+    	list = service.getPostList(pageInfo, loginId, role);
     	
     	System.out.println(list);
     	    	

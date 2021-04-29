@@ -19,36 +19,36 @@ public class MypageService {
 		return 0;
 	}
 
-	public int getPostCount(String loginId) {
+	public int getPostCount(String loginId, String role) {
 		Connection connection = getConnection();
-		int count = dao.getPostCount(connection, loginId);
+		int count = dao.getPostCount(connection, loginId, role);
 		
 		close(connection);
 		
 		return count;
 	}
 
-	public List<Post> getPostList(PageInfo pageInfo, String loginId) {
+	public List<Post> getPostList(PageInfo pageInfo, String loginId, String role) {
 		Connection connection = getConnection();
-		List<Post> list = dao.findPostAll(connection, pageInfo, loginId);
+		List<Post> list = dao.findPostAll(connection, pageInfo, loginId, role);
 		
 		close(connection);
 		
 		return list;
 	}
 
-	public int getReplyCount(String loginId) {
+	public int getReplyCount(String loginId, String role) {
 		Connection connection = getConnection();
-		int count = dao.getReplyCount(connection, loginId);
+		int count = dao.getReplyCount(connection, loginId, role);
 		
 		close(connection);
 		
 		return count;
 	}
 
-	public List<Reply> getReplyList(PageInfo pageInfo, String loginId) {
+	public List<Reply> getReplyList(PageInfo pageInfo, String loginId, String role) {
 		Connection connection = getConnection();
-		List<Reply> list = dao.findReplyAll(connection, pageInfo, loginId);
+		List<Reply> list = dao.findReplyAll(connection, pageInfo, loginId, role);
 		
 		close(connection);
 		

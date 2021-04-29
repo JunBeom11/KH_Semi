@@ -43,6 +43,7 @@ public class MyReplyListServlet extends HttpServlet {
     	}
     	
     	String loginId = loginMember.getMember_Id();
+    	String role = loginMember.getMember_role();
     	System.out.println("servlet"+loginId);
  
     	try {
@@ -51,7 +52,7 @@ public class MyReplyListServlet extends HttpServlet {
     		page = 1;
 		}
     	
-    	listCount = service.getReplyCount(loginId);    
+    	listCount = service.getReplyCount(loginId, role);    
     	pageInfo = new PageInfo(page, 10, listCount, 10);
     	/**
     	 * 
@@ -60,7 +61,7 @@ public class MyReplyListServlet extends HttpServlet {
     	 * @param listCount 전체 리스트의 수
     	 * @param listLimit 한 페이지에 표시될 리스트의 수
     	 */
-    	list = service.getReplyList(pageInfo, loginId);
+    	list = service.getReplyList(pageInfo, loginId, role);
     	
     	System.out.println(list);
     	    	

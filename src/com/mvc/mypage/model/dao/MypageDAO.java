@@ -16,17 +16,23 @@ import static com.mvc.common.jdbc.JDBCTemplate.*;
 
 public class MypageDAO {
 
-	public int getPostCount(Connection connection, String loginId) {
+	public int getPostCount(Connection connection, String loginId, String role) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		System.out.println("getpostCont"+loginId);
+
+		query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_MEMBERID=?";
 		
 		try {
-			query = "SELECT COUNT(*) FROM POST WHERE POST_REMOVE='N' AND POST_MEMBERID=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, loginId);
+			if(role.equals("USER")) {
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, loginId);
+			}else {
+				query = query.replace(" AND POST_MEMBERID=?", "");
+				pstmt = connection.prepareStatement(query);
+			}
+						
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -43,29 +49,34 @@ public class MypageDAO {
 		return count;
 	}
 
-	public List<Post> findPostAll(Connection connection, PageInfo pageInfo, String loginId) {
+	public List<Post> findPostAll(Connection connection, PageInfo pageInfo, String loginId, String role) {
 		List<Post> list= new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		System.out.println("findall"+loginId);
+		
+		query="SELECT *"
+				+ "FROM ("
+				+ "    SELECT ROWNUM AS RNUM,POST_NUM,POST_TITLE,POST_MEMBERID,POST_ENROLLTIME,POST_FILENAME,POST_FILERENAME,POST_VIEWS,POST_REMOVE,MEMBER_NICKNAME"
+				+ "    FROM ("
+				+ "        SELECT * FROM POST P LEFT JOIN MEMBER M ON(P.POST_MEMBERID=M.MEMBER_ID) WHERE P.POST_REMOVE='N' AND P.POST_MEMBERID=? ORDER BY P.POST_NUM DESC"
+				+ "    )"
+				+ ")"
+				+ "WHERE RNUM BETWEEN ? AND ?";		
 		
 		try {
-			query="SELECT *"
-					+ "FROM ("
-					+ "    SELECT ROWNUM AS RNUM,POST_NUM,POST_TITLE,POST_MEMBERID,POST_ENROLLTIME,POST_FILENAME,POST_FILERENAME,POST_VIEWS,POST_REMOVE,MEMBER_NICKNAME"
-					+ "    FROM ("
-					+ "        SELECT * FROM POST P LEFT JOIN MEMBER M ON(P.POST_MEMBERID=M.MEMBER_ID) WHERE P.POST_REMOVE='N' AND P.POST_MEMBERID=? ORDER BY P.POST_NUM DESC"
-					+ "    )"
-					+ ")"
-					+ "WHERE RNUM BETWEEN ? AND ?";
-			
-			pstmt = connection.prepareStatement(query);
-			
-			// ? 값을 set하는 구문
-			pstmt.setString(1, loginId);
-			pstmt.setInt(2, pageInfo.getStartList());
-			pstmt.setInt(3, pageInfo.getEndList());
+
+			if(role.equals("USER")) {
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, loginId);
+				pstmt.setInt(2, pageInfo.getStartList());
+				pstmt.setInt(3, pageInfo.getEndList());
+			}else {
+				query = query.replace(" AND P.POST_MEMBERID=?", "");
+				pstmt = connection.prepareStatement(query);
+				pstmt.setInt(1, pageInfo.getStartList());
+				pstmt.setInt(2, pageInfo.getEndList());
+			}
 			
 			rs = pstmt.executeQuery();
 			
@@ -99,17 +110,24 @@ public class MypageDAO {
 		return list;
 	}
 
-	public int getReplyCount(Connection connection, String loginId) {
+	public int getReplyCount(Connection connection, String loginId, String role) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		System.out.println("getpostCont"+loginId);
+
+		query = "SELECT COUNT(*) FROM COMMENTS WHERE COMMENT_REMOVE='N' AND COMMENT_MEMBERID=?";
 		
 		try {
-			query = "SELECT COUNT(*) FROM COMMENTS WHERE COMMENT_REMOVE='N' AND COMMENT_MEMBERID=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, loginId);
+			
+			if(role.equals("USER")) {
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, loginId);
+			}else {
+				query = query.replace(" AND COMMENT_MEMBERID=?", "");
+				pstmt = connection.prepareStatement(query);
+			}
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -126,26 +144,31 @@ public class MypageDAO {
 		return count;
 	}
 
-	public List<Reply> findReplyAll(Connection connection, PageInfo pageInfo, String loginId) {
+	public List<Reply> findReplyAll(Connection connection, PageInfo pageInfo, String loginId, String role) {
 		List<Reply> replies = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs= null;
 		String query = null;
 		
-		try{
-			query = "SELECT * "
+		query = "SELECT * "
 		            + "FROM ("
 		            + "SELECT ROWNUM RNUM,COMMENT_NUM,COMMENT_CONTENTS,COMMENT_ENROLLTIME,COMMENT_REMOVE,COMMENT_MEMBERID,COMMENT_ENROLLNUM,MEMBER_NICKNAME "
 		            + "FROM (SELECT * FROM COMMENTS C LEFT JOIN MEMBER M ON(C.COMMENT_MEMBERID=M.MEMBER_ID) WHERE C.COMMENT_REMOVE='N' AND C.COMMENT_MEMBERID=? ORDER BY C.COMMENT_NUM)"
 		            + ")"
 		            + "WHERE RNUM BETWEEN ? AND ?";
-
-			
-			pstmt = connection.prepareStatement(query);
-			
-			pstmt.setString(1, loginId);
-			pstmt.setInt(2, pageInfo.getStartList());
-			pstmt.setInt(3, pageInfo.getEndList());
+		
+		try{
+			if(role.equals("USER")) {
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, loginId);
+				pstmt.setInt(2, pageInfo.getStartList());
+				pstmt.setInt(3, pageInfo.getEndList());
+			}else {
+				query = query.replace(" AND C.COMMENT_MEMBERID=?", "");
+				pstmt = connection.prepareStatement(query);
+				pstmt.setInt(1, pageInfo.getStartList());
+				pstmt.setInt(2, pageInfo.getEndList());
+			}
 			
 			rs = pstmt.executeQuery();
 
