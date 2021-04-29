@@ -11,37 +11,39 @@ import javax.servlet.http.HttpSession;
 import com.mvc.member.model.service.MemberService;
 import com.mvc.member.model.vo.Member;
 
-
-@WebServlet(name="updatePw",urlPatterns="/member/updatePw")
-public class MemberUpdatePwServlet extends HttpServlet {
+@WebServlet(name="confirmfindId",urlPatterns="/member/confirmFindId")
+public class confirmFindIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private MemberService service = new MemberService();
- 
-    public MemberUpdatePwServlet() {
+
+	MemberService service = new MemberService();
+	
+    public confirmFindIdServlet() {
         super();
-      
+    
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/member/updatePw.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/confirmFindId.jsp").forward(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String Member_NickName = request.getParameter("Member_NickName");
+		String Member_Birth = request.getParameter("Member_Birth");
 		HttpSession session = request.getSession();
-		Member updatePwMember = (Member) session.getAttribute("updatePwMember");
-		int result = 0;
-		String Member_Pw = request.getParameter("Member_Pw");
 		
-		result = service.updateMemberPw(Member_Pw,updatePwMember.getMember_Id());
+		Member loginMember = service.findMemberId(Member_NickName, Member_Birth);
 		
-		if(result > 0) {
-			request.setAttribute("msg","비밀번호 변경이 완료되었습니다.");
-			request.setAttribute("location", "/member/login");
-		
+		if(loginMember != null) {
+			request.setAttribute("msg", "본인확인 완료");
+			request.setAttribute("location", "/member/findId");
+			session.setAttribute("findIdMember", loginMember);
 		}else {
-			request.setAttribute("msg","비밀번호 변경에 실패하였습니다.");
-			request.setAttribute("location", "/member/updatePw");
+			request.setAttribute("msg", "본인확인 실패 : 회원정보가 맞지 않습니다");
+			request.setAttribute("location", "/member/confirmFindId");
 		}
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		
+		
 	}
+
 }

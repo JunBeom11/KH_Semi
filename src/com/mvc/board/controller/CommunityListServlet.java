@@ -13,20 +13,23 @@ import com.mvc.board.model.service.BoardService;
 import com.mvc.board.model.vo.Post;
 import com.mvc.common.util.PageInfo;
 
-@WebServlet("/board/news")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/board/community")
+public class CommunityListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardService service = new BoardService();
+	private BoardService service = new BoardService();  
 
-    public BoardListServlet() {
+    public CommunityListServlet() {
 
     }
 
-    
-    @Override
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int page=0;
 		int listCount=0;
+		PageInfo pageInfo=null;
+		List<Post> list=null;
+		String country = request.getParameter("country");
+		
 		try
 		{
 			page=Integer.parseInt(request.getParameter("page"));
@@ -35,15 +38,35 @@ public class BoardListServlet extends HttpServlet {
 		{
 			page = 1; 
 		}
-		listCount = service.getBoardCount();
-		PageInfo pageInfo = new PageInfo(page,10,listCount,10);
-		List<Post> list = service.getBoardList(pageInfo);
 		
+		if(country==null)
+		{
+			listCount = service.getBoardCount2();
+		}
+		else
+		{
+			listCount = service.getBoardCount2(country);
+		}
+		pageInfo = new PageInfo(page,10,listCount,10);
+		list = service.getBoardList2(pageInfo,country);
 		System.out.println(list);
+		if(list.size()!=0 && country!=null)
+		{
+			String locnum = list.get(0).getPost_LocationNum();
+			System.out.println(locnum+"성공!!");
+			request.setAttribute("locnum", locnum);
+		}
+		else
+		{
+			String locnum = "0";
+			request.setAttribute("locnum", locnum);
+		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pageInfo", pageInfo);
-    	request.getRequestDispatcher("/views/board/news.jsp").forward(request, response);
+    	request.getRequestDispatcher("/views/board/community.jsp").forward(request, response);
 	}
+
+
 
 }

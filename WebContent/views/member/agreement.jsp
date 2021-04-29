@@ -6,36 +6,38 @@
 	h3{
 		text-align:center;
 	}
+	td{
+		text-align:left;
+	}
 	div{
 		text-align:center;
 	}
 	#enrollSubmit{
-		width: 30%; 
-		float:none; 
+		width: 30%;
+		float:none;
 		margin:0 auto;
 	}
 
 </style>
-<h3>[개인정보 수집·이용 동의]</h2>
+<h3>[개인정보 수집·이용 동의]</h3>
 <div class="jumbotron">
 	<table border = "1" style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<td>
-				①개인정보의 수집·이용목적<br>
-				예시) 포인트 적립, 입시상담, 급여관리, ...<br>
-								
-				②수집하려는 개인정보의 항목<br>
-				예시) 성명, 번화번호, 주소, 이메일, 학년, ...<br>
-								
-				③개인정보의 보유 및 이용기간(근거법률)<br>
-				예시)1년, 수강기간, 퇴사후 3년, ...<br>
-							
-				거래기록<br>
-				5년(전자상거래 등에서의 소비자 보호에 관한 법률)<br>
-								
-				④동의를 거부할 수 있으며, 예시)동의 거부시 ○○서비스가 제공되지 않습니다.<br>
-				※ 위 개인정보 수집이용에 동의하십니까?<br>
-				
+<pre>
+①개인정보의 수집·이용목적<br>
+ 회원관리 목적, 지역별 코로나 정보 제공 <br>
+
+②수집하려는 개인정보의 항목<br>
+ 닉네임, 이메일, 생년월일, 지역<br>
+
+③개인정보의 보유 및 이용기간(근거법률)<br>
+ 1년<br>
+
+④동의를 거부할 수 있으며, 동의 거부시 서비스가 제공되지 않습니다.<br>
+<b> ※ 위 개인정보 수집이용에 동의하십니까?</b><br>
+
+</pre>
 			</td>
 		</tr>
 	</table>
@@ -43,12 +45,10 @@
 	<br>
 	<form>
 	  <input type="radio" id="agreement" name="check" value="agreement">
-	  <label for="agreement">동의함</label>
+	  <label for="agreement">동의함</label>&nbsp;&nbsp;&nbsp;&nbsp;
 	  <input type="radio" id="disagreement" name="check" value="disagreement">
 	  <label for="disagreement">동의하지않음</label>
 	</form>
-
-	
 </div>
 	<input type="submit" class="btn btn-outline-success btn-lg" id="enrollSubmit" value="가입하기" />
 	<br>
@@ -64,6 +64,5 @@
 	    });
 	});
 </script>
-			
-<%@ include file="/views/common/footer.jsp" %>
 
+<%@ include file="/views/common/footer.jsp" %>

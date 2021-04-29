@@ -14,7 +14,7 @@
 		text-align:center;
 		padding-top:50px;
 	}
-	
+
 	span#duplicated {
 		color:red;
 		font-weight:bolder;
@@ -25,44 +25,48 @@
 	<div id="checkId-container">
 		<% if(duplicated) { %>
 			[<span id="duplicated"><%= request.getParameter("userNickname") %></span>]는 사용중 입니다.
-			
+
 			<br><br>
-			
+
 			<!-- 닉네임 재입력창 구성 -->
 			<form action="<%= request.getContextPath() %>/member/checkNickname" method="post">
 				<input type="text" name="userNickname" id="newNickname" placeholder="닉네임" required>
 				<input type="submit" id="checkDuplicate" onclick="return validate();" value="중복검사" >
-			</form>		
+			</form>
 		<% } else { %>
 			[<span><%= request.getParameter("userNickname") %></span>]는 사용 가능합니다.
-		
+
 			<br><br>
-			
-			<input type="button" onclick="setUserNickname()" value="닫기">		
+
+			<input type="button" onclick="setUserNickname()" value="닫기">
 		<% } %>
 	</div>
 	<script>
 		function validate(){
 			let nickName = document.getElementById("newNickname").value;
 			var checkBlank = /[\s]/;
-			
+			var checkKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var checkEnglish =  /[a-zA-Z]/;
+
 			if(checkBlank.test(nickName.trim())){
 				alert("닉네임은 공백을 포함할 수 없습니다.");
 				document.getElementById("newNickname").focus();
 				return false;
+			}else if(checkKorean.test(nickName)==false && checkEnglish.test(nickName)==true){
+				alert("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");
+				document.getElementById("newNickname").focus();
+				return false;
 			}
 		}
-		
+
 		function setUserNickname() {
-			// 입력 된 id를 부모창에 대입
 			const nickName = "<%= request.getParameter("userNickname") %>";
-			
+
 			opener.memberEnrollFrm.Member_NickName.value = nickName;
 			opener.memberEnrollFrm.Member_Email.focus();
-			
-			// 팝업창 닫아주기
-			close();			
-		}	
-	</script>	
+
+			close();
+		}
+	</script>
 </body>
 </html>
