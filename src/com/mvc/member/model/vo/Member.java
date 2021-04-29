@@ -17,5 +17,9 @@ public class Member {
 	private String member_LocationNum;	//지역번호
 	private String member_role; 		//회원구분
 	private String member_status; 		//탈퇴여부
+	public int getNo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

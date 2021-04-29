@@ -21,6 +21,7 @@ public class MemberUpdateServlet extends HttpServlet {
     }
     @Override	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  
 		request.getRequestDispatcher("/views/mypage/update.jsp").forward(request, response);
 	}
 
@@ -29,21 +30,54 @@ public class MemberUpdateServlet extends HttpServlet {
 		int result = 0;
 		HttpSession session = request.getSession(false);
 		Member loginMember = session != null ? (Member)session.getAttribute("loginMember"):null;
-		String userPwd = request.getParameter("userPwd");
+		//String userPwd = request.getParameter("userPwd");
+		Member member = new Member();
+		int LocationNum = 0;
 		
-		if(loginMember  != null) {
-			result = service.updatePassword(loginMember.getMember_Id(),userPwd);
-			
-			if(result > 0) {
-				request.setAttribute("msg", "비밀번호 변경이 완료되었습니다.");
-				request.setAttribute("script", "self.close()");
-			}else {
-				request.setAttribute("msg", "비밀번호 변경에 실패했습니다");
-				request.setAttribute("script", "self.close");
-			}
-			
+		String loginId = loginMember.getMember_Id();
+		
+		switch(request.getParameter("Member_LocationNum")) {
+			case "Seoul" :				LocationNum = 1; break;
+			case "Gyeonggi" :			LocationNum = 2; break;
+			case "Daegu" :				LocationNum = 3; break;
+			case "Incheon" :			LocationNum = 4; break;
+			case "Gwangju" :			LocationNum = 5; break;
+			case "Daejeon" :			LocationNum = 6; break;
+			case "Ulsan" :				LocationNum = 7; break;
+			case "Busan" :				LocationNum = 8; break;
+			case "Gangwon" :			LocationNum = 9; break;
+			case "South_Chungcheong" :	LocationNum = 10; break;
+			case "North_Chungcheong" :	LocationNum = 11; break;
+			case "South_Jeolla" :		LocationNum = 12; break;
+			case "North_Jeolla" :		LocationNum = 13; break;
+			case "South_Gyeongsang" :	LocationNum = 14; break;
+			case "North_Gyeongsang" :	LocationNum = 15; break;
+			case "Jeju" :				LocationNum = 16; break;
+			case "Sejong" :				LocationNum = 17; break;
+		}
+		
+		member.setMember_Id(request.getParameter("Member_Id"));
+		member.setMember_Pw(request.getParameter("Member_Pw"));
+		member.setMember_NickName(request.getParameter("Member_NickName"));
+		member.setMember_Birth(request.getParameter("Member_Birth"));
+		member.setMember_Email(request.getParameter("Member_Email"));
+		member.setMember_LocationNum(String.valueOf(LocationNum));
+		
+		result = service.updateMypage(member, loginId );
+		
+		if(result > 0) {
+    		//session.setAttribute("loginMember", service.updateMypage(member.getMember_Id()));
+    		
+    		request.setAttribute("msg", "회원 정보 수정이 완료되었습니다.");
+    		request.setAttribute("location", "/");
+    	} else {
+    		request.setAttribute("msg", "회원 정보 수정에 실패하였습니다.");
+    		request.setAttribute("location", "/mypage/update");
+    	}
+	
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
+	
 	}
 
-}
+

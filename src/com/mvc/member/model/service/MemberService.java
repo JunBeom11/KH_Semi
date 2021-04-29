@@ -1,9 +1,14 @@
 package com.mvc.member.model.service;
 
-import java.sql.Connection;	 
+import java.sql.Connection;	 			
 
 import com.mvc.member.model.dao.MemberDAO;
 import com.mvc.member.model.vo.Member;
+
+import static com.mvc.common.jdbc.JDBCTemplate.close;
+import static com.mvc.common.jdbc.JDBCTemplate.commit;
+import static com.mvc.common.jdbc.JDBCTemplate.getConnection;
+import static com.mvc.common.jdbc.JDBCTemplate.rollback;
 import static com.mvc.common.jdbc.JDBCTemplate.*;
 
 public class MemberService {
@@ -58,14 +63,9 @@ public class MemberService {
 		Member member = dao.checkNickname(conn, userNickname);
 		
 		close(conn);
-		return false;
+		return member != null;
 	}
 		
 
-	public int updatePassword(String member_Id, String userPwd) {
-		
-		return 0;
-
-	}
 
 }
