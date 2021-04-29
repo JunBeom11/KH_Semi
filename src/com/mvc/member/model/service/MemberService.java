@@ -118,8 +118,6 @@ public class MemberService {
 		}else {
 			return null;
 		}
-
-		return false;
 	}
 
 
