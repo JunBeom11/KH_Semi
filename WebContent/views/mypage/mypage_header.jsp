@@ -22,7 +22,7 @@
 			
 			var targetId = "post-list";
 			
-			if(currentUrl.includes("checkpw")){
+			if(currentUrl.includes("checkpw") || currentUrl.includes("update")){
 				targetId = "update-info";
 			}
 			else if(currentUrl.includes("myreply")) {

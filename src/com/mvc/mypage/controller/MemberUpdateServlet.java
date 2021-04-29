@@ -25,26 +25,14 @@ public class MemberUpdateServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		String isChecked = (String)session.getAttribute("isChecked");
 
 		if (loginMember == null) {
-			request.setAttribute("msg", "로그인 해주세요.");
-			request.setAttribute("location", "/member/login");
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			response.sendRedirect("/inCorona/member/login");
 			return;
 		}
-
-		//////////////////여기부터
-		 boolean isChecked = (boolean)session.getAttribute("isChecked");
-		 
-		 if(!isChecked) { 
-			 request.setAttribute("msg", "비밀번호 재확인이 필요합니다.");
-			 request.setAttribute("location", "/mypage/checkpw");
-			 request.getRequestDispatcher("/views/common/msg.jsp").forward(request,response);
-			 return;
-		 }
-		 
-		session.removeAttribute("isChecked"); 
-		////////////////////여기까지
+		
 		request.getRequestDispatcher("/views/mypage/update.jsp").forward(request, response);
 	}
 
@@ -61,56 +49,39 @@ public class MemberUpdateServlet extends HttpServlet {
 
 		switch (request.getParameter("Member_LocationNum")) {
 		case "Seoul":
-			LocationNum = 1;
-			break;
+			LocationNum = 1;	break;
 		case "Gyeonggi":
-			LocationNum = 2;
-			break;
+			LocationNum = 2;	break;
 		case "Daegu":
-			LocationNum = 3;
-			break;
+			LocationNum = 3;	break;
 		case "Incheon":
-			LocationNum = 4;
-			break;
+			LocationNum = 4;	break;
 		case "Gwangju":
-			LocationNum = 5;
-			break;
+			LocationNum = 5;	break;
 		case "Daejeon":
-			LocationNum = 6;
-			break;
+			LocationNum = 6;	break;
 		case "Ulsan":
-			LocationNum = 7;
-			break;
+			LocationNum = 7;	break;
 		case "Busan":
-			LocationNum = 8;
-			break;
+			LocationNum = 8;	break;
 		case "Gangwon":
-			LocationNum = 9;
-			break;
+			LocationNum = 9;	break;
 		case "South_Chungcheong":
-			LocationNum = 10;
-			break;
+			LocationNum = 10;	break;
 		case "North_Chungcheong":
-			LocationNum = 11;
-			break;
+			LocationNum = 11;	break;
 		case "South_Jeolla":
-			LocationNum = 12;
-			break;
+			LocationNum = 12;	break;
 		case "North_Jeolla":
-			LocationNum = 13;
-			break;
+			LocationNum = 13;	break;
 		case "South_Gyeongsang":
-			LocationNum = 14;
-			break;
+			LocationNum = 14;	break;
 		case "North_Gyeongsang":
-			LocationNum = 15;
-			break;
+			LocationNum = 15;	break;
 		case "Jeju":
-			LocationNum = 16;
-			break;
+			LocationNum = 16;	break;
 		case "Sejong":
-			LocationNum = 17;
-			break;
+			LocationNum = 17;	break;
 		}
 
 		member.setMember_Id(loginId);
@@ -128,13 +99,15 @@ public class MemberUpdateServlet extends HttpServlet {
 			session.setAttribute("loginMember", member);
 
 			request.setAttribute("msg", "회원 정보 수정이 완료되었습니다.");
-			request.setAttribute("location", "/");
 		} else {
 			request.setAttribute("msg", "회원 정보 수정에 실패하였습니다.");
-			request.setAttribute("location", "/mypage/update");
 		}
-
+		
+		request.setAttribute("location", "/mypage/checkpw");
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		
+		//수정완료한 뒤 세션삭제
+		session.removeAttribute("isChecked");
 	}
 
 }

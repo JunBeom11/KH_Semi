@@ -6,7 +6,7 @@
 	<p>안전을 위해 비밀번호를 다시 한 번 입력해주세요.</p>
 	
 	<div id="checkPw-container">
-		<form action="/inCorona/mypage/update" method=POST">
+		<form action="/inCorona/mypage/checkpw" method="POST">
 			<table>
 				<tr>
 					<td><input type="text" class="form-control"  name="Member_Id" id="newMemberId" value="${ loginMember.member_Id }" aria-describedby="basic-addon1" readonly required></td>

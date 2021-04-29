@@ -15,9 +15,7 @@
 <body>
 	<script>
 		// 알림메세지를 띄움
-		if(<%= script != null %>) {
-			alert("<%= msg %>");
-		}
+		alert("<%= msg %>");
 		
 		// 실행시켜야할 스크립트가 있으면 실행
 		if(<%= script != null %>) {
