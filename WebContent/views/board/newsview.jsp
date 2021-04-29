@@ -6,11 +6,11 @@
 
 
 <% Post post = (Post)request.getAttribute("post");%>
-<section>
+<div>
 	<h1>&nbsp;뉴스 </h1>&nbsp;&nbsp;&nbsp;
-<br>
+	<hr>
 	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
-	<%=post.getPost_MemberId() %>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
+	<span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span>(<%=post.getPost_MemberId() %>)&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
 						<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
 							|| loginMember.getMember_Id().equals("admin"))) { %>
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatenews?boardNo=<%= post.getPost_Num()%>'">수정</button>
@@ -23,16 +23,16 @@
 		int rlen = post.getPost_FileReName().length()-4;
 		String form = post.getPost_FileReName().substring(rlen);%>
 		<% System.out.println(form); %>
-		<%if(form.equals(".jpg")||form.equals(".png")||form.equals("jpeg")){ %>
+		<%if(form.equals(".jpg")||form.equals(".png")||form.equals("jpeg")||form.equals(".JPG")||form.equals(".JPEG")||form.equals(".PNG")){ %>
 			<img src="<%=request.getContextPath()%>/resource/upload/board/<%=post.getPost_FileReName() %>" width="300" height="300"><br>
 		<%} %>
 	<%} %>
-	<table class="table" height="350px">
+	<table class="table" height="300px">
 	<tr>
 	<%=post.getPost_Content()%>
 	</tr>
 	</table>
-</section>
+</div>
 <br><br>
 
 <section id="content">   
@@ -40,6 +40,9 @@
 	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
 	    			<input type="hidden" name="writer" value="<%=loginMember != null ? loginMember.getMember_Id() : ""%>">
 					<input type="text" name="content" style = "width:723px">
+					
+					<input type="hidden" name="nickname" value="<%=loginMember != null? loginMember.getMember_NickName():"" %>">
+					
 					<button type="submit" id="btn-insert">등록</button>	    			
 	    		</form>
 		<div>
@@ -71,7 +74,7 @@
 	    <% for(Reply reply : post.getReplies()) { %>
     	   	<tr class="level1">
 	    		<td>
-	    			<sub class="comment-writer"><%= reply.getComment_MemberId() %></sub>
+	    			<sub class="comment-writer"><span style="font-weight:bold"><%=reply.getComment_MemberNickname() %></span>(<%= reply.getComment_MemberId() %>)</sub>
 	    			<sub class="comment-date"><%=reply.getComment_EnrollTime() %></sub>
 	    			<br>
 	    			<%=reply.getComment_Contents() %>

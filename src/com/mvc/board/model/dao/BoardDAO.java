@@ -49,11 +49,11 @@ public class BoardDAO {
 		
 		try
 		{
-			query="SELECT RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE " 
+			query="SELECT RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_MEMBERNICKNAME " 
 					+"FROM( " 
-					+	    "SELECT ROWNUM AS RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS,  POST_REMOVE " 
+					+	    "SELECT ROWNUM AS RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS,  POST_REMOVE, POST_MEMBERNICKNAME " 
 					+	   " FROM( " 
-					+"	        SELECT P.post_num, P.post_title, P.post_memberid, P.post_enrolltime, P.post_filename, P.post_filerename, P.post_views, P.post_Remove "
+					+"	        SELECT P.post_num, P.post_title, P.post_memberid, P.post_enrolltime, P.post_filename, P.post_filerename, P.post_views, P.post_Remove, P.post_membernickname "
 					+"	        FROM POST P JOIN MEMBER M ON(P.post_memberid=M.Member_Id) " 
 					+"	        WHERE P.POST_REMOVE='N' AND P.POST_BOARDNUM='1' ORDER BY P.POST_NUM DESC " 
 					+"	        ) "
@@ -79,6 +79,8 @@ public class BoardDAO {
 				post.setPost_FileReName(rs.getString("POST_FILERENAME"));
 				post.setPost_Views(rs.getInt("POST_VIEWS"));
 				post.setPost_Remove(rs.getString("POST_REMOVE"));
+				post.setPost_MemberNickname(rs.getString("POST_MEMBERNICKNAME"));
+				
 				
 				list.add(post);
 			}
@@ -101,7 +103,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		String query = null;
 		
-		query = "INSERT INTO POST VALUES(SEQ_BOARD_NO.NEXTVAL,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,'1',?,'1')";
+		query = "INSERT INTO POST VALUES(SEQ_BOARD_NO.NEXTVAL,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,'1',?,'1',?)";
 		try {
 			pstmt = connection.prepareStatement(query);
 			
@@ -111,6 +113,7 @@ public class BoardDAO {
 			pstmt.setString(3, post.getPost_FileName());
 			pstmt.setString(4, post.getPost_FileReName());
 			pstmt.setString(5, post.getPost_MemberId());
+			pstmt.setString(6, post.getPost_MemberNickname());
 			
 			result = pstmt.executeUpdate();
 			
@@ -133,7 +136,7 @@ public class BoardDAO {
 
 		try {
 			query =
-					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM FROM POST "
+					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM, POST_MEMBERNICKNAME FROM POST "
 					+ "WHERE POST_REMOVE='N' AND POST_NUM=? AND POST_BOARDNUM =1 ";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setInt(1, post_num);
@@ -155,6 +158,7 @@ public class BoardDAO {
 				post.setPost_Remove(rs.getString("POST_REMOVE"));
 				post.setPost_Content(rs.getString("POST_CONTENTS"));
 				post.setReplies(this.getRepliesByNo(connection, post_num));
+				post.setPost_MemberNickname(rs.getString("POST_MEMBERNICKNAME"));
 			}
 		} catch (SQLException e) {
 
@@ -210,7 +214,7 @@ public class BoardDAO {
 			System.out.println(rs);
 			System.out.println(query);
 			
-			query="SELECT comment_Num, comment_Contents, Comment_EnrollTime, Comment_Remove, comment_MemberId, comment_EnrollNum "
+			query="SELECT comment_Num, comment_Contents, Comment_EnrollTime, Comment_Remove, comment_MemberId, comment_EnrollNum, comment_MemberNickname "
 				+	" FROM COMMENTS "
 				+ 	" WHERE COMMENT_REMOVE='N' AND Comment_ENROLLNUM=? "
 				+	" ORDER BY COMMENT_NUM DESC ";
@@ -229,6 +233,7 @@ public class BoardDAO {
 				reply.setComment_Contents(rs.getString("COMMENT_CONTENTS"));
 				reply.setComment_MemberId(rs.getString("COMMENT_MEMBERID"));
 				reply.setComment_EnrollTime(rs.getDate("COMMENT_ENROLLTIME"));
+				reply.setComment_MemberNickname(rs.getString("COMMENT_MEMBERNICKNAME"));
 				replies.add(reply);
 			}
 			
@@ -252,13 +257,13 @@ public class BoardDAO {
 		String query = null;
 		
 		try {
-			query = "INSERT INTO COMMENTS VALUES(SEQ_CNO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?)";
+			query = "INSERT INTO COMMENTS VALUES(SEQ_CNO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?, ?)";
 			pstmt = connection.prepareStatement(query);
-			
+		
 			pstmt.setString(1, reply.getComment_Contents());
 			pstmt.setString(2, reply.getComment_MemberId());
 			pstmt.setInt(3, reply.getComment_EnrollNum());
-			
+			pstmt.setString(4, reply.getComment_MemberNickname());
 			result = pstmt.executeUpdate();	
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -328,11 +333,11 @@ public class BoardDAO {
 		ResultSet rs = null;
 		String query = null;
 		//스트링빌더
-		query="SELECT RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_BOARDNUM ,POST_LOCATIONNUM " 
+		query="SELECT RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_BOARDNUM ,POST_LOCATIONNUM, POST_MEMBERNICKNAME " 
 				+" FROM( " 
-				+" SELECT ROWNUM AS RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS,  POST_REMOVE, POST_BOARDNUM, POST_LOCATIONNUM " 
+				+" SELECT ROWNUM AS RNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS,  POST_REMOVE, POST_BOARDNUM, POST_LOCATIONNUM, POST_MEMBERNICKNAME " 
 				+" FROM( " 
-				+"	        SELECT P.post_num, P.post_title, P.post_memberid, P.post_enrolltime, P.post_filename, P.post_filerename, P.post_views, P.post_Remove, P.post_BOARDNUM, P.POST_LOCATIONNUM "
+				+"	        SELECT P.post_num, P.post_title, P.post_memberid, P.post_enrolltime, P.post_filename, P.post_filerename, P.post_views, P.post_Remove, P.post_BOARDNUM, P.POST_LOCATIONNUM, P.POST_MEMBERNICKNAME "
 				+"	        FROM POST P JOIN MEMBER M ON(P.post_memberid=M.Member_Id) " 
 				+"	        WHERE P.POST_REMOVE='N' AND P.POST_BOARDNUM='2' " ;
 		if(country!=null)
@@ -398,7 +403,7 @@ public class BoardDAO {
 				post.setPost_Views(rs.getInt("POST_VIEWS"));
 				post.setPost_Remove(rs.getString("POST_REMOVE"));
 				post.setPost_LocationNum(rs.getString("POST_LOCATIONNUM"));
-				
+				post.setPost_MemberNickname(rs.getString("POST_MEMBERNICKNAME"));
 				list.add(post);
 				
 			}
@@ -423,7 +428,7 @@ public class BoardDAO {
 		
 		
 		try {
-			query = "INSERT INTO POST VALUES(SEQ_BOARD_NO.NEXTVAL,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,'2',?,?) ";
+			query = "INSERT INTO POST VALUES(SEQ_BOARD_NO.NEXTVAL,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,'2',?,?,?) ";
 			pstmt = connection.prepareStatement(query);
 			
 			System.out.println(post);
@@ -433,6 +438,7 @@ public class BoardDAO {
 			pstmt.setString(4, post.getPost_FileReName());
 			pstmt.setString(5, post.getPost_MemberId());
 			pstmt.setString(6, post.getPost_LocationNum());
+			pstmt.setString(7, post.getPost_MemberNickname());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -454,7 +460,7 @@ public class BoardDAO {
 
 		try {
 			query =
-					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM FROM POST "
+					"SELECT ROWNUM, POST_NUM, POST_TITLE, POST_MEMBERID, POST_ENROLLTIME, POST_FILENAME, POST_FILERENAME, POST_VIEWS, POST_REMOVE, POST_CONTENTS, POST_BOARDNUM, POST_MEMBERNICKNAME, POST_LOCATIONNUM FROM POST "
 					+ "WHERE POST_REMOVE='N' AND POST_NUM=? AND POST_BOARDNUM ='2' ";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setInt(1, post_num);
@@ -476,6 +482,8 @@ public class BoardDAO {
 				post.setPost_Remove(rs.getString("POST_REMOVE"));
 				post.setPost_Content(rs.getString("POST_CONTENTS"));
 				post.setReplies(this.getRepliesByNo(connection, post_num));
+				post.setPost_MemberNickname(rs.getString("POST_MEMBERNICKNAME"));
+				post.setPost_LocationNum(rs.getString("POST_LOCATIONNUM"));
 			}
 		} catch (SQLException e) {
 
@@ -531,7 +539,7 @@ public class BoardDAO {
 			System.out.println(rs);
 			System.out.println(query);
 			
-			query="SELECT comment_Num, comment_Contents, Comment_EnrollTime, Comment_Remove, comment_MemberId, comment_EnrollNum "
+			query="SELECT comment_Num, comment_Contents, Comment_EnrollTime, Comment_Remove, comment_MemberId, comment_EnrollNum, comment_MemberNickName "
 				+	" FROM COMMENTS "
 				+ 	" WHERE COMMENT_REMOVE='N' AND Comment_ENROLLNUM=? "
 				+	" ORDER BY COMMENT_NUM DESC ";
@@ -550,6 +558,7 @@ public class BoardDAO {
 				reply.setComment_Contents(rs.getString("COMMENT_CONTENTS"));
 				reply.setComment_MemberId(rs.getString("COMMENT_MEMBERID"));
 				reply.setComment_EnrollTime(rs.getDate("COMMENT_ENROLLTIME"));
+				reply.setComment_MemberNickname(rs.getString("COMMENT_MEMBERNICKNAME"));
 				replies.add(reply);
 			}
 			
@@ -573,12 +582,13 @@ public class BoardDAO {
 		String query = null;
 		
 		try {
-			query = "INSERT INTO COMMENTS VALUES(SEQ_CNO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?)";
+			query = "INSERT INTO COMMENTS VALUES(SEQ_CNO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?, ?)";
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setString(1, reply.getComment_Contents());
 			pstmt.setString(2, reply.getComment_MemberId());
 			pstmt.setInt(3, reply.getComment_EnrollNum());
+			pstmt.setString(4, reply.getComment_MemberNickname());
 			
 			result = pstmt.executeUpdate();	
 		} catch (SQLException e) {
@@ -642,7 +652,7 @@ public class BoardDAO {
 		String query = null;
 		
 		try {
-			query = "UPDATE POST SET POST_TITLE=?, POST_CONTENTS=?, POST_FILENAME=?, POST_FILERENAME=?, POST_LOCATIONNUM=? WHERE POST_NUM=?";
+			query = "UPDATE POST SET POST_TITLE=?, POST_CONTENTS=?, POST_FILENAME=?, POST_FILERENAME=?, POST_LOCATIONNUM=?, POST_MEMBERNICKNAME=? WHERE POST_NUM=?";
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setString(1, post.getPost_Title());
@@ -650,7 +660,8 @@ public class BoardDAO {
 			pstmt.setString(3, post.getPost_FileName());
 			pstmt.setString(4, post.getPost_FileReName());
 			pstmt.setString(5, post.getPost_LocationNum());
-			pstmt.setInt(6, post.getPost_Num());
+			pstmt.setString(6, post.getPost_MemberNickname());
+			pstmt.setInt(7, post.getPost_Num());
 			
 			
 			result = pstmt.executeUpdate();
@@ -669,14 +680,15 @@ public class BoardDAO {
 		String query = null;
 		
 		try {
-			query = "UPDATE POST SET POST_TITLE=?, POST_CONTENTS=?, POST_FILENAME=?, POST_FILERENAME=? WHERE POST_NUM=?";
+			query = "UPDATE POST SET POST_TITLE=?, POST_CONTENTS=?, POST_FILENAME=?, POST_FILERENAME=?, POST_MEMBERNICKNAME=? WHERE POST_NUM=?";
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setString(1, post.getPost_Title());
 			pstmt.setString(2, post.getPost_Content());
 			pstmt.setString(3, post.getPost_FileName());
 			pstmt.setString(4, post.getPost_FileReName());
-			pstmt.setInt(5, post.getPost_Num());
+			pstmt.setString(5, post.getPost_MemberNickname());
+			pstmt.setInt(6, post.getPost_Num());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

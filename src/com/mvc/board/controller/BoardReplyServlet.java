@@ -26,6 +26,7 @@ public class BoardReplyServlet extends HttpServlet {
     int post_num = Integer.parseInt(request.getParameter("post_num"));
     String writer = request.getParameter("writer");
     String content = request. getParameter("content");
+    String nickname = request.getParameter("nickname");
 	HttpSession session = request.getSession(false);
 	Member loginMember = session != null? (Member)session.getAttribute("loginMember") :null;
 	if(loginMember != null) {
@@ -35,7 +36,7 @@ public class BoardReplyServlet extends HttpServlet {
 			reply.setComment_MemberId(writer);
 			reply.setComment_Contents(content);
 			reply.setComment_EnrollNum(post_num);
-			
+			reply.setComment_MemberNickname(nickname);
 			int result = service.saveReply(reply);
 			
 			if(result > 0) {

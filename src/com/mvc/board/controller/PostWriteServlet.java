@@ -43,6 +43,7 @@ public class PostWriteServlet extends HttpServlet {
     	String title = mr.getParameter("title");
 		String writer = mr.getParameter("writer");//asdasd12
 		String content = mr.getParameter("content");
+		String nickname = mr.getParameter("nickname");
 		content = content.replaceAll("\n", "<br>");
 		System.out.println(content);
 		String fileName= mr.getFilesystemName("upfile");
@@ -57,6 +58,7 @@ public class PostWriteServlet extends HttpServlet {
 				Post post = new Post();
 				
 				post.setPost_MemberId(writer);
+				post.setPost_MemberNickname(nickname);
 				post.setPost_Title(title);
 				post.setPost_Content(content);
 				post.setPost_FileName(upfileName);

@@ -43,6 +43,7 @@ public class CommunityWriteServlet extends HttpServlet {
  		String writer = mr.getParameter("writer");//asdasd12
  		String content = mr.getParameter("content");
  		String location = mr.getParameter("location");
+ 		String nickname = mr.getParameter("nickname");
  		content = content.replaceAll("\n", "<br>");
  		System.out.println(content);
  		String fileName= mr.getFilesystemName("upfile");
@@ -57,10 +58,11 @@ public class CommunityWriteServlet extends HttpServlet {
  				Post post = new Post();
  				
  				post.setPost_MemberId(writer);
- 				post.setPost_Title("["+location+"]"+title);
+ 				post.setPost_Title(title);
  				post.setPost_Content(content);
  				post.setPost_FileName(upfileName);
  				post.setPost_FileReName(fileName);
+ 				post.setPost_MemberNickname(nickname);
  				switch(location)
  				{
  				case "서울": location="1";
