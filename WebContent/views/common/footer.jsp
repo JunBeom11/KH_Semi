@@ -34,7 +34,7 @@
 		var sec_height = $('section').height();
 		
 		if(sec_height <  win_height){
-			//윈도우 창이 컨텐츠보다 더 클때 --> 높이 확장
+			//윈도우 창이 컨텐츠보다 더 클때 -> 높이 확장
 			height = doc_height - nav_height - ftnav_height;
 			$('section').css('height', height);
 			$('section').css('padding-bottom','');

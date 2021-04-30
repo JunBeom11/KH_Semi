@@ -44,7 +44,7 @@
 					<c:forEach var="reply" items="${list}">
 					<tr>
 						<td>${ reply.rowNum }</td>
-						<td>${ reply.post_Title }</td>
+						<td>[${ reply.board_Name }] ${ reply.post_Title }</td>
 						<td>${ reply.comment_Contents }</td>
 						<td>${ reply.comment_MemberNickname }</td>
 						<td>${ reply.comment_EnrollTime }</td>
