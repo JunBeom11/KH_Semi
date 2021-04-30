@@ -632,7 +632,7 @@ public class BoardDAO {
 		String query=null;
 		
 		try {
-			query="UPDATE POST SET POST_REMOVE=? WHERE POST_NUM=? " ;
+			query="UPDATE POST SET POST_REMOVE=?, POST_TITLE='삭제된 게시글 입니다.', POST_CONTENTS='삭제된 게시글 입니다.' WHERE POST_NUM=? " ;
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setString(1,status);
