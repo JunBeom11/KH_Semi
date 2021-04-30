@@ -43,7 +43,7 @@
 					<c:forEach var="reply" items="${list}">
 					<tr>
 						<td>${ reply.rowNum }</td>
-						<td>${ reply.comment_Contents }</td>
+						<td><a href="${root}/board/newsview?boardNo=${reply.comment_EnrollNum}">${ reply.comment_Contents }</a></td>
 						<td>${ reply.comment_MemberNickname }</td>
 						<td>${ reply.comment_EnrollTime }</td>
 						<td><input type="checkbox" name="checkReply" value="${reply.comment_Num}"></td>
