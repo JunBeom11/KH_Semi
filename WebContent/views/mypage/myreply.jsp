@@ -27,6 +27,7 @@
 		<table id="tbl-board" class = "table tlable-striped">
 			<tr>
 				<th>번호</th>
+				<th>게시글 제목</th>
 				<th>댓글내용</th>
 				<th>닉네임</th>
 				<th>등록일</th>
@@ -36,14 +37,15 @@
 			<c:choose>
 				<c:when test="${list eq null || list.isEmpty()}">
 					<tr>
-						<td colspan="5">조회된 댓글이 없습니다.</td>
+						<td colspan="6">조회된 댓글이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="reply" items="${list}">
 					<tr>
 						<td>${ reply.rowNum }</td>
-						<td><a href="${root}/board/newsview?boardNo=${reply.comment_EnrollNum}">${ reply.comment_Contents }</a></td>
+						<td>${ reply.post_Title }</td>
+						<td>${ reply.comment_Contents }</td>
 						<td>${ reply.comment_MemberNickname }</td>
 						<td>${ reply.comment_EnrollTime }</td>
 						<td><input type="checkbox" name="checkReply" value="${reply.comment_Num}"></td>

@@ -30,7 +30,7 @@ public class MyPostDeleteServlet extends HttpServlet {
 			PostList[i] = Integer.parseInt(PostStringList[i]);
 		}
 		
-		int result = service.deleteList(PostList, "COMMENT");
+		int result = service.deleteList(PostList, "POST");
 		
 		if(result>0) {
 			request.setAttribute("msg", "게시글이 삭제되었습니다.");
