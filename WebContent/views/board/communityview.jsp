@@ -35,6 +35,27 @@
 							|| loginMember.getMember_Id().equals("admin"))) { %>
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatecommunity?boardNo=<%= post.getPost_Num()%>'">수정</button>
 					<button type="button" id="btnDelete">삭제</button>
+					<br>
+					<% if(post.getPost_FileName() !=null) {%>
+					<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
+			                            
+						<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
+						<%=post.getPost_FileName() %>
+					</a>
+					<script>
+					function fileDownload(oriname, rename)
+					{
+						const url = "<%=request.getContextPath()%>/board/fileDown";
+						let oName = encodeURIComponent(oriname);
+						let rName = encodeURIComponent(rename);
+						
+						console.log(oName,rName);
+						location.assign(url+"?oriname="+oName + "&rename=" + rName);
+					}
+				
+			</script>
+			<%} else { %>
+			<%} %>
 				<% } %>
 	<br>
 	<hr>
@@ -67,27 +88,7 @@
 	    		</form>
  
 		<div>
-			<% if(post.getPost_FileName() !=null) {%>
-			<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
-			                            
-				<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
-				<%=post.getPost_FileName() %>
-			</a>
-			<script>
-				function fileDownload(oriname, rename)
-				{
-					const url = "<%=request.getContextPath()%>/board/fileDown";
-					let oName = encodeURIComponent(oriname);
-					let rName = encodeURIComponent(rename);
-					
-					console.log(oName,rName);
-					location.assign(url+"?oriname="+oName + "&rename=" + rName);
-				}
-				
-			</script>
-			<%} else { %>
-				<span>-</span>
-			<%} %>
+
 		</div>
 		
 	    <table id="tbl-comment">
