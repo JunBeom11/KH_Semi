@@ -260,9 +260,10 @@ public class BoardDAO {
 			pstmt = connection.prepareStatement(query);
 		
 			pstmt.setString(1, reply.getComment_Contents());
-			pstmt.setString(2, reply.getComment_MemberId());
-			pstmt.setInt(3, reply.getComment_EnrollNum());
-			pstmt.setString(4, reply.getComment_MemberNickname());
+			pstmt.setString(2, reply.getComment_MemberNickname());
+			pstmt.setString(3, reply.getComment_MemberId());
+			pstmt.setInt(4, reply.getComment_EnrollNum());
+			
 			result = pstmt.executeUpdate();	
 		} catch (SQLException e) {
 			e.printStackTrace();
