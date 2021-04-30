@@ -56,7 +56,7 @@
 	</table>
 
 </div>
-<br><br>
+<br><hr>
 <section id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/communityreply" method="post">
 	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
