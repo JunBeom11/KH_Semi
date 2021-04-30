@@ -47,7 +47,7 @@ public class MemberDAO {
 		String query = null;
 
 		try {
-			query= "SELECT * FROM MEMBER WHERE MEMBER_ID=? ";
+			query= "SELECT * FROM MEMBER WHERE MEMBER_STATUS='N' AND MEMBER_ID=? ";
 			pstmt = connection.prepareStatement(query);
 
 			pstmt.setString(1, Member_Id);

@@ -25,6 +25,7 @@
 							</select></td>
 				</tr>
 				<tr>
+					<td><input type="hidden" name="nickname" value="<%= loginMember.getMember_NickName()%>" class="nickname" readonly></td>
 					<td><input type="hidden" name="writer" value="<%= loginMember.getMember_Id() %>" class="writer" readonly></td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>

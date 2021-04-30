@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 </div>
 	<footer>
 		<nav class="navbar navbar-default navbar-static-bottom">
@@ -20,7 +21,7 @@
 		return nav_height;
 	}
 	
- 	function sizeCheck(){
+ 	/* function sizeCheck(){
 		//window 사이즈에 맞게 contents 사이즈 조정
 		var nav_height = navSizeCheck();
 		
@@ -32,20 +33,25 @@
 		
 		var sec_height = $('section').height();
 		
-		if(sec_height <=  win_height){
+		$('section').css('height', sec_height);
+		$('section').css('padding-bottom',ftnav_height);
+		
+		
+		 if(sec_height <=  win_height){
 			//윈도우 창이 컨텐츠보다 더 클때 --> 높이 확장
 			height = win_height - nav_height - ftnav_height;
-			$('section').css('height', height);
+			$('section').css('height', '100vh');
 			$('section').css('padding-bottom',0);
 		}else {
 			//윈도우 창이 컨텐츠보다 더 작을 때 -> padding 더함
+			alert();
 			$('section').css('height', sec_height);
 			$('section').css('padding-bottom',ftnav_height);
-		}
-	} 
+		} 
+	}  */
 	
-	sizeCheck();
-	$(window).resize(sizeCheck);
+	navSizeCheck();
+	$(window).resize(navSizeCheck);
 </script>
 
 </html>

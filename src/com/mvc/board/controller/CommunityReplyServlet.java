@@ -26,12 +26,13 @@ public class CommunityReplyServlet extends HttpServlet {
 	    int post_num = Integer.parseInt(request.getParameter("post_num"));
 	    String writer = request.getParameter("writer");
 	    String content = request. getParameter("content");
+	    String nickname = request.getParameter("nickname");
 		HttpSession session = request.getSession(false);
 		Member loginMember = session != null? (Member)session.getAttribute("loginMember") :null;
 		if(loginMember != null) {
 			if(loginMember.getMember_Id().equals(writer)) {
 				Reply reply = new Reply();
-				
+				reply.setComment_MemberNickname(nickname);
 				reply.setComment_MemberId(writer);
 				reply.setComment_Contents(content);
 				reply.setComment_EnrollNum(post_num);
