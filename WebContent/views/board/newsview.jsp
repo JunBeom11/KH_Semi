@@ -53,8 +53,11 @@
 	    		</form>
 		<div>
 			<% if(post.getPost_FileName() !=null) {%>
-			
-
+			<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
+			                            
+				<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
+				<%=post.getPost_FileName() %>
+			</a>
 			<script>
 				function fileDownload(oriname, rename)
 				{
