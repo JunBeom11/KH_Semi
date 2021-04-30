@@ -21,7 +21,7 @@
 		return nav_height;
 	}
 	
- 	/* function sizeCheck(){
+	function sizeCheck(){
 		//window 사이즈에 맞게 contents 사이즈 조정
 		var nav_height = navSizeCheck();
 		
@@ -33,25 +33,20 @@
 		
 		var sec_height = $('section').height();
 		
-		$('section').css('height', sec_height);
-		$('section').css('padding-bottom',ftnav_height);
-		
-		
-		 if(sec_height <=  win_height){
+		if(sec_height <  win_height){
 			//윈도우 창이 컨텐츠보다 더 클때 --> 높이 확장
-			height = win_height - nav_height - ftnav_height;
-			$('section').css('height', '100vh');
-			$('section').css('padding-bottom',0);
+			height = doc_height - nav_height - ftnav_height;
+			$('section').css('height', height);
+			$('section').css('padding-bottom','');
 		}else {
 			//윈도우 창이 컨텐츠보다 더 작을 때 -> padding 더함
-			alert();
-			$('section').css('height', sec_height);
+			$('section').css('height', '');
 			$('section').css('padding-bottom',ftnav_height);
-		} 
-	}  */
+		}
+	} 
 	
-	navSizeCheck();
-	$(window).resize(navSizeCheck);
+ 	sizeCheck();
+	$(window).resize(sizeCheck);
 </script>
 
 </html>

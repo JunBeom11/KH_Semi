@@ -237,12 +237,15 @@ public class MypageDAO {
 		ResultSet rs= null;
 		String query = null;
 
-		query = "SELECT * "
-		            + "FROM ("
-		            + "SELECT ROWNUM RNUM,COMMENT_NUM,COMMENT_CONTENTS,COMMENT_ENROLLTIME,COMMENT_REMOVE,COMMENT_MEMBERID,COMMENT_ENROLLNUM,MEMBER_NICKNAME "
-		            + "FROM (SELECT * FROM COMMENTS C LEFT JOIN MEMBER M ON(C.COMMENT_MEMBERID=M.MEMBER_ID) WHERE C.COMMENT_REMOVE='N' AND C.COMMENT_MEMBERID=? ORDER BY C.COMMENT_NUM)"
-		            + ")"
-		            + "WHERE RNUM BETWEEN ? AND ?";
+		query = "SELECT *FROM ("
+				+ "    SELECT ROWNUM RNUM, COMMENT_NUM, COMMENT_CONTENTS,COMMENT_ENROLLTIME,COMMENT_REMOVE,COMMENT_MEMBERID,COMMENT_ENROLLNUM,MEMBER_NICKNAME, POST_TITLE "
+				+ "    FROM ("
+				+ "        SELECT * FROM COMMENTS C "
+				+ "            LEFT JOIN MEMBER M ON(C.COMMENT_MEMBERID=M.MEMBER_ID)"
+				+ "            LEFT JOIN POST P ON(C.COMMENT_ENROLLNUM=P.POST_NUM)"
+				+ "    ) "
+				+ "    WHERE COMMENT_REMOVE='N' AND COMMENT_MEMBERID=? ORDER BY COMMENT_NUM DESC"
+				+ ") WHERE RNUM BETWEEN ? AND ?";
 
 		try{
 			if(role.equals("USER")) {
@@ -251,7 +254,7 @@ public class MypageDAO {
 				pstmt.setInt(2, pageInfo.getStartList());
 				pstmt.setInt(3, pageInfo.getEndList());
 			}else {
-				query = query.replace(" AND C.COMMENT_MEMBERID=?", "");
+				query = query.replace(" AND COMMENT_MEMBERID=?", "");
 				pstmt = connection.prepareStatement(query);
 				pstmt.setInt(1, pageInfo.getStartList());
 				pstmt.setInt(2, pageInfo.getEndList());
@@ -270,6 +273,7 @@ public class MypageDAO {
 				reply.setComment_MemberId(rs.getString("COMMENT_MEMBERID"));
 				reply.setComment_MemberNickname(rs.getString("MEMBER_NICKNAME"));
 				reply.setComment_EnrollTime(rs.getDate("COMMENT_ENROLLTIME"));
+				reply.setPost_Title(rs.getString("POST_TITLE"));
 				replies.add(reply);
 			}
 		}
@@ -289,26 +293,29 @@ public class MypageDAO {
 	public int updateStatus(Connection connection, int[] numList, String type) {
 		int result=0;
 		PreparedStatement pstmt = null;
-		String query="UPDATE POST SET POST_REMOVE='Y' WHERE POST_NUM = ?";
-
-		if(type.equals("COMMENTS")) {
-			query = "UPDATE COMMENTS SET COMMENT_REMOVE='Y' WHERE COMMENT_NUM=?";
-		}
-
+		
+		String query="UPDATE POST SET POST_REMOVE='Y', POST_TITLE='삭제된 게시글입니다.', POST_CONTENTS='삭제된 게시글입니다.' WHERE POST_NUM = ?";
+		if(type.equals("COMMENTS")) query = "UPDATE COMMENTS SET COMMENT_REMOVE='Y', COMMENT_CONTENTS='삭제된 댓글입니다.' WHERE COMMENT_NUM=?";
+		
 		try {
-			for(int i=0;i<numList.length;i++) {
-				pstmt = connection.prepareStatement(query);
+			pstmt = connection.prepareStatement(query);
+			for(int i=0;i<numList.length;i++) {				
 
+				System.out.println(numList[i]);
 				pstmt.setInt(1,numList[i]);
 
-				result += pstmt.executeUpdate();
+				pstmt.addBatch();
+				pstmt.clearParameters();
 			}
+			
+			result = pstmt.executeBatch().length;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(pstmt);
 		}
 
-		return result==numList.length? result:0;
+		return result==numList.length?result:0;
 	}
 }

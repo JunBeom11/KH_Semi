@@ -41,7 +41,7 @@
 					<c:forEach var="post" items="${list}">
 					<tr>
 						<td>${ post.rowNum }</td>
-						<td>${ post.post_Title }</td>
+						<td><a href="${root}/board/newsview?boardNo=${post.post_Num}">${ post.post_Title }</a></td>
 						<td>${ post.post_MemberNickname }</td>
 						<td>${ post.getEnrollTime() }</td>
 						<td><input type="checkbox" name="checkPost" value="${post.post_Num}"></td>
