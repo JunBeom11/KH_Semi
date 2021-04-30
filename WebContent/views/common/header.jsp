@@ -61,8 +61,7 @@
 						<div class="row" id="collapse_row">
 							<ul class="nav navbar-nav navbar-right navbar-lower">
 								<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/inCorona/board/news'">뉴스</button></li>
-								<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/inCorona/hospital/list'">주변 병원</button></li>
-								<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/inCorona/clinic/list'">선별진료소</button></li>
+								<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/inCorona/hospital/list'">주변 병원/선별진료소</button></li>
 								<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/inCorona/board/community'">정보공유게시판</button></li>
 							</ul>					
 						</div>
