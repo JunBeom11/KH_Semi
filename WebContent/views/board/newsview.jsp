@@ -34,11 +34,7 @@
 	</table>
 </div>
 <br>
-			<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
-			                            
-				<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
-				<%=post.getPost_FileName() %>
-			</a>
+
 <hr>
 
 <section id="content">   
@@ -67,8 +63,7 @@
 					
 					console.log(oName,rName);
 					location.assign(url+"?oriname="+oName + "&rename=" + rName);
-				}
-				
+				}	
 			</script>
 			<%} else { %>
 				<span>-</span>
