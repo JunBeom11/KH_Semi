@@ -57,7 +57,7 @@
 			}
 		%>
 		</table>
-		<%if(loginMember!=null){%>
+		<%if(loginMember.getMember_role().equals("ADMIN")){%>
 			<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
 		<%}%>
 		

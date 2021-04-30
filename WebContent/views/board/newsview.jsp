@@ -51,6 +51,8 @@
 	<%} %>
 	<table class="table" height="300px">
 	<tr>
+	<%String content = post.getPost_Content();%>
+	<%content = content.replaceAll("<br>", "\n");%>
 	<%=post.getPost_Content()%>
 	</tr>
 	</table>
