@@ -295,6 +295,4 @@
 		<%} %>
 			
 </section>
-
-<br><br><br>
 <%@ include file="/views/common/footer.jsp" %>

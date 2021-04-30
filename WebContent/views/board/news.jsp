@@ -86,6 +86,4 @@
 			<button onClick = "location.href=' <%= request.getContextPath() %>/board/news?page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
 		</div>
 </section>
-
-<br><br><br>
 <%@ include file="/views/common/footer.jsp" %>

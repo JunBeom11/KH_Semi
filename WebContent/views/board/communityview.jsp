@@ -8,6 +8,7 @@
 <% Post post = (Post)request.getAttribute("post");%>
 <% String num = post.getPost_LocationNum(); %>
 <% String country = null; %>
+<section>
 <div>
 	<h1>&nbsp;정보공유 </h1>&nbsp;&nbsp;&nbsp;
 	<hr>
@@ -78,7 +79,7 @@
 
 </div>
 <br><hr>
-<section id="content">   
+<div id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/communityreply" method="post">
 	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
 	    			<input type="hidden" name="nickname" value="<%=loginMember !=null?loginMember.getMember_NickName() : "" %>">
@@ -105,9 +106,10 @@
 	    <%} %>
 	    </table>
 
-</section>
+</div>
 
 <br><br><br>
+</section>
 <script>
 	$(document).ready(()=>{
 		$("#btnDelete").on("click",(e) =>{
