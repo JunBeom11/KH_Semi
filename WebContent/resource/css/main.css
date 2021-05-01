@@ -1,9 +1,8 @@
 @charset "UTF-8";
 
 /* header.jsp */
-
-#basicContainer {
-	height:100vh;
+body {
+	height:100%;
 } 
 
 .navbar-default {
@@ -45,13 +44,20 @@ div #collapse_row {
 
 section {
 	width:100%;
+	min-height:100vh;
+	padding-bottom:50px;
 }
 
 /* footer.jsp */
 footer .navbar-static-bottom {	
- 	bottom: 0;
+/* 	position:absolute;
+	left:0;
+	bottom:0; */
+	width:100%;
 	margin-bottom:0px; 
+	bottom:0;
 	height:50px;
+	text-align: center;
 } 
 
 
