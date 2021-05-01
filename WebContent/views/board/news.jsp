@@ -57,7 +57,7 @@
 			}
 		%>
 		</table>
-		<%if(loginMember!=null){%>
+		<%if(loginMember.getMember_role().equals("ADMIN")){%>
 			<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
 		<%}%>
 		
@@ -86,6 +86,4 @@
 			<button onClick = "location.href=' <%= request.getContextPath() %>/board/news?page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
 		</div>
 </section>
-
-<br><br><br>
 <%@ include file="/views/common/footer.jsp" %>

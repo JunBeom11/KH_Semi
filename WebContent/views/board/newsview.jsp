@@ -6,6 +6,7 @@
 
 
 <% Post post = (Post)request.getAttribute("post");%>
+<section>
 <div>
 	<h1>&nbsp;뉴스 </h1>&nbsp;&nbsp;&nbsp;
 	<hr>
@@ -50,6 +51,8 @@
 	<%} %>
 	<table class="table" height="300px">
 	<tr>
+	<%String content = post.getPost_Content();%>
+	<%content = content.replaceAll("<br>", "\n");%>
 	<%=post.getPost_Content()%>
 	</tr>
 	</table>
@@ -58,7 +61,7 @@
 
 <hr>
 
-<section id="content">   
+<div id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/reply" method="post">
 	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
 	    			<input type="hidden" name="writer" value="<%=loginMember != null ? loginMember.getMember_Id() : ""%>">
@@ -83,9 +86,10 @@
 	    <%} %>
 	    </table>
 
-</section>
+</div>
 
 <br><br><br>
+</section>
 <script>
 	$(document).ready(()=>{
 		$("#btnDelete").on("click",(e) =>{

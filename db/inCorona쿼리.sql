@@ -149,7 +149,7 @@ comment on column clinic.location_num is '진료소지역번호';
 
 --게시판
 INSERT INTO BOARD VALUES('1','뉴스');
-INSERT INTO BOARD VALUES('2','정보공유');
+INSERT INTO BOARD VALUES('2','정보공유게시판');
 
 --지역
 INSERT INTO LOCATION VALUES(1,'서울','서울');
