@@ -41,7 +41,14 @@
 					<c:forEach var="post" items="${list}">
 					<tr>
 						<td>${ post.rowNum }</td>
-						<td>${ post.post_Title }</td>
+						<c:choose>
+							<c:when test="${post.board_Num eq 1}">
+								<td><a href="${root}/board/newsview?boardNo=${post.post_Num}">${ post.post_Title }</a></td>
+							</c:when>
+							<c:otherwise>
+								<td><a href="${root}/board/communityview?boardNo=${post.post_Num}">${ post.post_Title }</a></td>
+							</c:otherwise>
+						</c:choose>
 						<td>${ post.post_MemberNickname }</td>
 						<td>${ post.getEnrollTime() }</td>
 						<td><input type="checkbox" name="checkPost" value="${post.post_Num}"></td>

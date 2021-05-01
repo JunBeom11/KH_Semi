@@ -52,7 +52,7 @@
 				alert("닉네임은 공백을 포함할 수 없습니다.");
 				document.getElementById("newNickname").focus();
 				return false;
-			}else if(checkKorean.test(nickName)==false && checkEnglish.test(nickName)==true){
+			}else if((!checkKorean.test(nickName)) && (!checkEnglish.test(nickName))){
 				alert("닉네임은 숫자 또는 특수문자로만 구성할 수 없습니다");
 				document.getElementById("newNickname").focus();
 				return false;

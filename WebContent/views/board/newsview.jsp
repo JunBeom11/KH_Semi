@@ -6,6 +6,7 @@
 
 
 <% Post post = (Post)request.getAttribute("post");%>
+<section>
 <div>
 	<h1>&nbsp;뉴스 </h1>&nbsp;&nbsp;&nbsp;
 	<hr>
@@ -15,6 +16,27 @@
 							|| loginMember.getMember_Id().equals("admin"))) { %>
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatenews?boardNo=<%= post.getPost_Num()%>'">수정</button>
 					<button type="button" id="btnDelete">삭제</button>
+					<br>
+					<% if(post.getPost_FileName() !=null) {%>
+						<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
+					                            
+							<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
+							<%=post.getPost_FileName() %>
+						</a>
+						<script>
+						function fileDownload(oriname, rename)
+						{
+							const url = "<%=request.getContextPath()%>/board/fileDown";
+							let oName = encodeURIComponent(oriname);
+							let rName = encodeURIComponent(rename);
+							
+							console.log(oName,rName);
+							location.assign(url+"?oriname="+oName + "&rename=" + rName);
+						}
+				
+			</script>
+			<%} else { %>
+			<%} %>
 				<% } %>
 	<br>
 	<hr>
@@ -29,6 +51,7 @@
 	<%} %>
 	<table class="table" height="300px">
 	<tr>
+
 	<%=post.getPost_Content()%>
 	</tr>
 	</table>
@@ -37,7 +60,7 @@
 
 <hr>
 
-<section id="content">   
+<div id="content">   
 	    		<form action="<%=request.getContextPath()%>/board/reply" method="post">
 	    			<input type="hidden" name="post_num" value="<%=post.getPost_Num()%>">
 	    			<input type="hidden" name="writer" value="<%=loginMember != null ? loginMember.getMember_Id() : ""%>">
@@ -47,28 +70,7 @@
 					
 					<button type="submit" id="btn-insert">등록</button>	    			
 	    		</form>
-		<div>
-			<% if(post.getPost_FileName() !=null) {%>
-			<a href="javascript:fileDownload('<%=post.getPost_FileName()%>', '<%=post.getPost_FileReName()%>')">
-			                            
-				<img src="<%=request.getContextPath()%>/resource/image/file.png" width="20" height="20">
-				<%=post.getPost_FileName() %>
-			</a>
-			<script>
-				function fileDownload(oriname, rename)
-				{
-					const url = "<%=request.getContextPath()%>/board/fileDown";
-					let oName = encodeURIComponent(oriname);
-					let rName = encodeURIComponent(rename);
-					
-					console.log(oName,rName);
-					location.assign(url+"?oriname="+oName + "&rename=" + rName);
-				}	
-			</script>
-			<%} else { %>
-				<span>-</span>
-			<%} %>
-		</div>
+
 
 	    <table id="tbl-comment">
 	    <% for(Reply reply : post.getReplies()) { %>
@@ -83,9 +85,10 @@
 	    <%} %>
 	    </table>
 
-</section>
+</div>
 
 <br><br><br>
+</section>
 <script>
 	$(document).ready(()=>{
 		$("#btnDelete").on("click",(e) =>{

@@ -18,4 +18,6 @@ public class Reply {
 	private String comment_MemberId;
 	private int comment_EnrollNum;
 	private String comment_MemberNickname;
+	private String post_Title;
+	private String board_Name;
 }

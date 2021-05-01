@@ -58,9 +58,10 @@
 		%>
 		</table>
 		<%if(loginMember!=null){%>
-			<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
-		<%}%>
-		
+			<%if(loginMember.getMember_role().equals("ADMIN")){%>
+				<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
+			<%}%>
+		<%} %>
 	</div>
 		<div id="pageBar" align="center">
 			<!-- 맨 처음으로 -->
@@ -86,6 +87,4 @@
 			<button onClick = "location.href=' <%= request.getContextPath() %>/board/news?page=<%=pageInfo.getMaxPage() %>'" >&gt;&gt;</button>
 		</div>
 </section>
-
-<br><br><br>
 <%@ include file="/views/common/footer.jsp" %>

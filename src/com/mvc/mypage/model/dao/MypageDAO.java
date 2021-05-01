@@ -144,9 +144,11 @@ public class MypageDAO {
 
 		query="SELECT *"
 				+ "FROM ("
-				+ "    SELECT ROWNUM AS RNUM,POST_NUM,POST_TITLE,POST_MEMBERID,POST_ENROLLTIME,POST_FILENAME,POST_FILERENAME,POST_VIEWS,POST_REMOVE,MEMBER_NICKNAME"
+				+ "    SELECT ROWNUM AS RNUM,POST_NUM,POST_TITLE,POST_MEMBERID,POST_ENROLLTIME,POST_FILENAME,POST_FILERENAME,POST_VIEWS,POST_REMOVE,MEMBER_NICKNAME,POST_BOARDNUM"
 				+ "    FROM ("
-				+ "        SELECT * FROM POST P LEFT JOIN MEMBER M ON(P.POST_MEMBERID=M.MEMBER_ID) WHERE P.POST_REMOVE='N' AND P.POST_MEMBERID=? ORDER BY P.POST_NUM DESC"
+				+ "        SELECT * FROM POST P "
+				+ "				LEFT JOIN MEMBER M ON(P.POST_MEMBERID=M.MEMBER_ID) "
+				+ "			WHERE P.POST_REMOVE='N' AND P.POST_MEMBERID=? ORDER BY P.POST_NUM DESC"
 				+ "    )"
 				+ ")"
 				+ "WHERE RNUM BETWEEN ? AND ?";
@@ -180,6 +182,7 @@ public class MypageDAO {
 				post.setPost_FileReName(rs.getString("POST_FILERENAME"));
 				post.setPost_Views(rs.getInt("POST_VIEWS"));
 				post.setPost_Remove(rs.getString("POST_REMOVE"));
+				post.setBoard_Num(rs.getString("POST_BOARDNUM"));
 
 				list.add(post);
 				System.out.println(post);
@@ -238,11 +241,16 @@ public class MypageDAO {
 		String query = null;
 
 		query = "SELECT * "
-		            + "FROM ("
-		            + "SELECT ROWNUM RNUM,COMMENT_NUM,COMMENT_CONTENTS,COMMENT_ENROLLTIME,COMMENT_REMOVE,COMMENT_MEMBERID,COMMENT_ENROLLNUM,MEMBER_NICKNAME "
-		            + "FROM (SELECT * FROM COMMENTS C LEFT JOIN MEMBER M ON(C.COMMENT_MEMBERID=M.MEMBER_ID) WHERE C.COMMENT_REMOVE='N' AND C.COMMENT_MEMBERID=? ORDER BY C.COMMENT_NUM)"
-		            + ")"
-		            + "WHERE RNUM BETWEEN ? AND ?";
+				+ "FROM ("
+				+ "    SELECT ROWNUM RNUM, COMMENT_NUM, COMMENT_CONTENTS,COMMENT_ENROLLTIME,COMMENT_REMOVE,COMMENT_MEMBERID,COMMENT_ENROLLNUM,MEMBER_NICKNAME, POST_TITLE, BOARD_NAME"
+				+ "    FROM ("
+				+ "        SELECT * FROM COMMENTS C "
+				+ "            LEFT JOIN MEMBER M ON (C.COMMENT_MEMBERID=M.MEMBER_ID)"
+				+ "            LEFT JOIN POST P ON (C.COMMENT_ENROLLNUM=P.POST_NUM)"
+				+ "			   LEFT JOIN BOARD B ON (P.POST_BOARDNUM=B.BOARD_ID)"
+				+ "        WHERE C.COMMENT_REMOVE='N' AND C.COMMENT_MEMBERID=? ORDER BY C.COMMENT_NUM DESC"
+				+ "    )"
+				+ ") WHERE RNUM BETWEEN ? AND ?";
 
 		try{
 			if(role.equals("USER")) {
@@ -270,6 +278,8 @@ public class MypageDAO {
 				reply.setComment_MemberId(rs.getString("COMMENT_MEMBERID"));
 				reply.setComment_MemberNickname(rs.getString("MEMBER_NICKNAME"));
 				reply.setComment_EnrollTime(rs.getDate("COMMENT_ENROLLTIME"));
+				reply.setPost_Title(rs.getString("POST_TITLE"));
+				reply.setBoard_Name(rs.getString("BOARD_NAME"));
 				replies.add(reply);
 			}
 		}
@@ -289,26 +299,29 @@ public class MypageDAO {
 	public int updateStatus(Connection connection, int[] numList, String type) {
 		int result=0;
 		PreparedStatement pstmt = null;
-		String query="UPDATE POST SET POST_REMOVE='Y' WHERE POST_NUM = ?";
-
-		if(type.equals("COMMENTS")) {
-			query = "UPDATE COMMENTS SET COMMENT_REMOVE='Y' WHERE COMMENT_NUM=?";
-		}
-
+		
+		String query="UPDATE POST SET POST_REMOVE='Y', POST_TITLE='삭제된 게시글입니다.', POST_CONTENTS='삭제된 게시글입니다.' WHERE POST_NUM = ?";
+		if(type.equals("COMMENTS")) query = "UPDATE COMMENTS SET COMMENT_REMOVE='Y', COMMENT_CONTENTS='삭제된 댓글입니다.' WHERE COMMENT_NUM=?";
+		
 		try {
-			for(int i=0;i<numList.length;i++) {
-				pstmt = connection.prepareStatement(query);
+			pstmt = connection.prepareStatement(query);
+			for(int i=0;i<numList.length;i++) {				
 
+				System.out.println(numList[i]);
 				pstmt.setInt(1,numList[i]);
 
-				result += pstmt.executeUpdate();
+				pstmt.addBatch();
+				pstmt.clearParameters();
 			}
+			
+			result = pstmt.executeBatch().length;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(pstmt);
 		}
 
-		return result==numList.length? result:0;
+		return result==numList.length?result:0;
 	}
 }

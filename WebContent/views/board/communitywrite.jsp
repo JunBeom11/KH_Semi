@@ -7,7 +7,7 @@
 </style>
 <section>
 	<div>
-	<h1>&nbsp;뉴스 작성</h1>
+	<h1>&nbsp;정보공유 작성</h1>
 <hr>
 		<form action="<%=request.getContextPath()%>/board/communitywrite" method="POST" 
 					enctype="multipart/form-data">
