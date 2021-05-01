@@ -105,7 +105,7 @@ div #pageBar{
 
 <div class=hospital-header style="height: 200px">
 	    <form  action="<%=request.getContextPath()%>/hospital/list" method="get">
-		<h2 align="center" class="locationNow">
+		<h2 align="right" class="locationNow">
 			현재 지역 : <select id="locationName" name="locationName" onchange="this.form.submit();">
 				<option value="" >지역</option>
 				<option value="서울" >서울</option>
