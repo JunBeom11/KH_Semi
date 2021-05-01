@@ -57,10 +57,11 @@
 			}
 		%>
 		</table>
-		<%if(loginMember.getMember_role().equals("ADMIN")){%>
-			<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
-		<%}%>
-		
+		<%if(loginMember!=null){%>
+			<%if(loginMember.getMember_role().equals("ADMIN")){%>
+				<div align="right"><button type = "button" id ="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/newswrite'">글쓰기</button></div>
+			<%}%>
+		<%} %>
 	</div>
 		<div id="pageBar" align="center">
 			<!-- 맨 처음으로 -->
