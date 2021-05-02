@@ -32,6 +32,11 @@ public class MemberDeleteServlet extends HttpServlet {
 			 
 			if(result > 0) {
 				request.setAttribute("msg", "정상적으로 탈퇴되었습니다.");
+				
+				if(session !=null) {
+					session.invalidate();
+				}
+				
         		request.setAttribute("location", "/");
         	} else {
         		request.setAttribute("msg", "탈퇴에 실패하였습니다.");
