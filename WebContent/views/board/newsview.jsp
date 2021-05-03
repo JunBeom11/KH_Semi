@@ -11,7 +11,7 @@
 	<h1>&nbsp;뉴스 </h1>&nbsp;&nbsp;&nbsp;
 	<hr>
 	<div style="font-weight: bold; font-size: 16px";><%=post.getPost_Title()%><br></div>
-	<span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span>(<%=post.getPost_MemberId() %>)&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
+	<span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span>&nbsp;&nbsp;&nbsp;<%=post.getEnrollTime()%>&nbsp;&nbsp;&nbsp;조회수 <%=post.getPost_Views()%>
 						<% if(loginMember != null && (loginMember.getMember_Id().equals(post.getPost_MemberId())
 							|| loginMember.getMember_Id().equals("admin"))) { %>
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/board/updatenews?boardNo=<%= post.getPost_Num()%>'">수정</button>
@@ -76,7 +76,7 @@
 	    <% for(Reply reply : post.getReplies()) { %>
     	   	<tr class="level1">
 	    		<td>
-	    			<sub class="comment-writer"><span style="font-weight:bold"><%=reply.getComment_MemberNickname() %></span>(<%= reply.getComment_MemberId() %>)</sub>
+	    			<sub class="comment-writer"><span style="font-weight:bold"><%=reply.getComment_MemberNickname() %></span></sub>
 	    			<sub class="comment-date"><%=reply.getComment_EnrollTime() %></sub>
 	    			<br>
 	    			<%=reply.getComment_Contents() %>

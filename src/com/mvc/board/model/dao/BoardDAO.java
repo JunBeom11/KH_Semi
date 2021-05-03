@@ -58,6 +58,7 @@ public class BoardDAO {
 					+"	        ) "
 					+"	    ) "
 					+"	WHERE RNUM BETWEEN ? and ?"; 
+
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setInt(1, pageInfo.getStartList());

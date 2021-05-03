@@ -41,7 +41,7 @@
 			<a href = "<%= request.getContextPath()%>/board/newsview?boardNo=<%=post.getPost_Num() %>">
 			<%= post.getPost_Title() %></a>
 			</td>
-			<td><span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span>(<%= post.getPost_MemberId() %>)</td>
+			<td><span style="font-weight:bold"><%=post.getPost_MemberNickname()%></span></td>
 			<td><%= post.getEnrollTime() %></td>
 			<td>
 				<% if(post.getPost_FileName() != null) { %>
