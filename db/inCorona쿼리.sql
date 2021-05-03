@@ -65,7 +65,7 @@ COMMENT ON COLUMN BOARD.BOARD_NAME IS '게시판이름';
 --게시글
 CREATE TABLE POST(
     post_Num NUMBER PRIMARY KEY,
-    post_Title VARCHAR2(50) NOT NULL,
+    post_Title VARCHAR2(300) NOT NULL,
     post_Contents VARCHAR2(1000) NOT NULL,
     post_Filename Varchar(300),
     post_FileRename Varchar(300),
