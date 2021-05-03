@@ -65,11 +65,11 @@
 						if(todayStatus != null){
 					%>
 					<tr>
-						<td id="decideCnt"><fmt:formatNumber value="${todayStatus.decideCnt}" pattern="#,###"/><br><p id="compareCnt" >(+ <fmt:formatNumber value="${compareArr[0]}" pattern="#,###"/>)</p></td>
-						<td id="clearCnt"><fmt:formatNumber value="${todayStatus.clearCnt}" pattern="#,###"/><br><p id="compareCnt">(+ <fmt:formatNumber value="${compareArr[1]}" pattern="#,###"/>)</p></td>
-						<td id="careCnt"><fmt:formatNumber value="${todayStatus.careCnt}" pattern="#,###"/><br><p id="compareCnt">(+ <fmt:formatNumber value="${compareArr[2]}" pattern="#,###"/>)</p></td>
-						<td id="deathCnt"><fmt:formatNumber value="${todayStatus.deathCnt}" pattern="#,###"/><br><p id="compareCnt">(+ <fmt:formatNumber value="${compareArr[3]}" pattern="#,###"/>)</p></td>
-						<td id="accExamCnt"><fmt:formatNumber value="${todayStatus.accExamCnt}" pattern="#,###"/><br><p id="compareCnt">(+ <fmt:formatNumber value="${compareArr[4]}" pattern="#,###"/>)</p></td>
+						<td id="decideCnt"><fmt:formatNumber value="${todayStatus.decideCnt}" pattern="#,###"/><br><p id="compareCnt" >(<c:if test="${compareArr[0] > 0 }">+</c:if><fmt:formatNumber value="${compareArr[0]}" pattern="#,###"/>)</p></td>
+						<td id="clearCnt"><fmt:formatNumber value="${todayStatus.clearCnt}" pattern="#,###"/><br><p id="compareCnt">(<c:if test="${compareArr[1] > 0 }">+</c:if><fmt:formatNumber value="${compareArr[1]}" pattern="#,###"/>)</p></td>
+						<td id="careCnt"><fmt:formatNumber value="${todayStatus.careCnt}" pattern="#,###"/><br><p id="compareCnt">(<c:if test="${compareArr[2] > 0 }">+</c:if><fmt:formatNumber value="${compareArr[2]}" pattern="#,###"/>)</p></td>
+						<td id="deathCnt"><fmt:formatNumber value="${todayStatus.deathCnt}" pattern="#,###"/><br><p id="compareCnt">(<c:if test="${compareArr[3] > 0 }">+</c:if><fmt:formatNumber value="${compareArr[3]}" pattern="#,###"/>)</p></td>
+						<td id="accExamCnt"><fmt:formatNumber value="${todayStatus.accExamCnt}" pattern="#,###"/><br><p id="compareCnt">(<c:if test="${compareArr[4] > 0 }">+</c:if><fmt:formatNumber value="${compareArr[4]}" pattern="#,###"/>)</p></td>
 					</tr>
 					<%
 						} else {
