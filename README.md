@@ -6,71 +6,63 @@
 
 
 ### 구현 기능
-1. 메인 페이지 
-   
-   ![](https://i.imgur.com/IUWmbB2.png)
+1. **메인 페이지** 
    
    - 상단 메뉴 : 메인, 뉴스, 주변 병원/선별진료소, 정보공유게시판, 로그인/로그아웃, 마이페이지
    
    - 확진자 현황, 지역별 거리두기 단계 현황
+![](https://i.imgur.com/IUWmbB2.png)
    
-     
    
-2. 뉴스 페이지
+   
+2. **뉴스 페이지**
 
+   - 관리자만 등록/수정/삭제 가능 
+   
    ![](https://i.imgur.com/CNfdY0z.png)
 
    ![](https://i.imgur.com/amzNEdk.png)
 
    ![](https://i.imgur.com/7tRmZGD.png)
 
-   - 관리자만 등록/수정/삭제 가능 
 
-     
-
-3. 병원/선별 진료소 페이지
-
+3. **병원/선별 진료소 페이지**
+   - 하단에 지도와 함께 표시
    ![](https://i.imgur.com/NTGbH4s.png)
 
-   - 하단에 지도와 함께 표시
 
-     
+​     
 
-4. 정보공유게시판 페이지
-
+4. **정보공유게시판 페이지**
+   - 지역별로 말머리 기능
    ![](https://i.imgur.com/Ct2zoKv.png)
 
-   - 지역별로 말머리 기능
 
-     
+​     
 
-5. 회원가입/로그인
-
-   ![](https://i.imgur.com/6ir25ok.png)
-
-   ![](https://i.imgur.com/Qaqe6HG.png)
-
-   ![](https://i.imgur.com/HiBiPIz.png)
-
+5. **회원가입/로그인**
+   
    - 아이디, 비밀번호 입력
-
    - 계정이 없을 경우 회원가입(아이디, 비밀번호, 생년월일, 지역, 닉네임 정보 받기)
-
    - 본인인증 후 아이디 찾기, 비밀번호 재설정
-
-     
-
-6. 마이 페이지
-
-   ![](https://i.imgur.com/gFyiQE3.png)
-
-   ![](https://i.imgur.com/LJq4mSN.png)
-
-   ![](https://i.imgur.com/bfc7avT.png)
-
+![](https://i.imgur.com/6ir25ok.png)
+   
+![](https://i.imgur.com/Qaqe6HG.png)
+   
+![](https://i.imgur.com/HiBiPIz.png)
+   
+  
+   
+6. **마이 페이지**
+   
    - 정보변경 : 아이디 외 변경 가능, 탈퇴
    - 본인이 작성한 글/댓글 삭제 가능
    - 관리자일 경우 모든 글/댓글 삭제 가능	
+![](https://i.imgur.com/gFyiQE3.png)
+   
+![](https://i.imgur.com/LJq4mSN.png)
+   
+   ![](https://i.imgur.com/bfc7avT.png)
 
 ### 설계 주안점
 1. 사용자 편의성을 고려한 UI/UX 설계
@@ -79,6 +71,17 @@
 4. 관련 뉴스 및 정보 제공
 5. 게시판을 활용한 사용자 간 실시간 정보공유
 6. 사용자가 선택한 지역의 인근 병원/선별진료소를 효율적으로 안내
+
+
+
+### 역할
+- 김희주 : 메인페이지/ 내 글, 댓글 관리, (마이페이지)비밀번호 재확인
+- 박진영 : 마이페이지/개인정보 수정
+- 손현종 : 로그인/회원가입/아이디찾기/비밀번호 재설정/로그아웃
+- 이준범 : 병원/선별진료소
+- 최은교 : 뉴스게시판/정보공유게시판
+
+
 
 ### 사용기술 및 개발환경
 - 운영체제 : Windows OS
